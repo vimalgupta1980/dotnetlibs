@@ -1,0 +1,5 @@
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\bin\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\bin\Debug\DTSCommon.Algebras.DataTables.Excel.pdb
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\ResolveAssemblyReference.cache
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\DTSCommon.Algebras.DataTables.Excel.pdb

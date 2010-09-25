@@ -1,0 +1,15 @@
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\bin\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\bin\Debug\DTSCommon.Algebras.DataTables.Excel.pdb
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\ResolveAssemblyReference.cache
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel\obj\Debug\DTSCommon.Algebras.DataTables.Excel.pdb
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\DTSCommon.Algebras.DataTables.Excel.pdb
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\Microsoft.Office.Interop.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\office.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\Microsoft.Vbe.Interop.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\Microsoft.Office.Interop.Excel.xml
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\bin\Debug\office.xml
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\obj\Debug\ResolveAssemblyReference.cache
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\obj\Debug\DTSCommon.Algebras.DataTables.Excel.dll
+C:\data\projects\DTSCommon\DTSCommon.Algebras.DataTables.Excel.VSTO\obj\Debug\DTSCommon.Algebras.DataTables.Excel.pdb
