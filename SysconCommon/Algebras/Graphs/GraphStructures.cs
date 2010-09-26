@@ -21,6 +21,7 @@ namespace SysconCommon.Algebras.Graphs
         public DirectionalGraph(IEnumerable<T> nodes, Func<T, IEnumerable<T>> neighborFinder)
         {
             Nodes = nodes;
+            Env.DebugPrint("Graph contains the following nodes: {0}", string.Join(",", nodes.Select(n => n.ToString()).ToArray()));
             NeighborFinder = neighborFinder;
         }
 
@@ -44,6 +45,10 @@ namespace SysconCommon.Algebras.Graphs
                 {
                     Env.DebugPrint("Cylic graph with at most {0} nodes", Nodes.Count());
                     Env.DebugPrint("Cylic graph nodes are (some may not be part of the loop): {0}", string.Join(",", Nodes.Select(n => n.ToString()).ToArray()));
+                    foreach (var n in Nodes)
+                    {
+                        Env.DebugPrint("{0} neighbors {1}", n, string.Join(",", NeighborFinder(n).Select(_n => _n.ToString()).ToArray()));
+                    }
                     return false; // there is a cycle somewhere
                 }
 
@@ -53,14 +58,14 @@ namespace SysconCommon.Algebras.Graphs
 
         public DirectionalGraph<T> RemoveLeafs()
         {
-            // find the leafs
-            var leafs = this.Nodes.Where(n => NeighborFinder(n).IsEmpty());
+            // find the non-leafs
+            var nonleafs = this.Nodes.Where(n => !NeighborFinder(n).IsEmpty());
 
             // make a new neighbor finder that will not find the leaf nodes
-            Func<T, IEnumerable<T>> newNeighborFinder = (node) => NeighborFinder(node).Where(n => !leafs.Contains(n));
+            Func<T, IEnumerable<T>> newNeighborFinder = (node) => NeighborFinder(node).Where(n => nonleafs.Contains(n));
 
             // build a new graph
-            return new DirectionalGraph<T>(Nodes.Where(n => !leafs.Contains(n)), newNeighborFinder);
+            return new DirectionalGraph<T>(nonleafs, newNeighborFinder);
         }
     }
 }

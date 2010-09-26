@@ -559,7 +559,7 @@ namespace SysconCommon.Common.Environment
                     if (n == "")
                         return new string[] { };
 
-                    DebugPrint("neighbor: {0}", n);
+                    // DebugPrint("neighbor: {0}", n);
                     var node = GetConfigXmlNode("sql/" + n);
                     var deps = node.Attributes["dependancies"];
                     if (deps == null || deps.Value.Trim() == "")
