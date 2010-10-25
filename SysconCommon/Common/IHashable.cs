@@ -56,7 +56,7 @@ namespace SysconCommon.Common
 
             // check if the class has a universal hash value
             var hash_atts = from _att in typeof(T).GetCustomAttributes(typeof(UniversalHashValueAttribute), true)
-                            from att in new UniversalHashValueAttribute[] { (UniversalHashValueAttribute) _att }
+                            from att in new UniversalHashValueAttribute[] { (UniversalHashValueAttribute)_att }
                             select att;
 
             if (!hash_atts.IsEmpty())
@@ -113,6 +113,17 @@ namespace SysconCommon.Common
             var md5sp = new MD5CryptoServiceProvider();
             var data = md5sp.ComputeHash(System.Text.Encoding.ASCII.GetBytes(uniqStringVal));
             return typeof(T).Name + ":" + System.Text.Encoding.ASCII.GetString(data);
+        }
+
+        public static string GetMD5Sum(this string self)
+        {
+            var md5sp = new MD5CryptoServiceProvider();
+            var data = md5sp.ComputeHash(System.Text.Encoding.ASCII.GetBytes(self));
+            var parts = from b in data
+                        from c in new string[] { b.ToString() }
+                        select c.Length == 3 ? c : (c.Length == 2 ? "0" + c : "00" + c);
+
+            return string.Join("", parts.ToArray());
         }
     }
 }

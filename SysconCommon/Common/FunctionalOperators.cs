@@ -28,6 +28,14 @@ namespace SysconCommon.Common
             return copy;
         }
 
+        public static T FirstOrDefault<T>(this IEnumerable<T> self, T defaultValue)
+        {
+            if (self.IsEmpty())
+                return defaultValue;
+            else
+                return self.First();
+        }
+
         // used to get different random numbers all the time, better than time based because
         // we may get 2 in the same ms
         private static int next_seed = 0;

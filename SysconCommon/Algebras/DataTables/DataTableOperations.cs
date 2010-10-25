@@ -160,7 +160,7 @@ namespace SysconCommon.Algebras.DataTables
             Validity.Assert(self != null, "cannot generate csv from null");
 
             var headers = self.Columns.ToIEnumerable().Select(c => c.ColumnName);
-            var headerTxt = string.Format("{0}\n", string.Join(",", headers.ToArray()));
+            var headerTxt = string.Format("{0}\n", string.Join(",", headers.Select(h => string.Format("{0}", h)).ToArray()));
 
             var rowTexts = new List<string>();
             foreach (var row in self.Rows.ToIEnumerable())
@@ -171,10 +171,36 @@ namespace SysconCommon.Algebras.DataTables
                 vals = vals.Select(v => Regex.Replace(v, "'", "''"))
                     .Select(v => string.Format("{0}", Regex.Match(v, @"^\s*([-]?\d+([.]\d+)?)\s*$").Success ? v : @"'" + v + "'"));
 
-                rowTexts.Add(string.Join(",", vals.ToArray()));
+                rowTexts.Add(string.Join(",", vals.Select(v => string.Format("{0}", v)).ToArray()));
             }
 
             return headerTxt + string.Join("\n", rowTexts.ToArray());
+        }
+
+        public static string AsHTML(this DataTable self)
+        {
+            string html = "<html class='datatable'>";
+            html += "<tr class='datatableHeader'>";
+
+            foreach (var c in self.Columns.ToIEnumerable())
+            {
+                html += string.Format("<td>{0}</td>", c.ColumnName);
+            }
+
+            html += "</tr>";
+
+            foreach (var r in self.Rows.ToIEnumerable())
+            {
+                html += "<tr class='datatabledata'>";
+                foreach (var c in self.Columns.ToIEnumerable())
+                {
+                    html += string.Format("<td>{0}</td>", r[c]);
+                }
+                html += "</tr>";
+            }
+
+            html += "</table>";
+            return html;
         }
         
         /// <summary>

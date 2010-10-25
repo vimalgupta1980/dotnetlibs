@@ -21,7 +21,7 @@ namespace SysconCommon.Algebras.Graphs
         public DirectionalGraph(IEnumerable<T> nodes, Func<T, IEnumerable<T>> neighborFinder)
         {
             Nodes = nodes;
-            Env.DebugPrint("Graph contains the following nodes: {0}", string.Join(",", nodes.Select(n => n.ToString()).ToArray()));
+            // Env.DebugPrint("Graph contains the following nodes: {0}", string.Join(",", nodes.Select(n => n.ToString()).ToArray()));
             NeighborFinder = neighborFinder;
         }
 
@@ -59,7 +59,7 @@ namespace SysconCommon.Algebras.Graphs
         public DirectionalGraph<T> RemoveLeafs()
         {
             // find the non-leafs
-            var nonleafs = this.Nodes.Where(n => !NeighborFinder(n).IsEmpty());
+            var nonleafs = this.Nodes.Where(n => !NeighborFinder(n).IsEmpty()).ToArray();
 
             // make a new neighbor finder that will not find the leaf nodes
             Func<T, IEnumerable<T>> newNeighborFinder = (node) => NeighborFinder(node).Where(n => nonleafs.Contains(n));

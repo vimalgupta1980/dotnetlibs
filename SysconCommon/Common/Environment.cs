@@ -12,6 +12,7 @@ using System.Data.SQLite; // used for sql dependancies, ie.. cursors
 
 using SysconCommon.Common.Validity;
 using SysconCommon.Algebras.Graphs;
+using SysconCommon.Algebras.JSON;
 using SysconCommon.Algebras.DataTables;
 
 namespace SysconCommon.Common.Environment
@@ -92,7 +93,7 @@ namespace SysconCommon.Common.Environment
         {
             // var defaultLogFile = GetEXEDirectory() + "/log.txt";
             var defaultLogFile = "log.txt";
-            File.AppendAllText(GetConfigVar("logfile", defaultLogFile, true), string.Format(msgFormat + "\n", arguments));
+            File.AppendAllText(GetConfigVar("logfile", defaultLogFile, true), string.Format(msgFormat + "\r\n", arguments));
         }
 
         /// <summary>
@@ -273,6 +274,31 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+#if false
+        static private XmlDocument configDoc
+        {
+            get
+            {
+                string fname = configDocFileName;
+                try
+                {
+                    if (!File.Exists(fname))
+                    {
+                        File.WriteAllText(fname, "<configuration />");
+                        Validity.Validity.FilesExist(fname);
+                    }
+
+                    var xdoc = new XmlDocument();
+                    xdoc.Load(fname);
+                    return xdoc;
+                }
+                catch (Exception ex)
+                {
+                    throw new EnvironmentalError(ex, "Could not open config document ({0})", fname);
+                }
+            }
+        }
+#else
         /// <summary>
         /// we don't want multiple instances of configDoc because that creates a race
         /// condition and saves may be overwritten out of order
@@ -309,14 +335,36 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+        static private Func<string, string> _ConfigInjector = null;
+
+        static public Func<string, string> ConfigInjector
+        {
+            get
+            {
+                return _ConfigInjector == null ? (s => s) : _ConfigInjector;
+            }
+            set
+            {
+                _ConfigInjector = value;
+            }
+        }
+#endif
+
+        static public void SetConfigVar<T>(string name, T value)
+        {
+            SetConfigVar(name, value, true);
+        }
+
         /// <summary>
         /// progmatically set a configuration value, overwriting the existing one if required
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        static public void SetConfigVar<T>(string name, T value)
+        static private void SetConfigVar<T>(string name, T value, bool useInjector)
         {
+            name = useInjector ? ConfigInjector(name) : name;
+
             var query = string.Format("/configuration/{0}", name);
             EnsureNodeExists(query, "/");
 
@@ -325,7 +373,7 @@ namespace SysconCommon.Common.Environment
             var node = xdoc.SelectSingleNode(query);
 
             var new_node = xdoc.CreateNode(XmlNodeType.Element, name, null);
-            new_node.InnerText = value.ToString();
+            new_node.InnerText = value == null ? null : value.ToString();
             node.ParentNode.ReplaceChild(new_node, node);
             xdoc.Save(configDocFileName);
         }
@@ -366,16 +414,18 @@ namespace SysconCommon.Common.Environment
         /// <returns></returns>
         static public T GetConfigVar<T>(string name, T defaultValue, bool writeIfMissing)
         {
+            name = ConfigInjector(name);
+
             var n = configDoc.SelectSingleNode(string.Format("/configuration/{0}", name));
 
             if (n != null)
-                return (T) Convert.ChangeType(n.InnerText, typeof(T));
+                return (T) Convert.ChangeType(n.InnerText.Trim(), typeof(T));
 
             if (writeIfMissing)
             {
-                SetConfigVar(name, defaultValue);
+                SetConfigVar(name, defaultValue, false);
                 n = configDoc.SelectSingleNode(string.Format("/configuration/{0}", name));
-                return (T)Convert.ChangeType(n.InnerText, typeof(T));
+                return (T)Convert.ChangeType(n.InnerText.Trim(), typeof(T));
             }
             else
             {
@@ -409,6 +459,8 @@ namespace SysconCommon.Common.Environment
         /// <returns></returns>
         static public XmlNode GetConfigXmlNode(string name)
         {
+            name = ConfigInjector(name);
+
             var query = string.Format("/configuration/{0}", name);
             // DebugPrint("XPath query: {0}", query);
             var n = configDoc.SelectSingleNode(string.Format("/configuration/{0}", name));
@@ -416,17 +468,60 @@ namespace SysconCommon.Common.Environment
             return n;
         }
 
-        static private string ReplaceSqlInputs(string sql)
+        static private string ReplaceSqlInputs(string sql, bool quote_lists)
         {
             var matches = Regex.Matches(sql, @"\{input:(.*?)\}");
             foreach (var m in matches.ToIEnumerable())
             {
-                DebugPrint("replacing {0}", m.Groups[1]);
+                // DebugPrint("replacing {0}", m.Groups[1]);
                 var value = GetConfigVar("userdefined/" + m.Groups[1].Value);
+                value = value.Trim();
+
+                if (quote_lists && Regex.Match(value, @"^[,1234567890]+$").Success)
+                {
+                    // DebugPrint("ListQuoting {0}", value);
+                    var ids = value.Split(',');
+                    value = string.Format("'{0}'", string.Join("','", ids));
+                }
+                else
+                {
+                    // DebugPrint("Not ListQuoting {0}", value);
+                }
+
                 sql = sql.Replace(m.Groups[0].Value, value.Trim());
             }
 
             return sql;
+        }
+
+        static public DataTable RunSqlStatementFromCursors(this OdbcConnection con, string tablename, string sql, params string[] args) 
+        {
+            // find the dependancies
+            sql = string.Format(sql, args);
+            var matches = Regex.Matches(sql, @"(from\s*(\w+)|join\s+(\w+)\s+on)");
+            
+            foreach(var m in matches.ToIEnumerable()) 
+            {
+                foreach (var i in FunctionalOperators.Range(2, m.Groups.Count))
+                {
+                    if (m.Groups[i].Value == "")
+                        continue;
+
+                    RunSqlStatement(con, m.Groups[i].Value);
+                }
+            }
+
+            return SqliteCon.GetDataTable(tablename, sql);
+        }
+
+        static private bool IsQuery(string sql)
+        {
+            sql = sql.Trim().ToUpper();
+
+            if (sql.Substring(0, 6) == "SELECT")
+                return true;
+            else
+                return false;
         }
 
         /// <summary>
@@ -436,84 +531,93 @@ namespace SysconCommon.Common.Environment
         /// <param name="name"></param>
         /// <param name="arguments"></param>
         /// <returns></returns>
-        static public DataTable RunSqlStatement(this OdbcConnection con, string name, params string[] arguments)
+        static public DataTable RunSqlStatement(this OdbcConnection con, string name)
         {
             var graph = SQLGraph;
+            Validity.Validity.Assert(graph.IsAcylic, "SQL Graph of dependancies must be acylic");
             
             var sqlStatementName = graph.Nodes.Where(n => n == name).FirstOrDefault();
             Validity.Validity.IsNotNull(sqlStatementName);
             var sqlStatement = GetConfigVar("sql/" + name).Trim();
 
-            sqlStatement = ReplaceSqlInputs(sqlStatement);
-
-            if (graph.NeighborFinder(sqlStatementName).IsEmpty())
-            {
-                // it doesn't require creating any in memory tables
-                DebugPrint("Running SQL: [{0}]\r\n\twith arguments [{1}]", sqlStatement, string.Join(",", arguments));
-                return con.GetDataTable(name, sqlStatement, arguments);
-            }
-            else
-            {
-                var sqlite = RunCursor(null, con, name, arguments);
-                try
-                {
-                    var sqlselect = string.Format("select * from {0}", name);
-                    DebugPrint("Selecting CURSOR: {0}", sqlselect);
-                    return sqlite.GetDataTable(name, sqlselect);
-                }
-                finally
-                {
-                    sqlite.Close();
-                    sqlite.Dispose();
-                }
-            }
-        }
-
-        /// <summary>
-        /// select into a new table (cursor)
-        /// </summary>
-        /// <param name="con">sqlite connection for new cursor, if null then this is created new</param>
-        /// <param name="src_con">src odbc connection, if this is null it is assumed that the sqlite connection contains the src table</param>
-        /// <param name="name"></param>
-        /// <returns>the sqlite connection</returns>
-        static private SQLiteConnection RunCursor(this SQLiteConnection con, OdbcConnection src_con, string name, params string[] arguments)
-        {
-            // ensure it's valid input
-            var graph = SQLGraph;
-            // Validity.Validity.Assert(graph.Nodes.Contains(name), "Invalid sql statement name: {0}", name);
-
-            if(con == null)
-            {
-                con = new SQLiteConnection("Data Source=:memory:");
-                con.Open();
-            }
-
-            // get sql to run
-            var sql = GetConfigVar("sql/" + name).Trim();
-            sql = ReplaceSqlInputs(sql);
-
-            // make sure dependancies are run
+            // get neighbors
             var neighbors = graph.NeighborFinder(name);
+
             if (!neighbors.IsEmpty())
             {
+                // make sure the dependancies are run first
                 foreach (var n in neighbors)
                 {
-                    RunCursor(con, src_con, n);
+                    con.RunSqlStatement(n);
                 }
 
-                // we know that the src data is in sql lite now
-                src_con = null;
-            }
+                sqlStatement = ReplaceSqlInputs(sqlStatement, true);
 
-            var datatable = src_con == null ? con.GetDataTable(name, sql) : src_con.GetDataTable(name, sql);
-            con.CreateTableFromDataTable(datatable);
-            return con;
+                // non-queries don't have a datatable to return, so are handled a bit differently
+                if (!IsQuery(sqlStatement))
+                {
+                    SqliteCon.RunNonQuery(sqlStatement);
+                    return null;
+                }
+                else
+                {
+
+                    var nonq = string.Format("create table if not exists {0} as {1}", name, sqlStatement);
+                    DebugPrint(nonq);
+                    SqliteCon.RunNonQuery(nonq);
+                    return SqliteCon.GetDataTable(name, "select * from {0}", name);
+                }
+            } 
+            else 
+            {
+                // if neighbors are empty, then this comes from the original datasource and needs to be put in as a cursor
+                Validity.Validity.Assert(IsQuery(sqlStatement), "Only queries may be run against the original data source [{0}] is invalid", sqlStatement);
+                var cursordt = con.GetDataTable(name, ReplaceSqlInputs(sqlStatement, false));
+
+                var exists_rows = from r in SqliteCon.GetSchema("Tables").Select()
+                                  where r["TABLE_NAME"].ToString().ToLower().Trim() == name.ToLower().Trim()
+                                  select r;
+
+                if(exists_rows.IsEmpty())
+                    SqliteCon.CreateTableFromDataTable(cursordt);
+                
+                return cursordt;
+            }
         }
+
+        static private SQLiteConnection _sqlitecon = null;
+        static private SQLiteConnection SqliteCon
+        {
+            get
+            {
+                if (_sqlitecon == null)
+                {
+                    _sqlitecon = new SQLiteConnection(string.Format("Data Source={0}", Env.GetConfigVar("sqlitefile", ":memory:", true)));
+                }
+
+                if (_sqlitecon.State != ConnectionState.Open)
+                    _sqlitecon.Open();
+
+                return _sqlitecon;
+            }
+        }
+
+        static public void RunNonQuery(this SQLiteConnection con, string sqlfmt, params string[] args)
+        {
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = string.Format(sqlfmt, args);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+ 
 
         static public void CreateTableFromDataTable(this SQLiteConnection con, DataTable datatable)
         {
             var create_sql = string.Format("create table {0} ({1})", datatable.TableName, string.Join(",", datatable.Columns.ToIEnumerable().Select(c => c.ColumnName).ToArray()));
-            DebugPrint("Creating new cursor: {0}", create_sql);
+            // DebugPrint("Creating new cursor: {0}", create_sql);
 
             using (var cmd = con.CreateCommand())
             {
@@ -528,7 +632,7 @@ namespace SysconCommon.Common.Environment
                                                                                                                                    .ToString()
                                                                                                                                    .Replace("'", "''"))
                                                                                                                                .ToArray()));
-                    // DebugPrint("Cursor: {0}", insert_sql);
+                    DebugPrint("Cursor: {0}", insert_sql);
                     cmd.CommandText = insert_sql;
                     cmd.ExecuteNonQuery();
                 }
@@ -559,13 +663,15 @@ namespace SysconCommon.Common.Environment
                     if (n == "")
                         return new string[] { };
 
-                    // DebugPrint("neighbor: {0}", n);
                     var node = GetConfigXmlNode("sql/" + n);
                     var deps = node.Attributes["dependancies"];
                     if (deps == null || deps.Value.Trim() == "")
                         return new string[] { };
                     else
-                        return deps.Value.Split(',');
+                    {
+                        var ns = deps.Value.Split(',').Select(r => r.Trim()).ToArray();
+                        return ns;
+                    }
                 };
 
                 var rv = new DirectionalGraph<string>(graphNodes, neighbors);
