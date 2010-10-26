@@ -92,6 +92,9 @@
     <Compile Include="Accounting\ICostCode.cs" />
     <Compile Include="Accounting\ICostType.cs" />
     <Compile Include="Accounting\IEmployee.cs" />
+    <Compile Include="Accounting\IEquipment.cs" />
+    <Compile Include="Accounting\IEquipmentLineItem.cs" />
+    <Compile Include="Accounting\IEquipmentType.cs" />
     <Compile Include="Accounting\IJob.cs" />
     <Compile Include="Accounting\IJobCost.cs" />
     <Compile Include="Accounting\ITimeAndMaterialLineItem.cs" />
@@ -101,6 +104,9 @@
     <Compile Include="Accounting\MasterBuilder\CostCode.cs" />
     <Compile Include="Accounting\MasterBuilder\CostType.cs" />
     <Compile Include="Accounting\MasterBuilder\Employee.cs" />
+    <Compile Include="Accounting\MasterBuilder\Equipment.cs" />
+    <Compile Include="Accounting\MasterBuilder\EquipmentLineItem.cs" />
+    <Compile Include="Accounting\MasterBuilder\EquipmentType.cs" />
     <Compile Include="Accounting\MasterBuilder\Invoice.cs" />
     <Compile Include="Accounting\MasterBuilder\Job.cs" />
     <Compile Include="Accounting\MasterBuilder\JobCost.cs" />

@@ -4,48 +4,40 @@ using System.Linq;
 using System.Text;
 
 using SysconCommon.Common;
-using SysconCommon.Accounting;
 using SysconCommon.Common.Environment;
+using SysconCommon.Accounting;
 
 namespace SysconCommon.Accounting.MasterBuilder
 {
-    public class TimeAndMaterialLineItem : ITimeAndMaterialLineItem
+    public class EquipmentLineItem : IEquipmentLineItem
     {
-        public TimeAndMaterialLineItem(int recnum, int linnum)
+        readonly private int _Recnum, _LineNumber;
+
+        public EquipmentLineItem(int recnum, int linnum)
         {
-            this.Recnum = recnum;
-            this.LineNumber = linnum;
+            _Recnum = recnum;
+            _LineNumber = linnum;
         }
 
-        public int Recnum { get; set; }
-        public int LineNumber { get; set; }
-
-        public IEmployee Employee
+        public int Recnum
         {
-            get
-            {
-                return Cache.CacheResult<IEmployee>(() =>
-                {
-                    var empnum = Connections.GetScalar<int>(
-                        "select empnum from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
-
-                    return empnum == 0 ? null : new Employee(empnum);
-                }, Recnum, LineNumber);
-            }   
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return _Recnum; }
         }
 
-        public ICostCode CostCode
+        public int LineNumber
+        {
+            get { return _Recnum; }
+        }
+
+        public IEquipment Equipment
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
-                    return new CostCode(Connections.GetScalar<int>(
-                        "select cstcde from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber));
+                    var eqpnum = Connections.GetScalar<int>(
+                        "select eqpnum from tmeqln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
+                    return eqpnum == 0 ? null : new Equipment(eqpnum);
                 }, Recnum, LineNumber);
             }
             set
@@ -54,14 +46,14 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public decimal PayRate1
+        public decimal OperatedRate
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
                     return Connections.GetScalar<decimal>(
-                        "select rate01 from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
+                        "select oprrte from tmeqln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
                 }, Recnum, LineNumber);
             }
             set
@@ -70,14 +62,14 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public decimal PayRate2
+        public decimal StandbyRate
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
                     return Connections.GetScalar<decimal>(
-                        "select rate02 from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
+                        "select stdrte from tmeqln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
                 }, Recnum, LineNumber);
             }
             set
@@ -86,14 +78,14 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public decimal PayRate3
+        public decimal IdleRate
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
                     return Connections.GetScalar<decimal>(
-                        "select rate03 from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
+                        "select idlrte from tmeqln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
                 }, Recnum, LineNumber);
             }
             set
@@ -102,14 +94,14 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public decimal MinHours
+        public decimal MinimumHours
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
                     return Connections.GetScalar<decimal>(
-                        "select minhrs from tmemln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
+                        "select minhrs from tmeqln where recnum = {0} and linnum = {1}", Recnum, LineNumber);
                 }, Recnum, LineNumber);
             }
             set

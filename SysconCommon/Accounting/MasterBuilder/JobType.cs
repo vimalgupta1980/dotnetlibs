@@ -14,10 +14,10 @@ namespace SysconCommon.Accounting.MasterBuilder
 
         public JobType(int id)
         {
-            this.Id = id;
+            this.Recnum = id;
         }
 
-        public int Id { get; set; }
+        public int Recnum { get; set; }
 
         public string Name
         {
@@ -25,8 +25,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<string>("select typnme from jobtyp where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<string>("select typnme from jobtyp where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -36,7 +36,7 @@ namespace SysconCommon.Accounting.MasterBuilder
 
         public override string ToString()
         {
-            return this.Name != null ? string.Format("{0} - {1}", this.Id, this.Name) : this.Id.ToString();
+            return this.Name != null ? string.Format("{0} - {1}", this.Recnum, this.Name) : this.Recnum.ToString();
         }
     }
 }

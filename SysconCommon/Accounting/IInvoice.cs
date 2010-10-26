@@ -7,7 +7,7 @@ namespace SysconCommon.Accounting
 {
     public interface IInvoice
     {
-        int Id { get; set; }
+        int Recnum { get; set; }
         decimal InvoiceTotal { get; set; }
         IJob Job { get; }
         int Period { get; set; }

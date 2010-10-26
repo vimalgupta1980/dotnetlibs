@@ -7,7 +7,7 @@ namespace SysconCommon.Accounting
 {
     public interface ITimeAndMaterialLineItem
     {
-        int Id { get; set; }
+        int Recnum { get; set; }
         int LineNumber { get; set; }
         IEmployee Employee { get; set; }
         ICostCode CostCode { get; set; }

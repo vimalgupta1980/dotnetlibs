@@ -13,10 +13,10 @@ namespace SysconCommon.Accounting.MasterBuilder
     {
         public CostCode(decimal id)
         {
-            Id = id;
+            Recnum = id;
         }
 
-        public decimal Id { get; set; }
+        public decimal Recnum { get; set; }
 
         public string Description
         {
@@ -24,8 +24,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<string>("select cdenme from cstcde where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<string>("select cdenme from cstcde where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -39,8 +39,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<string>("select untdsc from cstcde where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<string>("select untdsc from cstcde where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -54,8 +54,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<decimal>("select lbrbur from cstcde where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<decimal>("select lbrbur from cstcde where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {

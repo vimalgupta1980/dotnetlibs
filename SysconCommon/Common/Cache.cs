@@ -5,11 +5,13 @@ using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 
+using System.Linq.Expressions;
+
 namespace SysconCommon.Common
 {
     public static class Cache
     {
-        public static string GetCallingMethod()
+        private static string GetCallingMethod()
         {
             var st = new StackTrace();
             var m = st.GetFrame(2).GetMethod();

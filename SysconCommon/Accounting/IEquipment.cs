@@ -5,8 +5,9 @@ using System.Text;
 
 namespace SysconCommon.Accounting
 {
-    public interface ICostType
+    public interface IEquipment
     {
-        int Recnum { get; set; }
+        int EquipmentNumber { get; }
+        IEquipmentType EquipmentType { get; set; }
     }
 }

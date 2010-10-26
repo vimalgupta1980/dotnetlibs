@@ -13,10 +13,10 @@ namespace SysconCommon.Accounting.MasterBuilder
     {
         public Invoice(int id)
         {
-            this.Id = id;
+            this.Recnum = id;
         }
 
-        public int Id { get; set; }
+        public int Recnum { get; set; }
 
         public decimal InvoiceTotal
         {
@@ -24,8 +24,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<decimal>("select invttl from acrinv where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<decimal>("select invttl from acrinv where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -39,8 +39,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return new Job(Connections.GetScalar<string>("select jobnum from acrinv where recnum = {0}", Id));
-                }, Id);
+                    return new Job(Connections.GetScalar<string>("select jobnum from acrinv where recnum = {0}", Recnum));
+                }, Recnum);
             }
         }
 
@@ -50,8 +50,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<int>("select actper from acrinv where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<int>("select actper from acrinv where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -65,8 +65,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<int>("select status from acrinv where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<int>("select status from acrinv where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {

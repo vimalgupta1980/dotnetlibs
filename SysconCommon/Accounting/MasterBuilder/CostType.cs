@@ -9,9 +9,9 @@ namespace SysconCommon.Accounting.MasterBuilder
     {
         public CostType(int id)
         {
-            this.Id = id;
+            this.Recnum = id;
         }
 
-        public int Id { get; set; }
+        public int Recnum { get; set; }
     }
 }

@@ -9,10 +9,10 @@ namespace SysconCommon.Accounting.MasterBuilder
     {
         public Employee(int id)
         {
-            this.Id = id;
+            this.Recnum = id;
         }
 
-        public int Id { get; set; }
+        public int Recnum { get; set; }
 
         public string FirstName
         {

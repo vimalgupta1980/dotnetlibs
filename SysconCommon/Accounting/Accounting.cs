@@ -71,10 +71,37 @@ namespace SysconCommon.Accounting
                     default:
                         throw new NotImplementedException();
                 }
-            }, c.Id);
+            }, c.Recnum);
+        }
+
+        static public IEnumerable<IEquipmentLineItem> GetEquipmentLineItemsByEquipment(IEquipment e)
+        {
+            return Cache.CacheResult(() =>
+            {
+                switch (AccountingSystem)
+                {
+                    case AccountingSystems.MasterBuilder:
+                        return GetMBEquipmentLineItemsByEquipment(e);
+                    default:
+                        throw new NotImplementedException();
+                }
+            }, e.EquipmentNumber);
         }
 
         #region MasterBuilder
+        static private IEnumerable<IEquipmentLineItem> GetMBEquipmentLineItemsByEquipment(IEquipment e)
+        {
+            using (var cmd = Connections.Connection.CreateCommand())
+            {
+                cmd.CommandText = string.Format("select recnum, linnum from tmeqln where eqpnum = {0}", e.EquipmentNumber);
+                var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    yield return new MasterBuilder.EquipmentLineItem(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1]));
+                }
+            }
+        }
+
         static private IJob GetMBJob(string jobNumber)
         {
             return Cache.CacheResult(() =>
@@ -102,10 +129,18 @@ namespace SysconCommon.Accounting
 
         static private IEnumerable<ITimeAndMaterialLineItem> GetMBTimeAndMaterialLineItemsByCostCode(ICostCode c)
         {
-            var results = from ln in Connections.GetList<int>("select recnum from tmemln where cstcde = {0}", c.Id)
-                          select (ITimeAndMaterialLineItem)new MasterBuilder.TimeAndMaterialLineItem(ln);
+            //var results = from ln in Connections.GetList<int>("select recnum from tmemln where cstcde = {0}", c.EquipmentNumber)
+            //              select (ITimeAndMaterialLineItem)new MasterBuilder.TimeAndMaterialLineItem(ln);
 
-            return results;
+            using (var cmd = Connections.Connection.CreateCommand())
+            {
+                cmd.CommandText = string.Format("select recnum, linnum from tmemln where cstcde = {0}", c.Recnum);
+                var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    yield return new MasterBuilder.TimeAndMaterialLineItem(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1]));
+                }
+            }
         }
         #endregion
     }

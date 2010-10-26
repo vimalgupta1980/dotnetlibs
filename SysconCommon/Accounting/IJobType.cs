@@ -7,7 +7,7 @@ namespace SysconCommon.Accounting
 {
     public interface IJobType
     {
-        int Id { get; set; }
+        int Recnum { get; set; }
         string Name { get; set; }
     }
 }

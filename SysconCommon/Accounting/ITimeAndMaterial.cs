@@ -7,10 +7,10 @@ namespace SysconCommon.Accounting
 {
     public interface ITimeAndMaterial
     {
-        int Id { get; set; }
+        int Recnum { get; set; }
         IJob Job { get; }
-        decimal WageRate { get; set; }
-        decimal EquipmentRate { get; set; }
+        int WageRate { get; set; }
+        int EquipmentRate { get; set; }
         string Notes { get; set; }
     }
 }

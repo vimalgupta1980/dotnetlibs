@@ -13,25 +13,25 @@ namespace SysconCommon.Accounting.MasterBuilder
     {
         public TimeAndMaterial(int id)
         {
-            this.Id = id;
+            this.Recnum = id;
         }
 
-        public int Id { get; set; }
+        public int Recnum { get; set; }
 
 
         public IJob Job
         {
-            get { return new Job(Id.ToString()); }
+            get { return new Job(Recnum.ToString()); }
         }
 
-        public decimal WageRate
+        public int WageRate
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<decimal>("select emptbl from timmat where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<int>("select emptbl from timmat where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -39,14 +39,14 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public decimal EquipmentRate
+        public int EquipmentRate
         {
             get
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<decimal>("select eqptbl from timmat where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<int>("select eqptbl from timmat where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {
@@ -60,8 +60,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return Connections.GetScalar<string>("select notes from timmat where recnum = {0}", Id);
-                }, Id);
+                    return Connections.GetScalar<string>("select notes from timmat where recnum = {0}", Recnum);
+                }, Recnum);
             }
             set
             {

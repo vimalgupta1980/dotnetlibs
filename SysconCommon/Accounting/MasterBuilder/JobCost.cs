@@ -97,7 +97,8 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 return Cache.CacheResult(() =>
                 {
-                    return new Employee(Connections.GetScalar<int>("select empnum from jobcst where recnum = {0}", Id));
+                    var empnum = Connections.GetScalar<int>("select empnum from jobcst where recnum = {0}", Id);
+                    return empnum == 0 ? null : new Employee(empnum);
                 }, Id);
             }
             set
@@ -130,6 +131,26 @@ namespace SysconCommon.Accounting.MasterBuilder
                 return Cache.CacheResult(() =>
                 {
                     return new CostType(Connections.GetScalar<int>("select csttyp from jobcst where recnum = {0}", Id));
+                }, Id);
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public IEquipment Equipment
+        {
+            get
+            {
+                return Cache.CacheResult(() =>
+                {
+                    var eqpnum = Connections.GetScalar<int>("select eqpnum from jobcst where recnum = {0}", Id);
+                    if (eqpnum == 0)
+                        return null;
+                    else
+                        return new Equipment(eqpnum);
                 }, Id);
             }
             set

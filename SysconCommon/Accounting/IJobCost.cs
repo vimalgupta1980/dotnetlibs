@@ -16,5 +16,6 @@ namespace SysconCommon.Accounting
         IEmployee Employee { get; set; }
         ICostType CostType { get; set; }
         decimal Cost { get; set; }
+        IEquipment Equipment { get; set; }
     }
 }
