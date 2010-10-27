@@ -14,5 +14,7 @@ namespace SysconCommon.Accounting
         IEnumerable<IJobCost> JobCosts { get; }
         IEnumerable<IInvoice> Invoices { get; }
         ITimeAndMaterial TimeAndMaterials { get; }
+        IEmployee Supervisor { get; set; }
+        decimal LotPremium { get; set; }
     }
 }

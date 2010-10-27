@@ -58,7 +58,7 @@ namespace SysconCommon.Algebras.DataTables
     }
 
 
-    public static class DatatableExtensions
+    public static partial class DatatableExtensions
     {
         public static DataTable GetDataTable(this OdbcConnection con, string datatableName, string sqlfmt, params object[] args)
         {
@@ -460,23 +460,36 @@ namespace SysconCommon.Algebras.DataTables
         public static DataTable ToDataTable<T>(this IEnumerable<T> lst, string DataTableName, Func<T, DataTable, DataRow> lifter)
         {
             var type = typeof(T);
+            var _columns = from mi in type.GetMembers()
+                           from mtype in new MemberTypes[] { mi.MemberType }
+                           where new MemberTypes[] { MemberTypes.Field, MemberTypes.Property }.Contains(mtype)
+                           select mi;
 
-            var fields = from mi in type.GetMembers()
-                         where mi.MemberType == MemberTypes.Field
-                         select (FieldInfo)mi;
+            _columns = _columns.Sort((m1, m2) => m1.GetColumnOrder() > m2.GetColumnOrder() ? 1 :
+                    m1.GetColumnOrder() < m2.GetColumnOrder() ? -1 : 0);
 
-            var props = from mi in type.GetMembers()
-                        where mi.MemberType == MemberTypes.Property
-                        select (PropertyInfo)mi;
-
-            var columns = fields
-                .Select(fi => fi.Name)
-                .Append(props
-                    .Select(pi => pi.Name));
+            var columns = _columns.Select(c =>
+            {
+                if (c is PropertyInfo)
+                {
+                    var pi = c as PropertyInfo;
+                    return new Tuple<Type, string>(pi.PropertyType, pi.Name);
+                }
+                else if (c is FieldInfo)
+                {
+                    var fi = c as FieldInfo;
+                    return new Tuple<Type, string>(fi.FieldType, fi.Name);
+                }
+                else
+                {
+                    throw new NotImplementedException("Code should never reach here");
+                }
+            });
+                          
 
             var dt = new DataTable(DataTableName);
 
-            foreach (var c in columns) { dt.Columns.Add(new DataColumn(c)); }
+            foreach (var c in columns) { dt.Columns.Add(new DataColumn(c.Second, c.First)); }
             foreach (var t in lst) { dt.Rows.Add(lifter(t, dt)); }
 
             return dt;

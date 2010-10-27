@@ -107,5 +107,36 @@ namespace SysconCommon.Accounting.MasterBuilder
                 }, JobNumber);
             }
         }
+
+
+        public decimal LotPremium
+        {
+            get
+            {
+                return Cache.CacheResult(() => Connections.GetScalar<decimal>(
+                    "select lotprm from actrec where recnum = {0}", this.JobNumber), this.JobNumber);
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public IEmployee Supervisor
+        {
+            get
+            {
+                return Cache.CacheResult(() =>
+                {
+                    var sprvsr = Connections.GetScalar<int>("select sprvsr from actrec where recnum = {0}", this.JobNumber);
+                    return new Employee(sprvsr);
+                });
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

@@ -69,4 +69,12 @@ namespace SysconCommon.Common
             return new ReferenceWrap<T>(val);
         }
     }
+
+    public static class Transformers
+    {
+        public static IEnumerable<T> MakeSingletonCollection<T>(this T self)
+        {
+            yield return self;
+        }
+    }
 }

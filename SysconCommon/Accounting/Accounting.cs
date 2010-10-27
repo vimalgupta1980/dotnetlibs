@@ -32,6 +32,17 @@ namespace SysconCommon.Accounting
             }, jobNumber);
         }
 
+        static public IEnumerable<ICostCode> GetCostCodes()
+        {
+            switch (AccountingSystem)
+            {
+                case AccountingSystems.MasterBuilder:
+                    return GetMBCostCodes();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -125,6 +136,13 @@ namespace SysconCommon.Accounting
             {
                 yield return GetMBJob(j);
             }
+        }
+
+        static private IEnumerable<ICostCode> GetMBCostCodes()
+        {
+            var costcodes = Connections.GetList<decimal>("select recnum from cstcde order by recnum");
+            return from c in costcodes
+                   select (ICostCode) new MasterBuilder.CostCode(c);
         }
 
         static private IEnumerable<ITimeAndMaterialLineItem> GetMBTimeAndMaterialLineItemsByCostCode(ICostCode c)

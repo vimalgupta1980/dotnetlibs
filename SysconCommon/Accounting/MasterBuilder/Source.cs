@@ -9,21 +9,25 @@ using SysconCommon.Common.Environment;
 
 namespace SysconCommon.Accounting.MasterBuilder
 {
-    class Employee : IEmployee
+    public class Source : ISource
     {
-        public Employee(int id)
+        private int _Recnum;
+        public Source(int recnum)
         {
-            this.Recnum = id;
+            _Recnum = recnum;
         }
 
-        public int Recnum { get; set; }
+        public int Recnum
+        {
+            get { return _Recnum; }
+        }
 
-        public string FirstName
+        public string Name
         {
             get
             {
                 return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select fstnme from employ where recnum = {0}", Recnum).Trim(), Recnum);
+                    "select srcnme from source where recnum = {0}", Recnum), Recnum);
             }
             set
             {
@@ -31,25 +35,12 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
-        public string LastName
+        public string Description
         {
             get
             {
                 return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select lstnme from employ where recnum = {0}", Recnum).Trim(), Recnum);
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string MiddleName
-        {
-            get
-            {
-                return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select midini from employ where recnum = {0}", Recnum).Trim(), Recnum);
+                    "select srcdsc from source where recnum = {0}", Recnum), Recnum);
             }
             set
             {
