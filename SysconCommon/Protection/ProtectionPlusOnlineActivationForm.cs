@@ -11,6 +11,8 @@ namespace SysconCommon.Protection
 {
     public partial class ProtectionPlusOnlineActivationForm : Form
     {
+
+
         public string ProductName = null;
 
         public ProtectionPlusOnlineActivationForm()
