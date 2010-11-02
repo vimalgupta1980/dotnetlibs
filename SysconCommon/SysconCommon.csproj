@@ -129,6 +129,7 @@
     <Compile Include="Common\Structures.cs" />
     <Compile Include="Common\Validity.cs" />
     <Compile Include="GUI\ComboBox.cs" />
+    <Compile Include="GUI\DataGridViewExtensions.cs" />
     <Compile Include="GUI\ProgressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
