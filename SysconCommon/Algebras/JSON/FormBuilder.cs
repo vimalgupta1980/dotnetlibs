@@ -44,6 +44,7 @@ namespace SysconCommon.Algebras.JSON
             }
         }
 
+#if false
         private static DataTable GetChoices(XmlNode n)
         {
             try
@@ -131,5 +132,6 @@ namespace SysconCommon.Algebras.JSON
 
             return results.ToArray().ToJSON();
         }
+#endif
     }
 }

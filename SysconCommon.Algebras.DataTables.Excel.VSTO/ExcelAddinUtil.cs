@@ -10,119 +10,88 @@ using System.Text;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
 
-namespace DTSCommon.Algebras.DataTables.Excel.VSTO
+using SysconCommon.Common;
+
+namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 {
-    public class DataTableExcelException : Exception
-    {
-        public DataTableExcelException()
-            : base() { }
-
-        public DataTableExcelException(string format, params object[] arguments)
-            : base(string.Format(format, arguments)) { }
-
-        public DataTableExcelException(Exception innerException, string format, params object[] arguments)
-            : base(string.Format(format, arguments), innerException) { }
-    }
-
-    /// <summary>
-    /// Defines an isomorphism between data from excel ranges and datatables.
-    /// Notice this isomrphism does not hold over style information, so style
-    /// is completely ignored.
-    /// 
-    /// Everything is static because it is just a singleton with a few methods.  
-    /// The only state is the reference to the excel app itself,
-    /// this will need to be set by the user using Initialize(app) 
-    /// before anything else can be done.
-    /// 
-    /// This class is meant to be used while Excel is open, for addins.  It does
-    /// not do any standalone excel file manipulation.
-    /// </summary>
     public static class ExcelAddinUtil
     {
-        private static Application _ExcelApp = null;
-
-        /// <summary>
-        /// hook into the excel application, if Initialize is not called first, this will
-        /// fire an exception and give up
-        /// </summary>
-        private static Application ExcelApp
+        static private Application _app = null;
+        static public Application app
         {
             get
             {
-                if (_ExcelApp == null)
-                    throw new DataTableExcelException("ExcelApp is not usable until after Initialize(app) is called");
-                else
-                    return _ExcelApp;
+                if (_app == null)
+                    _app = new Application();
+                return _app;
             }
         }
 
-        /// <summary>
-        /// this must be the first call to this class
-        /// </summary>
-        /// <param name="app"></param>
-        public static void Initialize(Application app)
-        {
-            if (_ExcelApp != null)
-                throw new DataTableExcelException("Initialized should only be called once.");
+        static private Dictionary<string, Workbook> workbooks = new Dictionary<string, Workbook>();
 
-            _ExcelApp = app;
+        static private Workbook getWorkbook(string template)
+        {
+            if (workbooks.ContainsKey(template))
+                return workbooks[template];
+
+            workbooks.Add(template, app.Workbooks.Add(template));
+            return workbooks[template];
         }
 
-        /// <summary>
-        /// returns a datatable with the cell references that would be used to lookup the value
-        /// if the datatable was inserted into excel
-        /// </summary>
-        /// <param name="worksheetName">Name of the excel worksheet.  It must exist in the opened excel book.</param>
-        /// <param name="self"></param>
-        /// <param name="topLeft">top left cell of the table inside excel</param>
-        /// <returns></returns>
-        public static System.Data.DataTable GetExcelCellRefs(this System.Data.DataTable self, string worksheetName, 
-            string topLeft)
+        static private Worksheet getWorksheet(Workbook wb, string sheetname)
         {
-            self = self.Copy();
+            foreach (var i in FunctionalOperators.Range(wb.Worksheets.Count))
+            {
+                Worksheet ws = wb.Worksheets[i + 1];
+                if (ws.Name == sheetname)
+                    return ws;
+            }
 
-            throw new NotImplementedException();
+            var missing = System.Reflection.Missing.Value;
+            wb.Worksheets.Add(missing, missing, missing, missing);
+            wb.ActiveSheet.Name = sheetname;
+            return wb.ActiveSheet;
         }
 
-        /// <summary>
-        /// Populates the current datatable with data from excel, this is unsafe in the sense
-        /// that it changes state in the current datatable instead of creating a new datatable
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="worksheetName"></param>
-        /// <param name="headersExist"></param>
-        /// <param name="topLeftCell"></param>
-        /// <param name="bottomRightCell"></param>
-        public static void LoadFromExcel(this System.Data.DataTable self, string worksheetName, bool headersExist,
-            string topLeftCell, string bottomRightCell)
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)
         {
-            var sheet = getWorksheet(worksheetName);
-            var range = getRange(topLeftCell, bottomRightCell);
+            // throw new NotImplementedException();
+            var wb = getWorkbook(template);
+            var ws = getWorksheet(wb, worksheet);
 
-            throw new NotImplementedException();
+            var top_diff = top_row + 1;
+            var left_diff = left_column + 1;
+
+            if (write_headers)
+            {
+                foreach (var c in self.Columns.ToIEnumerable())
+                {
+                    ws.Cells[top_diff, c.Ordinal + left_diff].Value = c.ColumnName;
+                }
+
+                top_diff += 1;
+            }
+
+            foreach (var i in FunctionalOperators.Range(self.Rows.Count))
+            {
+                foreach (var j in FunctionalOperators.Range(self.Columns.Count))
+                {
+                    ws.Cells[i + top_diff, j + left_diff].Value = self.Rows[i][j];
+                }
+            }
+
+            return app;
         }
 
-        /// <summary>
-        /// Export your datatable into excel.
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="worksheetName"></param>
-        /// <param name="headersExist"></param>
-        /// <param name="topLeftCell"></param>
-        public static void WriteToExcel(this System.Data.DataTable self, string worksheetName, bool headersExist,
-            string topLeftCell)
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column)
         {
-            throw new NotImplementedException();
+            return self.WriteToExcel(template, worksheet, top_row, left_column, true);
         }
 
-        private static Worksheet getWorksheet(string name)
+        public static void UseNewApp()
         {
-            throw new NotImplementedException();
-        }
-
-        private static Range getRange(string topLeftCell, string bottomRightCell)
-        {
-            throw new NotImplementedException();
+            workbooks.Clear();
+            _app = null;
         }
     }
 }

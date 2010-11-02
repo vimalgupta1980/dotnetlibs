@@ -8,7 +8,7 @@ using System.Reflection;
 using System.IO;
 using System.Data;
 using System.Data.Odbc;
-using System.Data.SQLite; // used for sql dependancies, ie.. cursors
+// using System.Data.SQLite; // used for sql dependancies, ie.. cursors
 
 using SysconCommon.Common.Validity;
 using SysconCommon.Algebras.Graphs;
@@ -493,7 +493,7 @@ namespace SysconCommon.Common.Environment
 
             return sql;
         }
-
+#if false
         static public DataTable RunSqlStatementFromCursors(this OdbcConnection con, string tablename, string sql, params string[] args) 
         {
             // find the dependancies
@@ -513,6 +513,7 @@ namespace SysconCommon.Common.Environment
 
             return SqliteCon.GetDataTable(tablename, sql);
         }
+#endif
 
         static private bool IsQuery(string sql)
         {
@@ -524,6 +525,7 @@ namespace SysconCommon.Common.Environment
                 return false;
         }
 
+#if false
         /// <summary>
         /// Runs an sql statement, this is smart enough to run any dependancies into cursors and select from that
         /// </summary>
@@ -638,6 +640,7 @@ namespace SysconCommon.Common.Environment
                 }
             }
         }
+#endif
 
         static public IEnumerable<string> SqlStatements
         {

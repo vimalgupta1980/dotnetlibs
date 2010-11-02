@@ -25,7 +25,6 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Data;
 using System.Data.Odbc;
-using System.Data.SQLite;
 using System.Reflection;
 
 using Antlr.StringTemplate;
@@ -73,6 +72,7 @@ namespace SysconCommon.Algebras.DataTables
             }
         }
 
+#if false
         public static DataTable GetDataTable(this SQLiteConnection con, string datatableName, string sqlfmt, params object[] args)
         {
             var da = new SQLiteDataAdapter();
@@ -109,6 +109,7 @@ namespace SysconCommon.Algebras.DataTables
                 return dt;
             }
         }
+#endif
 
         /// <summary>
         /// Really this just makes it easy to setup a simple datatable for testing purposes.
@@ -473,12 +474,12 @@ namespace SysconCommon.Algebras.DataTables
                 if (c is PropertyInfo)
                 {
                     var pi = c as PropertyInfo;
-                    return new Tuple<Type, string>(pi.PropertyType, pi.Name);
+                    return new SysconCommon.Common.Tuple<Type, string>(pi.PropertyType, pi.Name);
                 }
                 else if (c is FieldInfo)
                 {
                     var fi = c as FieldInfo;
-                    return new Tuple<Type, string>(fi.FieldType, fi.Name);
+                    return new SysconCommon.Common.Tuple<Type, string>(fi.FieldType, fi.Name);
                 }
                 else
                 {
@@ -1032,7 +1033,7 @@ namespace SysconCommon.Algebras.DataTables
         /// <returns></returns>
         public static DataTable Zip(this DataTable self, DataTable other)
         {
-            return self.ZipWith(other, (object a, object b) => new Tuple<object, object>(a, b));
+            return self.ZipWith(other, (object a, object b) => new SysconCommon.Common.Tuple<object, object>(a, b));
         }
 
         /// <summary>

@@ -18,6 +18,17 @@ namespace SysconCommon.Accounting
     {
         static public AccountingSystems AccountingSystem = AccountingSystems.MasterBuilder;
 
+        static public IEnumerable<IJobType> GetJobTypes()
+        {
+            switch (AccountingSystem)
+            {
+                case AccountingSystems.MasterBuilder:
+                    return GetMBJobTypes();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
         static public IJob GetJob(string jobNumber)
         {
             return Cache.CacheResult(() =>
@@ -100,6 +111,11 @@ namespace SysconCommon.Accounting
         }
 
         #region MasterBuilder
+        static private IEnumerable<IJobType> GetMBJobTypes()
+        {
+            return Cache.CacheResult(() => Connections.GetList<int>("select recnum from jobtyp").Select(r => (IJobType) new MasterBuilder.JobType(r)));
+        }
+
         static private IEnumerable<IEquipmentLineItem> GetMBEquipmentLineItemsByEquipment(IEquipment e)
         {
             using (var cmd = Connections.Connection.CreateCommand())
