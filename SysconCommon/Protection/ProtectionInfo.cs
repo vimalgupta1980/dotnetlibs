@@ -19,11 +19,11 @@ namespace SysconCommon.Protection
     /// <summary>
     /// Syscons general protection mechanisms
     /// </summary>
-    public static class ProtectionInfo
+    public class ProtectionInfo
     {
-        public static string encryptionKeyId = @"281169fe-5d1b-45d2-a0c5-dccd843161dc";
+        private const string encryptionKeyId = @"281169fe-5d1b-45d2-a0c5-dccd843161dc";
 
-        public static string clientKey = @"BwIAAACkAABSU0EyAAQAAAEAAQCtlu1Ll0F7kz+YFZL4lgoS0uV4KS/lz/O88wGZTL/eUNeSl" +
+        private const string clientKey = @"BwIAAACkAABSU0EyAAQAAAEAAQCtlu1Ll0F7kz+YFZL4lgoS0uV4KS/lz/O88wGZTL/eUNeSl" +
             @"KVH57kjqFBVQDNPphQ3hyoixyberh+thSGeeVkNNUZ7+y0Akj6i73GrnlihlrL/vMWtvacCrrV6Jfu9PvGVbUQJBzD848y28" +
             @"C2hWZPggGTrieiWu78pl4/dUX8FksuMXJRvHPQUTLgD6BYVDUnxugj9YTfHfh5MBw94+MXzWQoJrN7f77qXbkFq3eVyZ1mUf" +
             @"wD4MQ71KH+jQlC+Dspns93rNjCWJcWAJL+bazqlxih/w+AAStrrhF6Nk+DQoTZK8++fw1aNxH1hTN+X/JVrMoZU7KEShVZHo" +
@@ -33,11 +33,11 @@ namespace SysconCommon.Protection
             @"3gU2U3AJbkqzA7HVzIgLYoCqynx3JGLL6DdkkepHWZbYuokxPLOCuJJ12sFJqticVFqlb4xnHAFJe1g4+ZC+ahtETGFUBjvC" +
             @"AXRsUH6suSGBwf+u3oS/4A4D8NUPeW3aDKWN8thVV2oSDj4LnU=";
 
-        public static string serverKey = @"BgIAAACkAABSU0ExAAQAAAEAAQBJNYj/2F7qFD8y3gnNJcSLNk3JdEccuVIPyL7AwC4VyXTBg/" +
+        private const string serverKey = @"BgIAAACkAABSU0ExAAQAAAEAAQBJNYj/2F7qFD8y3gnNJcSLNk3JdEccuVIPyL7AwC4VyXTBg/" +
             @"AbdgyP1kaPUdLjuW1XovmfhEK7Ofjqb8EP2vGcOsTNJzT+PHo6as3L7atz9r3RHGDfazUKHGJWKZrZULXGo5iVYdfT4qOyiPSasdWFT" +
             @"PI0bpyoEWa8Tiv53A0UyA==";
 
-        public static string TrialLicenseLocation
+        static public string TrialLicenseLocation
         {
             get
             {
@@ -46,7 +46,7 @@ namespace SysconCommon.Protection
             }
         }
 
-        public static string LicenseLocation
+        static public string LicenseLocation
         {
             get
             {
@@ -55,23 +55,40 @@ namespace SysconCommon.Protection
             }
         }
 
-        public static LicenseType LicenseType
+        public class InvalidLicenseException : Exception { }
+
+        static public IClientLicense GetLicense(int product_id, string product_version)
         {
-            get
+            try
             {
-                if (Env.FileExists(LicenseLocation))
+                if (System.IO.File.Exists(LicenseLocation))
                 {
-                    return Protection.LicenseType.Seat;
-                }
-                else if (Env.FileExists(TrialLicenseLocation))
-                {
-                    return Protection.LicenseType.Trial;
+                    var seat = new ClientLicense(LicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, product_version);
+                    seat.LoadFile();
+                    if (seat.IsValid())
+                        return seat;
+                    else
+                        throw new InvalidLicenseException();
                 }
                 else
                 {
-                    return Protection.LicenseType.None;
+                    throw new InvalidLicenseException();
+                }
+
+            }
+            catch
+            {
+                var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
+                trial.LoadFile();
+                if (trial.IsValid())
+                    return trial;
+                else
+                {
+                    var got_new_trial = trial.CreateFreshTrial();
+                    return trial;
                 }
             }
         }
+        
     }
 }

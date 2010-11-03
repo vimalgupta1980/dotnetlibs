@@ -11,12 +11,14 @@ namespace SysconCommon.Protection
 {
     public partial class ProtectionPlusOnlineActivationForm : Form
     {
+        private readonly int product_id;
+        private readonly string product_version;
 
-
-        public string ProductName = null;
-
-        public ProtectionPlusOnlineActivationForm()
+        public ProtectionPlusOnlineActivationForm(int product_id, string product_version)
         {
+            this.product_id = product_id;
+            this.product_version = product_version;
+
             InitializeComponent();
         }
 
@@ -29,8 +31,22 @@ namespace SysconCommon.Protection
         {
             try
             {
-                if (ProductName == null)
-                    throw new Exception("Product Name is not set in the activation dialog");
+                var license = Protection.ProtectionInfo.GetLicense(product_id, product_version);
+
+                if (!(license is TrialLicense))
+                    throw new NotImplementedException();
+
+                var l = license as TrialLicense;
+                var activated = l.ActivateOnline(int.Parse(this.txtLicenseId.Text), this.txtPassword.Text);
+
+                if (activated)
+                {
+                    MessageBox.Show("Activation worked");
+                }
+                else
+                {
+                    MessageBox.Show("Activation failed: " + l.LastError);
+                }
             }
             finally
             {
