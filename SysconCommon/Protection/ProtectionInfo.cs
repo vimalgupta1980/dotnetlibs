@@ -85,6 +85,7 @@ namespace SysconCommon.Protection
                 else
                 {
                     var got_new_trial = trial.CreateFreshTrial();
+                    trial.LoadFile();
                     return trial;
                 }
             }

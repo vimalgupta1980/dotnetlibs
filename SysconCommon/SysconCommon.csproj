@@ -124,6 +124,7 @@
     <Compile Include="Common\Cache.cs" />
     <Compile Include="Common\Connections.cs" />
     <Compile Include="Common\DictionaryOperators.cs" />
+    <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SysconException.cs" />
     <Compile Include="Common\Environment.cs" />
     <Compile Include="Common\FunctionalOperators.cs" />

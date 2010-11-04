@@ -41,7 +41,7 @@ namespace SysconCommon.Protection
 
                 if (activated)
                 {
-                    MessageBox.Show("Activation worked");
+                    MessageBox.Show("Activation Succeessful.  Your software is now fully authorized.");
                 }
                 else
                 {

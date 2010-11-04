@@ -23,7 +23,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             get
             {
                 return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select fstnme from employ where recnum = {0}", Recnum).Trim(), Recnum);
+                    "select fstnme from employ where recnum = {0}", Recnum).NullToBlank().Trim(), Recnum);
             }
             set
             {
@@ -36,7 +36,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             get
             {
                 return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select lstnme from employ where recnum = {0}", Recnum).Trim(), Recnum);
+                    "select lstnme from employ where recnum = {0}", Recnum).NullToBlank().Trim(), Recnum);
             }
             set
             {
@@ -49,7 +49,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             get
             {
                 return Cache.CacheResult(() => Connections.GetScalar<string>(
-                    "select midini from employ where recnum = {0}", Recnum).Trim(), Recnum);
+                    "select midini from employ where recnum = {0}", Recnum).NullToBlank().Trim(), Recnum);
             }
             set
             {
