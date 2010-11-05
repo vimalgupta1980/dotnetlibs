@@ -144,6 +144,7 @@ namespace SysconCommon.Accounting
         /// <returns></returns>
         static private IEnumerable<IJob> GetMBJobs(Func<string, bool> filter)
         {
+            /*
             var jobnums = Connections
                     .GetList<string>("select recnum from actrec order by recnum")
                     .Where(filter);
@@ -151,6 +152,20 @@ namespace SysconCommon.Accounting
             foreach (var j in jobnums)
             {
                 yield return GetMBJob(j);
+            }
+             */
+
+            using (var cmd = Connections.Connection.CreateCommand())
+            {
+                cmd.CommandText = "select recnum, jobnme from actrec order by recnum";
+                var rdr = cmd.ExecuteReader();
+                List<IJob> rv = new List<IJob>();
+                while (rdr.Read())
+                {
+                    rv.Add(new MasterBuilder.Job(rdr[0].ToString()) { JobName = rdr[1].ToString() });
+                }
+
+                return rv;
             }
         }
 

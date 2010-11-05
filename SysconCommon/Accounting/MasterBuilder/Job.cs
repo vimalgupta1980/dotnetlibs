@@ -17,10 +17,14 @@ namespace SysconCommon.Accounting.MasterBuilder
 
         public string JobNumber { get; set; }
 
+        private string _JobName;
         public string JobName
         {
             get
             {
+                if (_JobName != null)
+                    return _JobName;
+
                 return Cache.CacheResult(() =>
                 {
                     return Connections.GetScalar<string>("select jobnme from actrec where recnum = {0}", JobNumber).Trim();
@@ -28,7 +32,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
             set
             {
-                throw new NotImplementedException();
+                _JobName = value;
             }
         }
 
