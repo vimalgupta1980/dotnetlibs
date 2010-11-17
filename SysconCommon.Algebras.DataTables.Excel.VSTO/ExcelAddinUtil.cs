@@ -11,6 +11,7 @@ using System.Data;
 using Microsoft.Office.Interop.Excel;
 
 using SysconCommon.Common;
+using SysconCommon.Algebras.DataTables;
 
 namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 {
@@ -55,32 +56,35 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)
         {
-            // throw new NotImplementedException();
             var wb = getWorkbook(template);
             var ws = getWorksheet(wb, worksheet);
 
             var top_diff = top_row + 1;
-            var left_diff = left_column + 1;
+            var left_diff = left_column;
 
-            if (write_headers)
-            {
-                foreach (var c in self.Columns.ToIEnumerable())
-                {
-                    ws.Cells[top_diff, c.Ordinal + left_diff].Value = c.ColumnName;
-                }
+            var dtarray = self.ToMultiDimArray<object>(write_headers);
 
-                top_diff += 1;
-            }
+            var row_count = self.Rows.Count + (write_headers ? 1 : 0);
+            var cell1 = left_diff.ConvertToExcelColumn() + top_diff.ToString();
+            var cell2 = (left_diff + self.Columns.Count - 1).ConvertToExcelColumn() + (top_diff + row_count - 1).ToString();
 
-            foreach (var i in FunctionalOperators.Range(self.Rows.Count))
-            {
-                foreach (var j in FunctionalOperators.Range(self.Columns.Count))
-                {
-                    ws.Cells[i + top_diff, j + left_diff].Value = self.Rows[i][j];
-                }
-            }
+            Range r = ws.get_Range(cell1, cell2);
+
+            r.set_Value(System.Reflection.Missing.Value, dtarray);
 
             return app;
+        }
+
+        private static string ConvertToExcelColumn(this int colnum)
+        {
+            if (colnum < 26)
+            {
+                return new string(new char[] { (char)((int)'A' + colnum) });
+            }
+
+            var rem = colnum % 26 - 1;
+            var first = (colnum / 26) - 1;
+            return first.ConvertToExcelColumn() + rem.ConvertToExcelColumn();
         }
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column)

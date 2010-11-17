@@ -66,10 +66,36 @@ namespace SysconCommon.Algebras.DataTables
             {
                 cmd.Connection = con;
                 da.SelectCommand = cmd;
+                Env.DebugPrint(cmd.CommandText);
                 var dt = new DataTable(datatableName);
                 da.Fill(dt);
                 return dt;
             }
+        }
+
+        public static T[,] ToMultiDimArray<T>(this DataTable self, bool includeHeaders)
+        {
+            var row_count = self.Rows.Count + (includeHeaders ? 1 : 0);
+            var rv = new T[row_count, self.Columns.Count];
+            
+            if (includeHeaders)
+            {
+                foreach (var c in FunctionalOperators.Range(self.Columns.Count))
+                {
+                    rv[0, c] = (T) Convert.ChangeType(self.Columns[c].ColumnName, typeof(T));
+                }
+            }
+
+            foreach (var i in FunctionalOperators.Range(self.Rows.Count))
+            {
+                foreach (var j in FunctionalOperators.Range(self.Columns.Count))
+                {
+                    var row = i + (includeHeaders ? 1 : 0);
+                    rv[row, j] = (T) self.Rows[i][j];
+                }
+            }
+
+            return rv;
         }
 
 #if false

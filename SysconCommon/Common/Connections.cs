@@ -60,6 +60,7 @@ namespace SysconCommon.Common.Environment
             using (var cmd = con.CreateCommand())
             {
                 cmd.CommandText = string.Format(sqlfmt, args);
+                Env.DebugPrint(cmd.CommandText);
                 return (T) Convert.ChangeType(cmd.ExecuteScalar(), typeof(T));
             }
         }
@@ -71,15 +72,19 @@ namespace SysconCommon.Common.Environment
 
         static public IEnumerable<T> GetList<T>(this OdbcConnection con, string sqlfmt, params object[] args)
         {
+            List<T> rv = new List<T>();
             using (var cmd = con.CreateCommand())
             {
                 cmd.CommandText = string.Format(sqlfmt, args);
+                Env.DebugPrint(cmd.CommandText);
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    yield return (T)Convert.ChangeType(rdr[0], typeof(T));
+                    rv.Add((T)Convert.ChangeType(rdr[0], typeof(T)));
                 }
             }
+
+            return rv;
         }
 
         static public IEnumerable<T> GetList<T>(string sqlfmt, params object[] args)

@@ -25,6 +25,20 @@ namespace SysconCommon.Common
             First = first;
             Second = second;
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Tuple<T, U>;
+            if (other == null)
+                return false;
+
+            return other.First.Equals(First) && other.Second.Equals(Second);
+        }
+
+        public override int GetHashCode()
+        {
+            return First.GetHashCode() + Second.GetHashCode();
+        }
     }
 
     /// <summary>

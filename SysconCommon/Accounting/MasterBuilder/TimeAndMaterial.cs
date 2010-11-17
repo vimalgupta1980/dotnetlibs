@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
+using SysconCommon.Algebras.DataTables;
 using SysconCommon.Common.Environment;
 using SysconCommon.Accounting;
 using SysconCommon.Common;
@@ -11,6 +13,35 @@ namespace SysconCommon.Accounting.MasterBuilder
 {
     public class TimeAndMaterial : ITimeAndMaterial
     {
+        private static string _cache_string;
+        private static DataTable _cache;
+        private static Dictionary<int, DataRow> _cache_dictionary;
+
+        public static void SetCache(string sqlfmt, params object[] args)
+        {
+            var sql = string.Format(sqlfmt, args);
+            if (_cache_string == sql)
+                return;
+
+            ClearCache();
+
+            _cache_string = sql;
+            _cache = Connections.Connection.GetDataTable("cache", sqlfmt, args);
+            _cache_dictionary = new Dictionary<int,DataRow>();
+
+            foreach (DataRow row in _cache.Rows)
+            {
+                _cache_dictionary.Add(Convert.ToInt32(row["recnum"]), row);
+            }
+        }
+
+        public static void ClearCache()
+        {
+            _cache_dictionary = null;
+            _cache = null;
+            _cache_string = null;
+        }
+        
         public TimeAndMaterial(int id)
         {
             this.Recnum = id;
@@ -28,10 +59,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<int>("select emptbl from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToInt32(_cache_dictionary[Recnum]["emptbl"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<int>("select emptbl from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -43,10 +81,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<int>("select eqptbl from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToInt32(_cache_dictionary[Recnum]["eqptbl"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<int>("select eqptbl from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -58,10 +103,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<string>("select notes from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return _cache_dictionary[Recnum]["eqptbl"].ToString();
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<string>("select notes from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -134,10 +186,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select labhdn from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["labhdn"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select labhdn from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -149,10 +208,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select labshw from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["labshw"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select labshw from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -164,10 +230,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select labovh from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["labovh"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select labovh from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -179,10 +252,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select labpft from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["labpft"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select labpft from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -194,10 +274,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select eqphdn from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["eqphdn"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select eqphdn from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -209,10 +296,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select eqpshw from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["eqpshw"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select eqpshw from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -224,10 +318,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select eqpovh from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["eqpovh"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select eqpovh from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -239,10 +340,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select eqppft from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["eqppft"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select eqppft from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -254,10 +362,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select subhdn from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["subhdn"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select subhdn from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -269,10 +384,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select subshw from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["subshw"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select subshw from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -284,10 +406,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select subovh from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["subovh"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select subovh from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -299,10 +428,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select subpft from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["subpft"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select subpft from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -314,10 +450,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select otrhdn from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["otrhdn"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select otrhdn from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -329,10 +472,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select otrshw from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["otrshw"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select otrshw from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -344,10 +494,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select otrovh from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["otrovh"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select otrovh from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -359,10 +516,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select otrpft from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["otrpft"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select otrpft from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -374,10 +538,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select cs6hdn from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["cs6hdn"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select cs6hdn from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -389,10 +560,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select cs6shw from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["cs6shw"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select cs6shw from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -404,10 +582,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select cs6ovh from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["cs6ovh"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select cs6ovh from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {
@@ -419,10 +604,17 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                return Cache.CacheResult(() =>
+                try
                 {
-                    return Connections.GetScalar<decimal>("select cs6pft from timmat where recnum = {0}", Recnum);
-                }, Recnum);
+                    return Convert.ToDecimal(_cache_dictionary[Recnum]["cs6pft"]);
+                }
+                catch
+                {
+                    return Cache.CacheResult(() =>
+                    {
+                        return Connections.GetScalar<decimal>("select cs6pft from timmat where recnum = {0}", Recnum);
+                    }, Recnum);
+                }
             }
             set
             {

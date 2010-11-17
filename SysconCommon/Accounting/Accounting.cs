@@ -63,11 +63,11 @@ namespace SysconCommon.Accounting
         {
             return Cache.CacheResult(() =>
             {
-                var filter = filterexp.Compile();
+                // var filter = filterexp.Compile();
                 switch (AccountingSystem)
                 {
                     case AccountingSystems.MasterBuilder:
-                        return GetMBJobs(filter);
+                        return GetMBJobs(filterexp);
                     default:
                         throw new NotImplementedException();
                 }
@@ -142,19 +142,8 @@ namespace SysconCommon.Accounting
         /// </summary>
         /// <param name="filter">a filter that takes the jobnumber</param>
         /// <returns></returns>
-        static private IEnumerable<IJob> GetMBJobs(Func<string, bool> filter)
+        static private IEnumerable<IJob> GetMBJobs(Expression<Func<string, bool>> filter)
         {
-            /*
-            var jobnums = Connections
-                    .GetList<string>("select recnum from actrec order by recnum")
-                    .Where(filter);
-
-            foreach (var j in jobnums)
-            {
-                yield return GetMBJob(j);
-            }
-             */
-
             using (var cmd = Connections.Connection.CreateCommand())
             {
                 cmd.CommandText = "select recnum, jobnme from actrec order by recnum";
@@ -162,7 +151,10 @@ namespace SysconCommon.Accounting
                 List<IJob> rv = new List<IJob>();
                 while (rdr.Read())
                 {
-                    rv.Add(new MasterBuilder.Job(rdr[0].ToString()) { JobName = rdr[1].ToString() });
+                    if (filter.Compile()(rdr[0].ToString()))
+                    {
+                        rv.Add(new MasterBuilder.Job(rdr[0].ToString()) { JobName = rdr[1].ToString() });
+                    }
                 }
 
                 return rv;
@@ -178,17 +170,29 @@ namespace SysconCommon.Accounting
 
         static private IEnumerable<ITimeAndMaterialLineItem> GetMBTimeAndMaterialLineItemsByCostCode(ICostCode c)
         {
-            //var results = from ln in Connections.GetList<int>("select recnum from tmemln where cstcde = {0}", c.EquipmentNumber)
-            //              select (ITimeAndMaterialLineItem)new MasterBuilder.TimeAndMaterialLineItem(ln);
+            MasterBuilder.TimeAndMaterialLineItem.SetCache("select * from tmemln", c.Recnum);
 
-            using (var cmd = Connections.Connection.CreateCommand())
+            try
             {
-                cmd.CommandText = string.Format("select recnum, linnum from tmemln where cstcde = {0}", c.Recnum);
-                var rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                return MasterBuilder.TimeAndMaterialLineItem.GetFromCache(r => Convert.ToDecimal(r["cstcde"]) == c.Recnum);
+            }
+            catch
+            {
+                return Cache.CacheResult(() =>
                 {
-                    yield return new MasterBuilder.TimeAndMaterialLineItem(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1]));
-                }
+                    using (var cmd = Connections.Connection.CreateCommand())
+                    {
+                        var rv = new List<ITimeAndMaterialLineItem>();
+                        cmd.CommandText = string.Format("select recnum, linnum from tmemln where cstcde = {0}", c.Recnum);
+                        var rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            rv.Add(new MasterBuilder.TimeAndMaterialLineItem(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1])));
+                        }
+
+                        return rv;
+                    }
+                }, c.Recnum);
             }
         }
         #endregion

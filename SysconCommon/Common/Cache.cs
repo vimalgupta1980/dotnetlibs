@@ -27,6 +27,9 @@ namespace SysconCommon.Common
 
         public static T CacheResult<T>(Func<T> fn, params object[] args)
         {
+            // don't actually cache anything, this cache scheme is getting too slow
+            return fn();
+
             var caller = GetCallingMethod();
             var strings = args.Select(s => s.ToString());
             var key = string.Format("{0}:{1}", caller, string.Join(";", strings.ToArray())).GetMD5Sum();
