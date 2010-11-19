@@ -23,6 +23,12 @@ namespace SysconCommon.Common
         public static void InvalidateAll()
         {
             cache.Clear();
+            SysconCommon.Accounting.MasterBuilder.Invoice.ClearCache();
+            SysconCommon.Accounting.MasterBuilder.Job.ClearCache();
+            SysconCommon.Accounting.MasterBuilder.JobCost.ClearCache();
+            SysconCommon.Accounting.MasterBuilder.TimeAndMaterial.ClearCache();
+            SysconCommon.Accounting.MasterBuilder.TimeAndMaterialLineItem.ClearCache();
+            SysconCommon.Accounting.MasterBuilder.Employee.ClearCache();
         }
 
         public static T CacheResult<T>(Func<T> fn, params object[] args)

@@ -78,15 +78,25 @@ namespace SysconCommon.Protection
             }
             catch
             {
-                var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
-                trial.LoadFile();
-                if (trial.IsValid())
-                    return trial;
-                else
+                if (!System.IO.File.Exists(TrialLicenseLocation))
                 {
+                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
                     var got_new_trial = trial.CreateFreshTrial();
                     trial.LoadFile();
                     return trial;
+                }
+                else
+                {
+                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
+                    trial.LoadFile();
+                    if (trial.IsValid())
+                    {
+                        return trial;
+                    }
+                    else
+                    {
+                        throw new InvalidLicenseException();
+                    }
                 }
             }
         }

@@ -34,6 +34,13 @@ namespace SysconCommon.Accounting.MasterBuilder
             }
         }
 
+        static public void ClearCache()
+        {
+            _cache = null;
+            _cache_string = null;
+            _cache_dictionary = null;
+        }
+
         static public IEnumerable<TimeAndMaterialLineItem> GetFromCache(Func<DataRow, bool> filter)
         {
             foreach (DataRow row in _cache.Rows)
