@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
+// using System.Windows.Forms;
 
 using SysconCommon.Common;
 using SysconCommon.Algebras.DataTables;
@@ -60,6 +61,17 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             var ws = getWorksheet(wb, worksheet);
 
             Range r = ws.get_Range(namedrange, System.Reflection.Missing.Value);
+            if (r.Columns.Count < self.Columns.Count)
+            {
+                System.Windows.Forms.MessageBox.Show(string.Format("Named Range {0} does not contain enough columns", namedrange));
+                return app;
+            }
+            if (r.Rows.Count < self.Rows.Count)
+            {
+                System.Windows.Forms.MessageBox.Show(string.Format("Named Range {0} does not contain enough rows", namedrange));
+                return app;
+            }
+
             var dtarray = self.ToMultiDimArray<object>(false);
             r.set_Value(System.Reflection.Missing.Value, dtarray);
 
