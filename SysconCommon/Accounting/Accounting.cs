@@ -54,6 +54,29 @@ namespace SysconCommon.Accounting
             }
         }
 
+        static public IEnumerable<ILedgerAccount> GetLedgerAccounts(Expression<Func<ILedgerAccount, bool>> filterExp)
+        {
+            switch (AccountingSystem)
+            {
+                case AccountingSystems.MasterBuilder:
+                    return GetMBLedgerAccounts(filterExp);
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        static private IEnumerable<ILedgerAccount> GetMBLedgerAccounts(Expression<Func<ILedgerAccount, bool>> filterExp)
+        {
+            var recnums = Connections.GetList<int>("select recnum from lgract");
+            foreach (var r in recnums)
+            {
+                var fn = filterExp.Compile();
+                var act = new MasterBuilder.LedgerAccount(r);
+                if (fn(act))
+                    yield return act;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

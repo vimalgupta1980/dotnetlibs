@@ -54,6 +54,18 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return wb.ActiveSheet;
         }
 
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)
+        {
+            var wb = getWorkbook(template);
+            var ws = getWorksheet(wb, worksheet);
+
+            Range r = ws.get_Range(namedrange, System.Reflection.Missing.Value);
+            var dtarray = self.ToMultiDimArray<object>(false);
+            r.set_Value(System.Reflection.Missing.Value, dtarray);
+
+            return app;
+        }
+
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)
         {
             var wb = getWorkbook(template);

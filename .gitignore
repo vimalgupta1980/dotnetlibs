@@ -16,3 +16,4 @@ obj
 bin
 *.exe
 *.pdb
+*.user

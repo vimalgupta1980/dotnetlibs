@@ -73,6 +73,53 @@ namespace SysconCommon.Algebras.DataTables
             }
         }
 
+        public static IEnumerable<T> ToList<T>(this DataTable self)
+            where T : new()
+        {
+            foreach (DataRow row in self.Rows)
+            {
+                var rv = new T();
+                var fields = typeof(T).GetFields();
+
+                foreach (DataColumn dc in self.Columns)
+                {
+                    var field = fields.Where(f => f.Name == dc.ColumnName).FirstOrDefault();
+                    if (field == null)
+                        continue;
+
+                    if (field.FieldType != typeof(string) && row[dc].ToString().Trim() == "")
+                    {
+                        // do nothing
+                    }
+                    else
+                    {
+                        field.SetValue(rv, Convert.ChangeType(row[dc], field.FieldType));
+                    }
+                }
+
+                yield return rv;
+            }
+        }
+
+        public static string Serialize(this DataTable self)
+        {
+            var ds = new DataSet("Serialization Container");
+            ds.Tables.Add(self);
+            return ds.GetXml();
+        }
+
+        public static DataTable Deserialize(string data)
+        {
+            // there is a race condition here
+            var xml = data;
+            var ds = new DataSet("Serialization Container");
+            var tmpFile = System.IO.Path.GetTempFileName();
+            System.IO.File.WriteAllText(tmpFile, xml);
+            ds.ReadXml(tmpFile);
+            System.IO.File.Delete(tmpFile);
+            return ds.Tables[0];
+        }
+
         public static T[,] ToMultiDimArray<T>(this DataTable self, bool includeHeaders)
         {
             var row_count = self.Rows.Count + (includeHeaders ? 1 : 0);

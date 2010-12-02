@@ -94,6 +94,7 @@
     <Compile Include="Accounting\IEquipmentType.cs" />
     <Compile Include="Accounting\IJob.cs" />
     <Compile Include="Accounting\IJobCost.cs" />
+    <Compile Include="Accounting\ILedgerAccount.cs" />
     <Compile Include="Accounting\IPhase.cs" />
     <Compile Include="Accounting\ISource.cs" />
     <Compile Include="Accounting\ITimeAndMaterialLineItem.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Accounting\MasterBuilder\JobCost.cs" />
     <Compile Include="Accounting\MasterBuilder\JobType.cs" />
     <Compile Include="Accounting\ITimeAndMaterial.cs" />
+    <Compile Include="Accounting\MasterBuilder\LedgerAccount.cs" />
     <Compile Include="Accounting\MasterBuilder\Phase.cs" />
     <Compile Include="Accounting\MasterBuilder\Source.cs" />
     <Compile Include="Accounting\MasterBuilder\TimeAndMaterial.cs" />
@@ -133,6 +135,12 @@
     <Compile Include="Common\SqlHelpers.cs" />
     <Compile Include="Common\Structures.cs" />
     <Compile Include="Common\Validity.cs" />
+    <Compile Include="GUI\AssociationGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\AssociationGridView.Designer.cs">
+      <DependentUpon>AssociationGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ComboBox.cs" />
     <Compile Include="GUI\DataGridViewExtensions.cs" />
     <Compile Include="GUI\ProgressDialog.cs">
@@ -147,8 +155,25 @@
     <Compile Include="GUI\SearchableComboBox.Designer.cs">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SysconLogo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconLogo.Designer.cs">
+      <DependentUpon>SysconLogo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\WebLink.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\WebLink.Designer.cs">
+      <DependentUpon>WebLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algebras\DataTables\DataTableOperations.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Protection\ClientLicense.cs" />
     <Compile Include="Protection\IClientLicense.cs" />
     <Compile Include="Protection\ProtectionInfo.cs" />
@@ -181,11 +206,24 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\AssociationGridView.resx">
+      <DependentUpon>AssociationGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SearchableComboBox.resx">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SysconLogo.resx">
+      <DependentUpon>SysconLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\WebLink.resx">
+      <DependentUpon>WebLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Protection\ProtectionPlusOnlineActivationForm.resx">
       <DependentUpon>ProtectionPlusOnlineActivationForm.cs</DependentUpon>

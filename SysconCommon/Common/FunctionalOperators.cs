@@ -171,6 +171,8 @@ namespace SysconCommon.Common
             }
         }
 
+
+
         /// <summary>
         /// Naive implementation of quicksort.  This isn't very efficient so if you have a large
         /// collection, use .NET's sorting API.  This one is more convenient for small collections
@@ -206,6 +208,33 @@ namespace SysconCommon.Common
                     .Concat(new T[] { head }) 
                     // [sorted list of items >= head]
                     .Concat(tail.Where(i => compareFunc(i, head) >= 0).Sort(compareFunc)); 
+
+        }
+
+        public static void InsertSorted<T>(this List<T> self, Func<T, T, int> compare_func, T value)
+        {
+            foreach (var i in Range(self.Count))
+            {
+                if (compare_func(self[i], value) >= 0)
+                {
+                    self.Insert(i, value);
+                    return;
+                }
+            }
+
+            // nothing is larger
+            self.Add(value);
+        }
+
+        public static List<T> InsertSort<T>(this IEnumerable<T> lst, Func<T, T, int> compareFunc)
+        {
+            var slist = new List<T>();
+            foreach (var i in lst)
+            {
+                slist.InsertSorted(compareFunc, i);
+            }
+
+            return slist;
         }
 
         /// <summary>
