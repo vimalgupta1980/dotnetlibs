@@ -89,14 +89,7 @@ namespace SysconCommon.Protection
                 {
                     var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
                     trial.LoadFile();
-                    if (trial.IsValid())
-                    {
-                        return trial;
-                    }
-                    else
-                    {
-                        throw new InvalidLicenseException();
-                    }
+                    return trial;
                 }
             }
         }

@@ -14,6 +14,15 @@ namespace SysconCommon.Protection
         private readonly int product_id;
         private readonly string product_version;
 
+        private bool _ActivationSuccessful = false;
+        public bool ActivationSuccessful
+        {
+            get
+            {
+                return _ActivationSuccessful;
+            }
+        }
+
         public ProtectionPlusOnlineActivationForm(int product_id, string product_version)
         {
             this.product_id = product_id;
@@ -42,11 +51,16 @@ namespace SysconCommon.Protection
                 if (activated)
                 {
                     MessageBox.Show("Activation Succeessful.  Your software is now fully authorized.");
+                    _ActivationSuccessful = true;
                 }
                 else
                 {
                     MessageBox.Show("Activation failed: " + l.LastError);
                 }
+            }
+            catch
+            {
+                MessageBox.Show("Activation failed");
             }
             finally
             {

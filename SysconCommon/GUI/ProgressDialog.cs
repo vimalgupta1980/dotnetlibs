@@ -38,16 +38,17 @@ namespace SysconCommon.GUI
         public int Tick()
         {
             var percent_done = Convert.ToDecimal(progressBar1.Value) / Convert.ToDecimal(total_ticks);
-            var time = percent_done == 0.0m ? int.MaxValue : Convert.ToInt32(Math.Round(Convert.ToDecimal((DateTime.Now - start_time).TotalSeconds) / percent_done, 0));
-            time -= Convert.ToInt32(Math.Round((DateTime.Now - start_time).TotalSeconds, 0));
 
-            var minutes = time / 60;
-            var seconds = time % 60;
             progressBar1.Value += 1;
 
-            this.label1.Text = string.Format("{0}% Done ETA: {1} Min and {2} Seconds", Convert.ToInt32(Math.Round(percent_done * 100m, 0)), minutes, seconds);
+            this.label1.Text = string.Format("{0}% Done", Convert.ToInt32(Math.Round(percent_done * 100m, 0)));
             this.Refresh();
             return progressBar1.Value;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

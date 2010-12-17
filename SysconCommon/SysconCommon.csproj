@@ -57,6 +57,10 @@
       <HintPath>..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\net-2.0\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\NUnit 2.5.7\bin\net-2.0\framework\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="PLUSManaged">
       <HintPath>..\..\..\Users\bniemczyk.SYSCON-INC\Desktop\plusmanaged\PLUSManaged\build\release\PLUSManaged.dll</HintPath>
     </Reference>
@@ -167,6 +171,8 @@
     <Compile Include="GUI\WebLink.Designer.cs">
       <DependentUpon>WebLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parsing\CSV.cs" />
+    <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algebras\DataTables\DataTableOperations.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -177,6 +183,12 @@
     <Compile Include="Protection\ClientLicense.cs" />
     <Compile Include="Protection\IClientLicense.cs" />
     <Compile Include="Protection\ProtectionInfo.cs" />
+    <Compile Include="Protection\ProtectionPlusIntroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protection\ProtectionPlusIntroForm.Designer.cs">
+      <DependentUpon>ProtectionPlusIntroForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Protection\ProtectionPlusOnlineActivationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +196,226 @@
       <DependentUpon>ProtectionPlusOnlineActivationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Protection\TrialLicense.cs" />
+    <Compile Include="SMBClasses\acpinv.cs" />
+    <Compile Include="SMBClasses\acppmt.cs" />
+    <Compile Include="SMBClasses\acrinv.cs" />
+    <Compile Include="SMBClasses\acrpmt.cs" />
+    <Compile Include="SMBClasses\actpay.cs" />
+    <Compile Include="SMBClasses\actrec.cs" />
+    <Compile Include="SMBClasses\aiafrm.cs" />
+    <Compile Include="SMBClasses\aialin.cs" />
+    <Compile Include="SMBClasses\alkdom.cs" />
+    <Compile Include="SMBClasses\apivln.cs" />
+    <Compile Include="SMBClasses\apttyp.cs" />
+    <Compile Include="SMBClasses\arivln.cs" />
+    <Compile Include="SMBClasses\artxdt.cs" />
+    <Compile Include="SMBClasses\asmcls.cs" />
+    <Compile Include="SMBClasses\asmprt.cs" />
+    <Compile Include="SMBClasses\assemb.cs" />
+    <Compile Include="SMBClasses\atchmt.cs" />
+    <Compile Include="SMBClasses\attdtl.cs" />
+    <Compile Include="SMBClasses\bdglin.cs" />
+    <Compile Include="SMBClasses\benfit.cs" />
+    <Compile Include="SMBClasses\biditm.cs" />
+    <Compile Include="SMBClasses\brdftg.cs" />
+    <Compile Include="SMBClasses\budget.cs" />
+    <Compile Include="SMBClasses\calend.cs" />
+    <Compile Include="SMBClasses\calnte.cs" />
+    <Compile Include="SMBClasses\chgtyp.cs" />
+    <Compile Include="SMBClasses\clncnt.cs" />
+    <Compile Include="SMBClasses\clnsts.cs" />
+    <Compile Include="SMBClasses\clntyp.cs" />
+    <Compile Include="SMBClasses\cmpany.cs" />
+    <Compile Include="SMBClasses\conlst.cs" />
+    <Compile Include="SMBClasses\coratc.cs" />
+    <Compile Include="SMBClasses\coresp.cs" />
+    <Compile Include="SMBClasses\cortyp.cs" />
+    <Compile Include="SMBClasses\crcard.cs" />
+    <Compile Include="SMBClasses\cscpln.cs" />
+    <Compile Include="SMBClasses\cstcde.cs" />
+    <Compile Include="SMBClasses\cstcmp.cs" />
+    <Compile Include="SMBClasses\cstdiv.cs" />
+    <Compile Include="SMBClasses\csttyp.cs" />
+    <Compile Include="SMBClasses\dlypyr.cs" />
+    <Compile Include="SMBClasses\dptmnt.cs" />
+    <Compile Include="SMBClasses\dsptch.cs" />
+    <Compile Include="SMBClasses\emllst.cs" />
+    <Compile Include="SMBClasses\empabs.cs" />
+    <Compile Include="SMBClasses\empcnt.cs" />
+    <Compile Include="SMBClasses\emplic.cs" />
+    <Compile Include="SMBClasses\employ.cs" />
+    <Compile Include="SMBClasses\empqtd.cs" />
+    <Compile Include="SMBClasses\emptrn.cs" />
+    <Compile Include="SMBClasses\eqpcst.cs" />
+    <Compile Include="SMBClasses\eqpmln.cs" />
+    <Compile Include="SMBClasses\eqpmnt.cs" />
+    <Compile Include="SMBClasses\eqprvw.cs" />
+    <Compile Include="SMBClasses\eqptyp.cs" />
+    <Compile Include="SMBClasses\faxlst.cs" />
+    <Compile Include="SMBClasses\fdrpeq.cs" />
+    <Compile Include="SMBClasses\fdrpin.cs" />
+    <Compile Include="SMBClasses\fdrpln.cs" />
+    <Compile Include="SMBClasses\fdrpmt.cs" />
+    <Compile Include="SMBClasses\fdrpor.cs" />
+    <Compile Include="SMBClasses\fdrpsb.cs" />
+    <Compile Include="SMBClasses\fdrpun.cs" />
+    <Compile Include="SMBClasses\fldrpt.cs" />
+    <Compile Include="SMBClasses\glbclc.cs" />
+    <Compile Include="SMBClasses\glbvar.cs" />
+    <Compile Include="SMBClasses\grdvew.cs" />
+    <Compile Include="SMBClasses\grplst.cs" />
+    <Compile Include="SMBClasses\hrcpln.cs" />
+    <Compile Include="SMBClasses\hrscmp.cs" />
+    <Compile Include="SMBClasses\inctyp.cs" />
+    <Compile Include="SMBClasses\invalc.cs" />
+    <Compile Include="SMBClasses\invbal.cs" />
+    <Compile Include="SMBClasses\invhst.cs" />
+    <Compile Include="SMBClasses\invloc.cs" />
+    <Compile Include="SMBClasses\invout.cs" />
+    <Compile Include="SMBClasses\invqty.cs" />
+    <Compile Include="SMBClasses\invser.cs" />
+    <Compile Include="SMBClasses\invtln.cs" />
+    <Compile Include="SMBClasses\jobcnt.cs" />
+    <Compile Include="SMBClasses\jobcst.cs" />
+    <Compile Include="SMBClasses\jobmnu.cs" />
+    <Compile Include="SMBClasses\jobpgp.cs" />
+    <Compile Include="SMBClasses\jobphs.cs" />
+    <Compile Include="SMBClasses\jobtyp.cs" />
+    <Compile Include="SMBClasses\ledsrc.cs" />
+    <Compile Include="SMBClasses\lgract.cs" />
+    <Compile Include="SMBClasses\lgrsub.cs" />
+    <Compile Include="SMBClasses\lgrtrn.cs" />
+    <Compile Include="SMBClasses\lgtnln.cs" />
+    <Compile Include="SMBClasses\lictyp.cs" />
+    <Compile Include="SMBClasses\loctax.cs" />
+    <Compile Include="SMBClasses\lonfrm.cs" />
+    <Compile Include="SMBClasses\lonlin.cs" />
+    <Compile Include="SMBClasses\mallst.cs" />
+    <Compile Include="SMBClasses\mscfld.cs" />
+    <Compile Include="SMBClasses\msctbl.cs" />
+    <Compile Include="SMBClasses\mtgtyp.cs" />
+    <Compile Include="SMBClasses\payded.cs" />
+    <Compile Include="SMBClasses\paygrp.cs" />
+    <Compile Include="SMBClasses\paypst.cs" />
+    <Compile Include="SMBClasses\payrec.cs" />
+    <Compile Include="SMBClasses\payuni.cs" />
+    <Compile Include="SMBClasses\pchlst.cs" />
+    <Compile Include="SMBClasses\pchord.cs" />
+    <Compile Include="SMBClasses\pchtyp.cs" />
+    <Compile Include="SMBClasses\pclsln.cs" />
+    <Compile Include="SMBClasses\pcorat.cs" />
+    <Compile Include="SMBClasses\pcorln.cs" />
+    <Compile Include="SMBClasses\plnrcd.cs" />
+    <Compile Include="SMBClasses\plnrcv.cs" />
+    <Compile Include="SMBClasses\pmcgat.cs" />
+    <Compile Include="SMBClasses\pmcgln.cs" />
+    <Compile Include="SMBClasses\pnrcln.cs" />
+    <Compile Include="SMBClasses\prdlst.cs" />
+    <Compile Include="SMBClasses\prelen.cs" />
+    <Compile Include="SMBClasses\prichk.cs" />
+    <Compile Include="SMBClasses\pricrd.cs" />
+    <Compile Include="SMBClasses\prmchg.cs" />
+    <Compile Include="SMBClasses\propsl.cs" />
+    <Compile Include="SMBClasses\prplin.cs" />
+    <Compile Include="SMBClasses\prtcls.cs" />
+    <Compile Include="SMBClasses\pstpyr.cs" />
+    <Compile Include="SMBClasses\ptotkf.cs" />
+    <Compile Include="SMBClasses\qrylst.cs" />
+    <Compile Include="SMBClasses\rcapeq.cs" />
+    <Compile Include="SMBClasses\rcapjb.cs" />
+    <Compile Include="SMBClasses\rcapln.cs" />
+    <Compile Include="SMBClasses\rcareq.cs" />
+    <Compile Include="SMBClasses\rcarjb.cs" />
+    <Compile Include="SMBClasses\rcarln.cs" />
+    <Compile Include="SMBClasses\rcccrd.cs" />
+    <Compile Include="SMBClasses\rcceqp.cs" />
+    <Compile Include="SMBClasses\rccjob.cs" />
+    <Compile Include="SMBClasses\rccpay.cs" />
+    <Compile Include="SMBClasses\rccrec.cs" />
+    <Compile Include="SMBClasses\rcctrn.cs" />
+    <Compile Include="SMBClasses\rctnln.cs" />
+    <Compile Include="SMBClasses\reccln.cs" />
+    <Compile Include="SMBClasses\referl.cs" />
+    <Compile Include="SMBClasses\reqinf.cs" />
+    <Compile Include="SMBClasses\reqprp.cs" />
+    <Compile Include="SMBClasses\reqtyp.cs" />
+    <Compile Include="SMBClasses\rfityp.cs" />
+    <Compile Include="SMBClasses\routin.cs" />
+    <Compile Include="SMBClasses\rptdft.cs" />
+    <Compile Include="SMBClasses\rptscd.cs" />
+    <Compile Include="SMBClasses\rqifat.cs" />
+    <Compile Include="SMBClasses\rqprat.cs" />
+    <Compile Include="SMBClasses\rqprln.cs" />
+    <Compile Include="SMBClasses\sbcgln.cs" />
+    <Compile Include="SMBClasses\sbcnat.cs" />
+    <Compile Include="SMBClasses\sbcnln.cs" />
+    <Compile Include="SMBClasses\sbctyp.cs" />
+    <Compile Include="SMBClasses\sbmsts.cs" />
+    <Compile Include="SMBClasses\sbmtln.cs" />
+    <Compile Include="SMBClasses\scdlen.cs" />
+    <Compile Include="SMBClasses\scdpay.cs" />
+    <Compile Include="SMBClasses\schdte.cs" />
+    <Compile Include="SMBClasses\schedl.cs" />
+    <Compile Include="SMBClasses\schemp.cs" />
+    <Compile Include="SMBClasses\scheqp.cs" />
+    <Compile Include="SMBClasses\schlin.cs" />
+    <Compile Include="SMBClasses\schprd.cs" />
+    <Compile Include="SMBClasses\schsub.cs" />
+    <Compile Include="SMBClasses\schtsk.cs" />
+    <Compile Include="SMBClasses\smbtable.cs" />
+    <Compile Include="SMBClasses\smttyp.cs" />
+    <Compile Include="SMBClasses\source.cs" />
+    <Compile Include="SMBClasses\srcneq.cs" />
+    <Compile Include="SMBClasses\srcnlc.cs" />
+    <Compile Include="SMBClasses\srtxdt.cs" />
+    <Compile Include="SMBClasses\srvcnt.cs" />
+    <Compile Include="SMBClasses\srveqp.cs" />
+    <Compile Include="SMBClasses\srvgeo.cs" />
+    <Compile Include="SMBClasses\srvinv.cs" />
+    <Compile Include="SMBClasses\srvlin.cs" />
+    <Compile Include="SMBClasses\srvloc.cs" />
+    <Compile Include="SMBClasses\srvpmt.cs" />
+    <Compile Include="SMBClasses\srvrte.cs" />
+    <Compile Include="SMBClasses\srvsch.cs" />
+    <Compile Include="SMBClasses\srvtyp.cs" />
+    <Compile Include="SMBClasses\stetax.cs" />
+    <Compile Include="SMBClasses\subcon.cs" />
+    <Compile Include="SMBClasses\submtl.cs" />
+    <Compile Include="SMBClasses\szelst.cs" />
+    <Compile Include="SMBClasses\taxdst.cs" />
+    <Compile Include="SMBClasses\taxent.cs" />
+    <Compile Include="SMBClasses\timemp.cs" />
+    <Compile Include="SMBClasses\timeqp.cs" />
+    <Compile Include="SMBClasses\timmat.cs" />
+    <Compile Include="SMBClasses\tkflin.cs" />
+    <Compile Include="SMBClasses\tkfprt.cs" />
+    <Compile Include="SMBClasses\tmcddd.cs" />
+    <Compile Include="SMBClasses\tmcdln.cs" />
+    <Compile Include="SMBClasses\tmcdtx.cs" />
+    <Compile Include="SMBClasses\tmemln.cs" />
+    <Compile Include="SMBClasses\tmeqln.cs" />
+    <Compile Include="SMBClasses\tmplte.cs" />
+    <Compile Include="SMBClasses\tnmtln.cs" />
+    <Compile Include="SMBClasses\trmtyp.cs" />
+    <Compile Include="SMBClasses\trnmtl.cs" />
+    <Compile Include="SMBClasses\trntyp.cs" />
+    <Compile Include="SMBClasses\tsktyp.cs" />
+    <Compile Include="SMBClasses\uncpln.cs" />
+    <Compile Include="SMBClasses\unprln.cs" />
+    <Compile Include="SMBClasses\untbll.cs" />
+    <Compile Include="SMBClasses\untcmp.cs" />
+    <Compile Include="SMBClasses\untlin.cs" />
+    <Compile Include="SMBClasses\untprp.cs" />
+    <Compile Include="SMBClasses\usrlst.cs" />
+    <Compile Include="SMBClasses\vndcnt.cs" />
+    <Compile Include="SMBClasses\vndcrt.cs" />
+    <Compile Include="SMBClasses\vndprc.cs" />
+    <Compile Include="SMBClasses\vndrmt.cs" />
+    <Compile Include="SMBClasses\vndtyp.cs" />
+    <Compile Include="SMBClasses\wkrcmp.cs" />
+    <Compile Include="SMBClasses\wnddft.cs" />
+    <Compile Include="Tests\Tests.cs" />
+    <Compile Include="Web\Forms.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -224,6 +456,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Protection\ProtectionPlusIntroForm.resx">
+      <DependentUpon>ProtectionPlusIntroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Protection\ProtectionPlusOnlineActivationForm.resx">
       <DependentUpon>ProtectionPlusOnlineActivationForm.cs</DependentUpon>

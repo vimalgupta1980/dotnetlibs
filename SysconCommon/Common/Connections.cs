@@ -61,7 +61,19 @@ namespace SysconCommon.Common.Environment
             {
                 cmd.CommandText = string.Format(sqlfmt, args);
                 Env.DebugPrint(cmd.CommandText);
-                return (T) Convert.ChangeType(cmd.ExecuteScalar(), typeof(T));
+                var scalar = cmd.ExecuteScalar();
+                if (scalar != null && scalar.GetType() == typeof(string))
+                {
+                    var sscalar = scalar as string;
+                    if (sscalar.Trim() == "")
+                        return default(T);
+                }
+                if (scalar == null)
+                {
+                    return default(T);
+                }
+
+                return (T) Convert.ChangeType(scalar, typeof(T));
             }
         }
 

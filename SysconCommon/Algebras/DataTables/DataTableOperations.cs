@@ -32,6 +32,7 @@ using Antlr.StringTemplate;
 using SysconCommon.Common;
 using SysconCommon.Common.Validity;
 using SysconCommon.Common.Environment;
+using SysconCommon.Parsing;
 
 namespace SysconCommon.Algebras.DataTables
 {
@@ -956,12 +957,19 @@ namespace SysconCommon.Algebras.DataTables
                     var fields = new List<string>();
                     foreach (var dc in self.Columns.ToIEnumerable())
                     {
-                        fields.Add(get_value(dc, row));
+                        var quote_types = new Type[] { typeof(string), typeof(DateTime) };
+                        var value = get_value(dc, row);
+                        if (quote_types.Contains(dc.DataType))
+                        {
+                            value = "'" + value + "'";
+                        }
+
+                        fields.Add(value);
                     }
 
                     var sql = string.Format("insert into {0} ({1}) values ({2})"
                         , table_name, string.Join(",", names.ToArray()),
-                        string.Join(",", fields.Select(f => string.Format("'{0}'", f)).ToArray()));
+                        string.Join(",", fields.ToArray()));
 
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
@@ -984,7 +992,17 @@ namespace SysconCommon.Algebras.DataTables
             , bool quote_column_names
             )
         {
-            self.DataTableSqlInsert(dbcon, table_name, quote_column_names, (dc, dr) => dr[dc].ToString());
+            self.DataTableSqlInsert(dbcon, table_name, quote_column_names, (dc, dr) =>
+            {
+                if (dc.DataType == typeof(DateTime))
+                {
+                    return ((DateTime)dr[dc]).ToShortDateString();
+                }
+                else
+                {
+                    return dr[dc].ToString();
+                }
+            });
         }
 
         /// <summary>
