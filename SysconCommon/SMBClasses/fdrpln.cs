@@ -2,49 +2,82 @@ using System;
 
 namespace SMB.Tables {
 	public class fdrpln : smbtable {
+		/// <summary>
+		/// Record#                         
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Line#                           
+		/// </summary>
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
-		public int linnum;
+		public long linnum;
 
+		/// <summary>
+		/// Employee                        
+		/// </summary>
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Employee")]
-		public int empnum;
+		public long empnum;
 
+		/// <summary>
+		/// Cost Code                       
+		/// </summary>
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
 
+		/// <summary>
+		/// Pay Type                        
+		/// </summary>
 		[SMBFieldName("paytyp")]
 		[SMBFieldDescription("Pay Type")]
-		public int paytyp;
+		public long paytyp;
 
+		/// <summary>
+		/// Paygroup                        
+		/// </summary>
 		[SMBFieldName("paygrp")]
 		[SMBFieldDescription("Paygroup")]
-		public int paygrp;
+		public long paygrp;
 
+		/// <summary>
+		/// Hours/Pieces                    
+		/// </summary>
 		[SMBFieldName("hrspce")]
 		[SMBFieldDescription("Hours/Pieces")]
 		public decimal hrspce;
 
+		/// <summary>
+		/// User Defined                    
+		/// </summary>
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
 
+		/// <summary>
+		/// Notes                           
+		/// </summary>
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
 
+		/// <summary>
+		/// Absence Reason                  
+		/// </summary>
 		[SMBFieldName("absnce")]
 		[SMBFieldDescription("Absence Reason")]
-		public int absnce;
+		public long absnce;
 
+		/// <summary>
+		/// Required Training               
+		/// </summary>
 		[SMBFieldName("reqtrn")]
 		[SMBFieldDescription("Required Training")]
-		public int reqtrn;
+		public long reqtrn;
 
 	}
 }

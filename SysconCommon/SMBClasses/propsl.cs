@@ -2,30 +2,51 @@ using System;
 
 namespace SMB.Tables {
 	public class propsl : smbtable {
+		/// <summary>
+		/// Job#                            
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Lock Edit                       
+		/// </summary>
 		[SMBFieldName("lckedt")]
 		[SMBFieldDescription("Lock Edit")]
-		public int lckedt;
+		public long lckedt;
 
+		/// <summary>
+		/// Hot List                        
+		/// </summary>
 		[SMBFieldName("hotlst")]
 		[SMBFieldDescription("Hot List")]
-		public int hotlst;
+		public long hotlst;
 
+		/// <summary>
+		/// Edit Date                       
+		/// </summary>
 		[SMBFieldName("edtdte")]
 		[SMBFieldDescription("Edit Date")]
 		public DateTime edtdte;
 
+		/// <summary>
+		/// User Name                       
+		/// </summary>
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User Name")]
 		public string usrnme;
 
+		/// <summary>
+		/// Proposal Basis                  
+		/// </summary>
 		[SMBFieldName("colshw")]
 		[SMBFieldDescription("Proposal Basis")]
-		public int colshw;
+		public long colshw;
 
+		/// <summary>
+		/// Notes                           
+		/// </summary>
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

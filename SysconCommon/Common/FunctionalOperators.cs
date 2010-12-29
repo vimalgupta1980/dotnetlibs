@@ -372,6 +372,20 @@ namespace SysconCommon.Common
         /// <summary>
         /// This is just a convenient way to get a range of integers so you can
         /// use the more palatable foreach instead of for, removing state from
+        /// the equation
+        /// </summary>
+        /// <param name="bottom"></param>
+        /// <param name="top"></param>
+        /// <returns>[bottom ... top-1]</returns>
+        public static IEnumerable<long> Range(this long bottom, long top)
+        {
+            for (long i = bottom; i < top; i++)
+                yield return i;
+        }
+
+        /// <summary>
+        /// This is just a convenient way to get a range of integers so you can
+        /// use the more palatable foreach instead of for, removing state from
         /// the equation, this is the same as Range(0, top)
         /// </summary>
         /// <param name="bottom"></param>

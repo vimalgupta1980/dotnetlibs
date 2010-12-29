@@ -15,6 +15,20 @@ namespace SysconCommon.GUI
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(SearchableComboBox_KeyDown);
+            this.LostFocus += new EventHandler(SearchableComboBox_LostFocus);
+        }
+
+        void SearchableComboBox_LostFocus(object sender, EventArgs e)
+        {
+            foreach (var i in this.Items)
+            {
+                var s = i.ToString();
+                if (s.ToUpper().Contains(this.Text.Trim().ToUpper()))
+                {
+                    this.SelectedItem = i;
+                    return;
+                }
+            }
         }
 
         void SearchableComboBox_KeyDown(object sender, KeyEventArgs e)
@@ -27,6 +41,7 @@ namespace SysconCommon.GUI
                     if (s.ToUpper().Contains(this.Text.Trim().ToUpper()))
                     {
                         this.SelectedItem = i;
+                        return;
                     }
                 }
             }

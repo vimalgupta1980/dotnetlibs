@@ -2,18 +2,30 @@ using System;
 
 namespace SMB.Tables {
 	public class schdte : smbtable {
+		/// <summary>
+		/// Job#                            
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Phase#                          
+		/// </summary>
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase#")]
-		public int phsnum;
+		public long phsnum;
 
+		/// <summary>
+		/// Task#                           
+		/// </summary>
 		[SMBFieldName("tsknum")]
 		[SMBFieldDescription("Task#")]
 		public decimal tsknum;
 
+		/// <summary>
+		/// Date                            
+		/// </summary>
 		[SMBFieldName("schdte")]
 		[SMBFieldDescription("Date")]
 		public DateTime _schdte;

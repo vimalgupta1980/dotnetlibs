@@ -2,22 +2,37 @@ using System;
 
 namespace SMB.Tables {
 	public class pstpyr : smbtable {
+		/// <summary>
+		/// Record#                         
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Posting#                        
+		/// </summary>
 		[SMBFieldName("pstnum")]
 		[SMBFieldDescription("Posting#")]
-		public int pstnum;
+		public long pstnum;
 
+		/// <summary>
+		/// Department                      
+		/// </summary>
 		[SMBFieldName("dptmnt")]
 		[SMBFieldDescription("Department")]
-		public int dptmnt;
+		public long dptmnt;
 
+		/// <summary>
+		/// Dr Acct                         
+		/// </summary>
 		[SMBFieldName("dbtact")]
 		[SMBFieldDescription("Dr Acct")]
-		public int dbtact;
+		public long dbtact;
 
+		/// <summary>
+		/// Amount                          
+		/// </summary>
 		[SMBFieldName("amount")]
 		[SMBFieldDescription("Amount")]
 		public decimal amount;

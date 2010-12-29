@@ -52,10 +52,10 @@ namespace SMB.Tables
             return GetAll<T>(null);
         }
 
-        public static T[] Get<T>(string sql)
+        public static T[] Get<T>(string sql, params object[] args)
             where T: smbtable, new()
         {
-            var dt = Connections.Connection.GetDataTable("tmptable", sql);
+            var dt = Connections.Connection.GetDataTable("tmptable", sql, args);
             return dt.ToList<T>().ToArray();
         }
 

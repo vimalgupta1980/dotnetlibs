@@ -147,6 +147,12 @@
     </Compile>
     <Compile Include="GUI\ComboBox.cs" />
     <Compile Include="GUI\DataGridViewExtensions.cs" />
+    <Compile Include="GUI\MultiJobSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MultiJobSelector.Designer.cs">
+      <DependentUpon>MultiJobSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ProgressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -440,6 +446,9 @@
   <ItemGroup>
     <EmbeddedResource Include="GUI\AssociationGridView.resx">
       <DependentUpon>AssociationGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MultiJobSelector.resx">
+      <DependentUpon>MultiJobSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>

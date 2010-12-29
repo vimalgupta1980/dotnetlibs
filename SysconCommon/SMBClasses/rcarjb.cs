@@ -2,38 +2,65 @@ using System;
 
 namespace SMB.Tables {
 	public class rcarjb : smbtable {
+		/// <summary>
+		/// Record#                         
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Work Order                      
+		/// </summary>
 		[SMBFieldName("wrkord")]
 		[SMBFieldDescription("Work Order")]
 		public string wrkord;
 
+		/// <summary>
+		/// Job                             
+		/// </summary>
 		[SMBFieldName("jobnum")]
 		[SMBFieldDescription("Job")]
-		public int jobnum;
+		public long jobnum;
 
+		/// <summary>
+		/// Description                     
+		/// </summary>
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
 
+		/// <summary>
+		/// Phase                           
+		/// </summary>
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
-		public int phsnum;
+		public long phsnum;
 
+		/// <summary>
+		/// Cost Code                       
+		/// </summary>
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
 
+		/// <summary>
+		/// Cost Type                       
+		/// </summary>
 		[SMBFieldName("csttyp")]
 		[SMBFieldDescription("Cost Type")]
-		public int csttyp;
+		public long csttyp;
 
+		/// <summary>
+		/// Cost                            
+		/// </summary>
 		[SMBFieldName("cstamt")]
 		[SMBFieldDescription("Cost")]
 		public decimal cstamt;
 
+		/// <summary>
+		/// Notes                           
+		/// </summary>
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

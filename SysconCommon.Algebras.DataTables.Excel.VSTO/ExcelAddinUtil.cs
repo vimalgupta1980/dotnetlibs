@@ -72,10 +72,8 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
                 return app;
             }
 
-            var dtarray = self.ToMultiDimArray<object>(false);
-            r.set_Value(System.Reflection.Missing.Value, dtarray);
-
-            return app;
+            // writing to the named range directly fills empty cells with #N/A, we don't want that
+            return self.WriteToExcel(template, worksheet, r.Row - 1, r.Column - 1, false);
         }
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)

@@ -166,7 +166,7 @@ namespace SysconCommon.Accounting.MasterBuilder
         {
             get
             {
-                if (_HasTAndM == null)
+                if (true)
                 {
                     TimeAndMaterial.SetCache("select * from timmat where recnum = {0}", this.JobNumber);
 
@@ -185,10 +185,10 @@ namespace SysconCommon.Accounting.MasterBuilder
                         }
                     }, JobNumber);
                 }
-                else
-                {
-                    return _HasTAndM.Value ? new TimeAndMaterial(int.Parse(this.JobNumber)) : null;
-                }
+                // else
+                // {
+                //    return _HasTAndM.Value ? new TimeAndMaterial(int.Parse(this.JobNumber)) : null;
+                // }
             }
         }
 

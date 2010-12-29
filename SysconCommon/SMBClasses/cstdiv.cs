@@ -2,10 +2,16 @@ using System;
 
 namespace SMB.Tables {
 	public class cstdiv : smbtable {
+		/// <summary>
+		/// Division#                       
+		/// </summary>
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Division#")]
-		public int recnum;
+		public long recnum;
 
+		/// <summary>
+		/// Description                     
+		/// </summary>
 		[SMBFieldName("divnme")]
 		[SMBFieldDescription("Description")]
 		public string divnme;
