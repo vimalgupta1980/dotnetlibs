@@ -58,9 +58,9 @@ namespace SysconCommon.Protection
                     MessageBox.Show("Activation failed: " + l.LastError);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Activation failed");
+                MessageBox.Show("Activation failed: " + ex.Message);
             }
             finally
             {

@@ -1,14 +1,7 @@
 using System;
 
 namespace SMB.Tables {
-	public class actrec : smbtable {
-
-        public override string ToString()
-        {
-            // return base.ToString();
-            return string.Format("{0} - {1}", this.recnum, this.jobnme.Trim());
-        }
-
+	public partial class actrec : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>

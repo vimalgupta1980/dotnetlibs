@@ -1,7 +1,7 @@
 using System;
 
 namespace SMB.Tables {
-	public class employ : smbtable {
+	public partial class employ : smbtable {
 		/// <summary>
 		/// Employee#                       
 		/// </summary>

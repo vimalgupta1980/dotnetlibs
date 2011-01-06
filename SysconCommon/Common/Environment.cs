@@ -93,7 +93,7 @@ namespace SysconCommon.Common.Environment
         {
             // var defaultLogFile = GetEXEDirectory() + "/log.txt";
             var defaultLogFile = "log.txt";
-            File.AppendAllText(GetConfigVar("logfile", defaultLogFile, true), string.Format(msgFormat + "\r\n", arguments));
+            File.AppendAllText(LogFile, string.Format(msgFormat + "\r\n", arguments));
         }
 
         /// <summary>

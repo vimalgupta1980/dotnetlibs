@@ -108,4 +108,22 @@ namespace SMB.Tables
             this.name = name;
         }
     }
+
+    public partial class actrec : smbtable
+    {
+        public override string ToString()
+        {
+            // return base.ToString();
+            return string.Format("{0} - {1}", this.recnum, this.jobnme.Trim());
+        }
+    }
+
+    public partial class employ : smbtable
+    {
+        public override string ToString()
+        {
+            // return base.ToString();
+            return string.Format("{0} {1}", this.fstnme.Trim(), this.lstnme.Trim());
+        }
+    }
 }

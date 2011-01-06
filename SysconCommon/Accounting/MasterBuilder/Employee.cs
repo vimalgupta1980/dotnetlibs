@@ -58,7 +58,13 @@ namespace SysconCommon.Accounting.MasterBuilder
             {
                 var dt = Connections.Connection.GetDataTable("emp", "select * from employ where recnum = {0}", id);
                 if (dt.Rows.Count == 0)
-                    throw new SysconException("Employee row not found");
+                // throw new SysconException("Employee row not found");
+                {
+                    this.Recnum = id;
+                    this.FirstName = "";
+                    this.LastName = "";
+                    this.MiddleName = "";
+                }
 
                 loadFromDataRow(dt.Rows[0]);
             }
