@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 
 using SysconCommon.Common.Environment;
 using SysconCommon.Common;
+using SysconCommon.GUI;
 
 namespace SysconCommon.Accounting
 {
@@ -82,7 +83,7 @@ namespace SysconCommon.Accounting
         /// </summary>
         /// <param name="filter">takes a job number and filters</param>
         /// <returns></returns>
-        static public IEnumerable<IJob> GetJobs(Expression<Func<string, bool>> filterexp)
+        static public IEnumerable<IJob> GetJobs(Func<string, bool> filterexp)
         {
             return Cache.CacheResult(() =>
             {
@@ -101,8 +102,17 @@ namespace SysconCommon.Accounting
         {
             return Cache.CacheResult(() =>
             {
-                return GetJobs(jobNumber => true);
-            });
+                var count = Connections.GetScalar<int>("select count(*) from actrec");
+                var progress = new ProgressDialog(count, "Selecting Job List");
+                progress.Show();
+                var result = GetJobs(jobNumber => {
+                    progress.Tick();
+                    return true;
+                });
+
+                progress.Close();
+                return result;
+            }, "AllJobs");
         }
 
         static public IEnumerable<ITimeAndMaterialLineItem> GetTimeAndMaterialLineItemsByCostCode(ICostCode c)
@@ -165,7 +175,7 @@ namespace SysconCommon.Accounting
         /// </summary>
         /// <param name="filter">a filter that takes the jobnumber</param>
         /// <returns></returns>
-        static private IEnumerable<IJob> GetMBJobs(Expression<Func<string, bool>> filter)
+        static private IEnumerable<IJob> GetMBJobs(Func<string, bool> filter)
         {
             using (var cmd = Connections.Connection.CreateCommand())
             {
@@ -174,7 +184,7 @@ namespace SysconCommon.Accounting
                 List<IJob> rv = new List<IJob>();
                 while (rdr.Read())
                 {
-                    if (filter.Compile()(rdr[0].ToString()))
+                    if (filter(rdr[0].ToString()))
                     {
                         rv.Add(new MasterBuilder.Job(rdr[0].ToString()) { JobName = rdr[1].ToString() });
                     }

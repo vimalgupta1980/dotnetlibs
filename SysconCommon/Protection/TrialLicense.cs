@@ -30,7 +30,7 @@ namespace SysconCommon.Protection
         #region Constructors
 
         /// <summary>Default ClientLicense constructor</summary>
-        public TrialLicense(string licenseFilePath, string trialLicenseFilePath, int product_id, string encryption_id, string client_key, string server_key)
+        public TrialLicense(string licenseFilePath, string trialLicenseFilePath, int product_id, string encryption_id, string client_key, string server_key, string alias_path)
             : base(server_key, client_key, true, true, product_id, "", "")
         {
             //NOTE: the two boolean arguments where the base class's constructor is
@@ -50,12 +50,12 @@ namespace SysconCommon.Protection
             this.InitializeCurrentIdentifiers();
 
             //TODO: For this example application, we are just storing the aliases in the same folder as the license.  You should change this for your application!
-            string aliasPath = licenseFilePath.Substring(0, licenseFilePath.LastIndexOf("/") + 1);
+            // string aliasPath = licenseFilePath.Substring(0, licenseFilePath.LastIndexOf("/") + 1);
 
             //TODO: update the alias paths and set the last argument to false ONLY if you wish to DISABLE encryption
-            // this.AddAlias(new LicenseFileSystemAlias(aliasPath + "TrialLicenseAlias1.xml", client_key, false));
+            this.AddAlias(new LicenseFileSystemAlias(alias_path, client_key, true));
             //this.AddAlias(new LicenseFileSystemAlias(aliasPath + "TrialLicenseAlias2.xml", client_key, true));
-            //this.AddAlias(new LicenseWindowsRegistryAlias("Software\\PLUSManaged\\Samples\\UnmanagedTrial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias3"));
+            this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\TM\\Trial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias3"));
             //this.AddAlias(new LicenseWindowsRegistryAlias("Software\\PLUSManaged\\Samples\\UnmanagedTrial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias4"));
 
             //add the time servers to check against - this check occurs in the IsValid method implementation
@@ -103,7 +103,7 @@ namespace SysconCommon.Protection
         /// <returns>bool</returns>
         public bool IsValid()
         {
-            /*
+            
             //Check the aliases...
             int aliasesToCheck, validAliases;
             bool aliasesValid = false;
@@ -112,7 +112,7 @@ namespace SysconCommon.Protection
             //Check the aliases (which initializes information about them)
             aliasesValid = this.CheckAliases(out aliasesToCheck, out validAliases);
             aliasesError = this.m_lastError;
-             * */
+            
 
             //make sure the last date the license was updated isn't in the future
             try
@@ -129,7 +129,7 @@ namespace SysconCommon.Protection
                 return false;
             }
 
-            /*
+           
             //Now that alias data is initialized, see if we need to overwrite the license file with a more recent alias
             LicenseAlias mostRecent = LicenseAlias.GetMostCurrentAlias(this.Aliases);
             if (mostRecent.LastUpdated > this.LastUpdated)
@@ -138,9 +138,9 @@ namespace SysconCommon.Protection
                 int aliasesToWrite, aliasesWritten;
                 this.WriteAliases(out aliasesToWrite, out aliasesWritten);
             }
-             * */
+            
 
-            /*
+            
             //Now also check the alias validation results
             if (!aliasesValid)
             {
@@ -150,7 +150,7 @@ namespace SysconCommon.Protection
                     return false;
                 }
             }
-             * */
+            
 
             //make sure the current date isn't before the effective start date
             try
@@ -214,7 +214,7 @@ namespace SysconCommon.Protection
             int numAliases, numValidAliases;
             // this.CheckAliases(out numAliases, out numValidAliases);
 
-            /*
+            
             //If we found any aliases, write the most recent one as the license file
             LicenseAlias mostRecent = LicenseAlias.GetMostCurrentAlias(this.Aliases);
             if (mostRecent.LastUpdated != DateTime.MinValue)
@@ -224,14 +224,13 @@ namespace SysconCommon.Protection
                 this.WriteAliases(out aliasesToWrite, out aliasesWritten);
                 return true;
             }
-             * */
 
             this.InstallationID = "";
             this.EffectiveStartDate = DateTime.Now.Date;
             this.EffectiveEndDate = DateTime.Now.Date.AddDays(m_trialDays);
 
             int filesToWrite, filesWritten;
-            // this.WriteAliases(out filesToWrite, out filesWritten);
+            this.WriteAliases(out filesToWrite, out filesWritten);
 
             /*
             //TODO: you can add your own logic here to set your own requirements for how many aliases must be written

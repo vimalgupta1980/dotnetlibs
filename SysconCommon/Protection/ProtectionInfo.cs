@@ -59,6 +59,7 @@ namespace SysconCommon.Protection
 
         static public IClientLicense GetLicense(int product_id, string product_version)
         {
+            string alias_path = "c:\\windows\\system32\\Trial" + product_id.ToString() + ".xml";
             try
             {
                 if (System.IO.File.Exists(LicenseLocation))
@@ -80,14 +81,14 @@ namespace SysconCommon.Protection
             {
                 if (!System.IO.File.Exists(TrialLicenseLocation))
                 {
-                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
+                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
                     var got_new_trial = trial.CreateFreshTrial();
                     trial.LoadFile();
                     return trial;
                 }
                 else
                 {
-                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey);
+                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
                     trial.LoadFile();
                     return trial;
                 }

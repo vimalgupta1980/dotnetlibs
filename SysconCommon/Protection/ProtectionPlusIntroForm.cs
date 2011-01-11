@@ -28,7 +28,7 @@ namespace SysconCommon.Protection
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var dlg = new ProtectionPlusOnlineActivationForm(_license.ProductID, _license.ProductVersion);
+            var dlg = new ProtectionPlusOnlineActivationForm(_license.ThisProductID, "1.0.0.0");
             dlg.ShowDialog();
             ActivationSuccessful = dlg.ActivationSuccessful;
             this.Close();
