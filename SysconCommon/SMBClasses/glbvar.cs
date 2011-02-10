@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class glbvar : smbtable {
+	public partial class glbvar : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Variable Name                   
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("abvnme")]
 		[SMBFieldDescription("Variable Name")]
 		public string abvnme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("untdsc")]
 		[SMBFieldDescription("Unit")]
 		public string untdsc;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Value                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("glbval")]
 		[SMBFieldDescription("Value")]
 		public decimal glbval;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

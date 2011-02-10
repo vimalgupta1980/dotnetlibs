@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class arivln : smbtable {
+	public partial class arivln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part#                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("prtnum")]
 		[SMBFieldDescription("Part#")]
 		public long prtnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Alpha Part#                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("alpnum")]
 		[SMBFieldDescription("Alpha Part#")]
 		public string alpnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("untdsc")]
 		[SMBFieldDescription("Unit")]
 		public string untdsc;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quantity                        
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("linqty")]
 		[SMBFieldDescription("Quantity")]
 		public decimal linqty;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Price                           
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("linprc")]
 		[SMBFieldDescription("Price")]
 		public decimal linprc;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("extprc")]
 		[SMBFieldDescription("Total")]
 		public decimal extprc;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Account                         
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("lgract")]
 		[SMBFieldDescription("Account")]
 		public long lgract;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subaccount                      
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("subact")]
 		[SMBFieldDescription("Subaccount")]
 		public long subact;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

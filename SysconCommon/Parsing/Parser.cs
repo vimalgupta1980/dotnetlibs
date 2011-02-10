@@ -49,6 +49,11 @@ namespace SysconCommon.Parsing
         {
             get { return next_char_index >= stream.Length; }
         }
+
+        public override string ToString()
+        {
+            return stream;
+        }
     }
 
     public class ParseResult<T>
@@ -102,6 +107,23 @@ namespace SysconCommon.Parsing
                 else
                     return stream.GetToken();
             };
+        }
+
+        static public Parser<string> MultiChar(string s)
+        {
+            return (stream) =>
+                {
+                    foreach (var c in s)
+                    {
+                        var next_char = Parse.Char(c)(stream);
+                        if (!next_char.IsSuccess || next_char.result != c)
+                            return ParseResult<string>.Failure();
+                        else
+                            stream = next_char.NewStream;
+                    }
+
+                    return new ParseResult<string>(true, s, stream);
+                };
         }
 
         static public Parser<char> Char(char c)

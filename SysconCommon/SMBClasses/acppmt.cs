@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class acppmt : smbtable {
+	public partial class acppmt : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Trans#                          
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("chknum")]
 		[SMBFieldDescription("Trans#")]
 		public string chknum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Date                            
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("chkdte")]
 		[SMBFieldDescription("Date")]
 		public DateTime chkdte;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Period                          
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("actper")]
 		[SMBFieldDescription("Period")]
 		public long actper;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Amount Paid                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("amount")]
 		[SMBFieldDescription("Amount Paid")]
 		public decimal amount;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Discount Taken                  
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("dsctkn")]
 		[SMBFieldDescription("Discount Taken")]
 		public decimal dsctkn;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Credit Taken                    
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("aplcrd")]
 		[SMBFieldDescription("Credit Taken")]
 		public decimal aplcrd;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ledger Ref#                     
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("lgrrec")]
 		[SMBFieldDescription("Ledger Ref#")]
 		public long lgrrec;

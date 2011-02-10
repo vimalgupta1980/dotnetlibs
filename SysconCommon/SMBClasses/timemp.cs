@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class timemp : smbtable {
+	public partial class timemp : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Rate Table Description          
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("tbldsc")]
 		[SMBFieldDescription("Rate Table Description")]
 		public string tbldsc;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Edit Date                       
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("edtdte")]
 		[SMBFieldDescription("Edit Date")]
 		public DateTime edtdte;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lock Edit                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("lckedt")]
 		[SMBFieldDescription("Lock Edit")]
 		public long lckedt;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Edit User                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("Edit User")]
 		public string usrnme;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

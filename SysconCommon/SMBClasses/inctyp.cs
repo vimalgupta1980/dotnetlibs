@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class inctyp : smbtable {
+	public partial class inctyp : smbtable {
 		/// <summary>
 		/// Type#                           
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Type#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Type Name                       
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Type Name")]
 		public string dscrpt;

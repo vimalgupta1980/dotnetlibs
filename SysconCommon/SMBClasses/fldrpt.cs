@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class fldrpt : smbtable {
+	public partial class fldrpt : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Date                            
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("rptdte")]
 		[SMBFieldDescription("Date")]
 		public DateTime rptdte;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Job                             
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("jobnum")]
 		[SMBFieldDescription("Job")]
 		public long jobnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
 		public long phsnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Reported by                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Reported by")]
 		public long empnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Weather                         
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("wthcon")]
 		[SMBFieldDescription("Weather")]
 		public string wthcon;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Temperature                     
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("tmptur")]
 		[SMBFieldDescription("Temperature")]
 		public string tmptur;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def1                       
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Def1")]
 		public string usrdf1;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def2                       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("usrdf2")]
 		[SMBFieldDescription("User Def2")]
 		public string usrdf2;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Entered                         
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("entdte")]
 		[SMBFieldDescription("Entered")]
 		public DateTime entdte;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User                            
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User")]
 		public string usrnme;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Hot List                        
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("hotlst")]
 		[SMBFieldDescription("Hot List")]
 		public long hotlst;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lock Edit                       
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("lckedt")]
 		[SMBFieldDescription("Lock Edit")]
 		public long lckedt;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class cstcde : smbtable {
+	public partial class cstcde : smbtable {
 		/// <summary>
 		/// Cost Code#                      
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Cost Code#")]
 		public decimal recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("cdenme")]
 		[SMBFieldDescription("Description")]
 		public string cdenme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("untdsc")]
 		[SMBFieldDescription("Unit")]
 		public string untdsc;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Division                        
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("divnum")]
 		[SMBFieldDescription("Division")]
 		public long divnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Comp Code1                      
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("cmpcde")]
 		[SMBFieldDescription("Comp Code1")]
 		public long cmpcde;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Wage Max                        
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("maxwge")]
 		[SMBFieldDescription("Wage Max")]
 		public decimal maxwge;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Comp Code2                      
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("cmpcd2")]
 		[SMBFieldDescription("Comp Code2")]
 		public long cmpcd2;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Department                      
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("dptnum")]
 		[SMBFieldDescription("Department")]
 		public long dptnum;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

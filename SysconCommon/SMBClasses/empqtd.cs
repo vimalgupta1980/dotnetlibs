@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class empqtd : smbtable {
+	public partial class empqtd : smbtable {
 		/// <summary>
 		/// Employee#                       
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Employee#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Calculation                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("clcnum")]
 		[SMBFieldDescription("Calculation")]
 		public long clcnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Rate                            
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("dedrte")]
 		[SMBFieldDescription("Rate")]
 		public decimal dedrte;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Maximum                         
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("dedmax")]
 		[SMBFieldDescription("Maximum")]
 		public decimal dedmax;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Marital                         
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("mrtsts")]
 		[SMBFieldDescription("Marital")]
 		public long mrtsts;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Std Allow                       
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("allows")]
 		[SMBFieldDescription("Std Allow")]
 		public long allows;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add Allow                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("addall")]
 		[SMBFieldDescription("Add Allow")]
 		public long addall;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Table#                          
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("tblnum")]
 		[SMBFieldDescription("Table#")]
 		public long tblnum;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add W/H                         
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("addste")]
 		[SMBFieldDescription("Add W/H")]
 		public decimal addste;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Offset                          
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("offset")]
 		[SMBFieldDescription("Offset")]
 		public decimal offset;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quarter 1                       
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("fstqtr")]
 		[SMBFieldDescription("Quarter 1")]
 		public decimal fstqtr;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quarter 2                       
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("scdqtr")]
 		[SMBFieldDescription("Quarter 2")]
 		public decimal scdqtr;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quarter 3                       
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("thdqtr")]
 		[SMBFieldDescription("Quarter 3")]
 		public decimal thdqtr;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quarter 4                       
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("fthqtr")]
 		[SMBFieldDescription("Quarter 4")]
 		public decimal fthqtr;

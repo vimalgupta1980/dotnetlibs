@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class jobpgp : smbtable {
+	public partial class jobpgp : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Position                        
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("reggrp")]
 		[SMBFieldDescription("Position")]
 		public long reggrp;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Paygroup                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("paygrp")]
 		[SMBFieldDescription("Paygroup")]
 		public long paygrp;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Piece Rate                      
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("pcerte")]
 		[SMBFieldDescription("Piece Rate")]
 		public decimal pcerte;

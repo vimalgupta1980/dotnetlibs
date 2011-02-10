@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class glbclc : smbtable {
+	public partial class glbclc : smbtable {
 		/// <summary>
 		/// Name                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("clcnme")]
 		[SMBFieldDescription("Name")]
 		public string clcnme;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("clcdsc")]
 		[SMBFieldDescription("Description")]
 		public string clcdsc;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Expression                      
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("clcexp")]
 		[SMBFieldDescription("Expression")]
 		public string clcexp;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lock Edit                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("lckedt")]
 		[SMBFieldDescription("Lock Edit")]
 		public long lckedt;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// OMware Lock                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("omwlck")]
 		[SMBFieldDescription("OMware Lock")]
 		public long omwlck;

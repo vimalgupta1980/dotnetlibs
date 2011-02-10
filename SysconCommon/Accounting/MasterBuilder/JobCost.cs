@@ -77,6 +77,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             this.Description = row["dscrpt"].ToString().NullToBlank();
             this.TransactionDate = Convert.ToDateTime(row["trndte"]);
             this.CostType = new CostType(Convert.ToInt32(row["csttyp"]));
+            this.Vendor = new Vendor(Convert.ToInt64(row["vndnum"]));
         }
 
         static public void SetCache(string sqlfmt, params object[] args)
@@ -557,5 +558,7 @@ namespace SysconCommon.Accounting.MasterBuilder
                 _Phase = value;
             }
         }
+
+        public IVendor Vendor { get; set; }
     }
 }

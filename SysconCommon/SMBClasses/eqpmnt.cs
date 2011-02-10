@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class eqpmnt : smbtable {
+	public partial class eqpmnt : smbtable {
 		/// <summary>
 		/// Equip#                          
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Equip#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("eqpnme")]
 		[SMBFieldDescription("Description")]
 		public string eqpnme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Short Name                      
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("shtnme")]
 		[SMBFieldDescription("Short Name")]
 		public string shtnme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Serial#                         
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("srlnum")]
 		[SMBFieldDescription("Serial#")]
 		public string srlnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// License#                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("licnum")]
 		[SMBFieldDescription("License#")]
 		public string licnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// PUC#                            
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("pucnum")]
 		[SMBFieldDescription("PUC#")]
 		public string pucnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Loan#                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("lonnum")]
 		[SMBFieldDescription("Loan#")]
 		public string lonnum;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lender                          
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("lender")]
 		[SMBFieldDescription("Lender")]
 		public long lender;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Purchased                       
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("pchdte")]
 		[SMBFieldDescription("Purchased")]
 		public DateTime pchdte;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Pay Date                        
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("nxtpay")]
 		[SMBFieldDescription("Pay Date")]
 		public DateTime nxtpay;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Loan Type                       
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("lontyp")]
 		[SMBFieldDescription("Loan Type")]
 		public long lontyp;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Interest Rate                   
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("intrte")]
 		[SMBFieldDescription("Interest Rate")]
 		public decimal intrte;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Payment                         
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("paymnt")]
 		[SMBFieldDescription("Payment")]
 		public decimal paymnt;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Depreciation                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("deprte")]
 		[SMBFieldDescription("Depreciation")]
 		public decimal deprte;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Deprec Acct                     
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("depact")]
 		[SMBFieldDescription("Deprec Acct")]
 		public long depact;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Interest Acct                   
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("intact")]
 		[SMBFieldDescription("Interest Acct")]
 		public long intact;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Department                      
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("depmnt")]
 		[SMBFieldDescription("Department")]
 		public long depmnt;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def1                       
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Def1")]
 		public string usrdf1;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def2                       
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("usrdf2")]
 		[SMBFieldDescription("User Def2")]
 		public string usrdf2;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Location                   
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("lstloc")]
 		[SMBFieldDescription("Last Location")]
 		public string lstloc;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Operated Bill                   
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("oprbll")]
 		[SMBFieldDescription("Operated Bill")]
 		public decimal oprbll;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Operated Cost                   
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("oprcst")]
 		[SMBFieldDescription("Operated Cost")]
 		public decimal oprcst;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Standby Bill                    
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("stbbll")]
 		[SMBFieldDescription("Standby Bill")]
 		public decimal stbbll;
@@ -166,6 +190,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Standby Cost                    
 		/// </summary>
+		[ColumnOrder(240)]
 		[SMBFieldName("stbcst")]
 		[SMBFieldDescription("Standby Cost")]
 		public decimal stbcst;
@@ -173,6 +198,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Idle Bill                       
 		/// </summary>
+		[ColumnOrder(250)]
 		[SMBFieldName("idlbll")]
 		[SMBFieldDescription("Idle Bill")]
 		public decimal idlbll;
@@ -180,6 +206,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Idle Cost                       
 		/// </summary>
+		[ColumnOrder(260)]
 		[SMBFieldName("idlcst")]
 		[SMBFieldDescription("Idle Cost")]
 		public decimal idlcst;
@@ -187,6 +214,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Hours                           
 		/// </summary>
+		[ColumnOrder(270)]
 		[SMBFieldName("ttlhrs")]
 		[SMBFieldDescription("Hours")]
 		public decimal ttlhrs;
@@ -194,6 +222,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Miles                           
 		/// </summary>
+		[ColumnOrder(280)]
 		[SMBFieldName("ttlmls")]
 		[SMBFieldDescription("Miles")]
 		public decimal ttlmls;
@@ -201,6 +230,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Begin Capital                   
 		/// </summary>
+		[ColumnOrder(290)]
 		[SMBFieldName("begcap")]
 		[SMBFieldDescription("Begin Capital")]
 		public decimal begcap;
@@ -208,6 +238,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// End Capital                     
 		/// </summary>
+		[ColumnOrder(300)]
 		[SMBFieldName("capend")]
 		[SMBFieldDescription("End Capital")]
 		public decimal capend;
@@ -215,6 +246,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Begin Deprec                    
 		/// </summary>
+		[ColumnOrder(310)]
 		[SMBFieldName("begdep")]
 		[SMBFieldDescription("Begin Deprec")]
 		public decimal begdep;
@@ -222,6 +254,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// End Deprec                      
 		/// </summary>
+		[ColumnOrder(320)]
 		[SMBFieldName("depend")]
 		[SMBFieldDescription("End Deprec")]
 		public decimal depend;
@@ -229,6 +262,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Begin Loan                      
 		/// </summary>
+		[ColumnOrder(330)]
 		[SMBFieldName("beglon")]
 		[SMBFieldDescription("Begin Loan")]
 		public decimal beglon;
@@ -236,6 +270,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// End Loan                        
 		/// </summary>
+		[ColumnOrder(340)]
 		[SMBFieldName("lonend")]
 		[SMBFieldDescription("End Loan")]
 		public decimal lonend;
@@ -243,6 +278,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equip. Type                     
 		/// </summary>
+		[ColumnOrder(350)]
 		[SMBFieldName("eqptyp")]
 		[SMBFieldDescription("Equip. Type")]
 		public long eqptyp;
@@ -250,6 +286,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Start Date                      
 		/// </summary>
+		[ColumnOrder(360)]
 		[SMBFieldName("strdte")]
 		[SMBFieldDescription("Start Date")]
 		public DateTime strdte;
@@ -257,6 +294,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// End Date                        
 		/// </summary>
+		[ColumnOrder(370)]
 		[SMBFieldName("enddte")]
 		[SMBFieldDescription("End Date")]
 		public DateTime enddte;
@@ -264,6 +302,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Start Value                     
 		/// </summary>
+		[ColumnOrder(380)]
 		[SMBFieldName("strval")]
 		[SMBFieldDescription("Start Value")]
 		public decimal strval;
@@ -271,6 +310,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ending Value                    
 		/// </summary>
+		[ColumnOrder(390)]
 		[SMBFieldName("endval")]
 		[SMBFieldDescription("Ending Value")]
 		public decimal endval;
@@ -278,6 +318,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance                       
 		/// </summary>
+		[ColumnOrder(400)]
 		[SMBFieldName("insrnc")]
 		[SMBFieldDescription("Insurance")]
 		public decimal insrnc;
@@ -285,6 +326,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Financing                       
 		/// </summary>
+		[ColumnOrder(410)]
 		[SMBFieldName("financ")]
 		[SMBFieldDescription("Financing")]
 		public decimal financ;
@@ -292,6 +334,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax/License                     
 		/// </summary>
+		[ColumnOrder(420)]
 		[SMBFieldName("taxlic")]
 		[SMBFieldDescription("Tax/License")]
 		public decimal taxlic;
@@ -299,6 +342,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Inspection                      
 		/// </summary>
+		[ColumnOrder(430)]
 		[SMBFieldName("inspct")]
 		[SMBFieldDescription("Inspection")]
 		public decimal inspct;
@@ -306,6 +350,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Overhaul                        
 		/// </summary>
+		[ColumnOrder(440)]
 		[SMBFieldName("ovrhed")]
 		[SMBFieldDescription("Overhaul")]
 		public decimal ovrhed;
@@ -313,6 +358,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Storage                         
 		/// </summary>
+		[ColumnOrder(450)]
 		[SMBFieldName("storag")]
 		[SMBFieldDescription("Storage")]
 		public decimal storag;
@@ -320,6 +366,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost of Capital                 
 		/// </summary>
+		[ColumnOrder(460)]
 		[SMBFieldName("cstcap")]
 		[SMBFieldDescription("Cost of Capital")]
 		public decimal cstcap;
@@ -327,6 +374,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Cost                      
 		/// </summary>
+		[ColumnOrder(470)]
 		[SMBFieldName("othcst")]
 		[SMBFieldDescription("Other Cost")]
 		public decimal othcst;
@@ -334,6 +382,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(480)]
 		[SMBFieldName("unttyp")]
 		[SMBFieldDescription("Unit")]
 		public long unttyp;
@@ -341,6 +390,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Estimated Use                   
 		/// </summary>
+		[ColumnOrder(490)]
 		[SMBFieldName("estuse")]
 		[SMBFieldDescription("Estimated Use")]
 		public decimal estuse;
@@ -348,6 +398,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Fuel and Oil                    
 		/// </summary>
+		[ColumnOrder(500)]
 		[SMBFieldName("fuloil")]
 		[SMBFieldDescription("Fuel and Oil")]
 		public decimal fuloil;
@@ -355,6 +406,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tires                           
 		/// </summary>
+		[ColumnOrder(510)]
 		[SMBFieldName("csttir")]
 		[SMBFieldDescription("Tires")]
 		public decimal csttir;
@@ -362,6 +414,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Maintenance                     
 		/// </summary>
+		[ColumnOrder(520)]
 		[SMBFieldName("mntcst")]
 		[SMBFieldDescription("Maintenance")]
 		public decimal mntcst;
@@ -369,6 +422,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Cost                      
 		/// </summary>
+		[ColumnOrder(530)]
 		[SMBFieldName("othopr")]
 		[SMBFieldDescription("Other Cost")]
 		public decimal othopr;
@@ -376,6 +430,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Posted (niu)               
 		/// </summary>
+		[ColumnOrder(540)]
 		[SMBFieldName("lstpst")]
 		[SMBFieldDescription("Last Posted (niu)")]
 		public DateTime lstpst;
@@ -383,6 +438,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(550)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -390,6 +446,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Fluid Change                    
 		/// </summary>
+		[ColumnOrder(560)]
 		[SMBFieldName("fluchg")]
 		[SMBFieldDescription("Fluid Change")]
 		public decimal fluchg;
@@ -397,6 +454,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Minor Repair                    
 		/// </summary>
+		[ColumnOrder(570)]
 		[SMBFieldName("minrpr")]
 		[SMBFieldDescription("Minor Repair")]
 		public decimal minrpr;
@@ -404,6 +462,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Oil Change                      
 		/// </summary>
+		[ColumnOrder(580)]
 		[SMBFieldName("oilchg")]
 		[SMBFieldDescription("Oil Change")]
 		public decimal oilchg;
@@ -411,6 +470,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Mobilization Billing            
 		/// </summary>
+		[ColumnOrder(590)]
 		[SMBFieldName("moblbl")]
 		[SMBFieldDescription("Mobilization Billing")]
 		public decimal moblbl;
@@ -418,6 +478,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Daily Operated Billing          
 		/// </summary>
+		[ColumnOrder(600)]
 		[SMBFieldName("dyopbl")]
 		[SMBFieldDescription("Daily Operated Billing")]
 		public decimal dyopbl;
@@ -425,6 +486,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Daily Standby Billing           
 		/// </summary>
+		[ColumnOrder(610)]
 		[SMBFieldName("dystbl")]
 		[SMBFieldDescription("Daily Standby Billing")]
 		public decimal dystbl;
@@ -432,6 +494,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Daily Idle Billing              
 		/// </summary>
+		[ColumnOrder(620)]
 		[SMBFieldName("dyidbl")]
 		[SMBFieldDescription("Daily Idle Billing")]
 		public decimal dyidbl;
@@ -439,6 +502,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Weekly Operated Billing         
 		/// </summary>
+		[ColumnOrder(630)]
 		[SMBFieldName("wkopbl")]
 		[SMBFieldDescription("Weekly Operated Billing")]
 		public decimal wkopbl;
@@ -446,6 +510,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Weekly Standby Billing          
 		/// </summary>
+		[ColumnOrder(640)]
 		[SMBFieldName("wkstbl")]
 		[SMBFieldDescription("Weekly Standby Billing")]
 		public decimal wkstbl;
@@ -453,6 +518,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Weekly Idle Billing             
 		/// </summary>
+		[ColumnOrder(650)]
 		[SMBFieldName("wkidbl")]
 		[SMBFieldDescription("Weekly Idle Billing")]
 		public decimal wkidbl;
@@ -460,6 +526,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Monthly Operated Billing        
 		/// </summary>
+		[ColumnOrder(660)]
 		[SMBFieldName("mtopbl")]
 		[SMBFieldDescription("Monthly Operated Billing")]
 		public decimal mtopbl;
@@ -467,6 +534,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Monthly Standby Billing         
 		/// </summary>
+		[ColumnOrder(670)]
 		[SMBFieldName("mtstbl")]
 		[SMBFieldDescription("Monthly Standby Billing")]
 		public decimal mtstbl;
@@ -474,6 +542,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Monthly Idle Billing            
 		/// </summary>
+		[ColumnOrder(680)]
 		[SMBFieldName("mtidbl")]
 		[SMBFieldDescription("Monthly Idle Billing")]
 		public decimal mtidbl;
@@ -481,6 +550,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Entered Date                    
 		/// </summary>
+		[ColumnOrder(690)]
 		[SMBFieldName("entdte")]
 		[SMBFieldDescription("Entered Date")]
 		public DateTime entdte;
@@ -488,6 +558,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Name                       
 		/// </summary>
+		[ColumnOrder(700)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User Name")]
 		public string usrnme;
@@ -495,6 +566,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Status                          
 		/// </summary>
+		[ColumnOrder(710)]
 		[SMBFieldName("status")]
 		[SMBFieldDescription("Status")]
 		public long status;
@@ -502,6 +574,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Period                     
 		/// </summary>
+		[ColumnOrder(720)]
 		[SMBFieldName("lstprd")]
 		[SMBFieldDescription("Last Period")]
 		public string lstprd;
@@ -509,6 +582,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Hours                  
 		/// </summary>
+		[ColumnOrder(730)]
 		[SMBFieldName("orghrs")]
 		[SMBFieldDescription("Original Hours")]
 		public decimal orghrs;
@@ -516,6 +590,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Miles                  
 		/// </summary>
+		[ColumnOrder(740)]
 		[SMBFieldName("orgmls")]
 		[SMBFieldDescription("Original Miles")]
 		public decimal orgmls;

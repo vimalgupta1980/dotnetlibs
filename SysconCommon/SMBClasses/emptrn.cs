@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class emptrn : smbtable {
+	public partial class emptrn : smbtable {
 		/// <summary>
 		/// Employee#                       
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Employee#")]
 		public long empnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Training Type                   
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("typnum")]
 		[SMBFieldDescription("Training Type")]
 		public long typnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Date                       
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("lstdte")]
 		[SMBFieldDescription("Last Date")]
 		public DateTime lstdte;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Next Date                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("nxtdte")]
 		[SMBFieldDescription("Next Date")]
 		public DateTime nxtdte;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

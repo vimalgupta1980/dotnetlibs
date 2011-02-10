@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class fdrpln : smbtable {
+	public partial class fdrpln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employee                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Employee")]
 		public long empnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Pay Type                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("paytyp")]
 		[SMBFieldDescription("Pay Type")]
 		public long paytyp;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Paygroup                        
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("paygrp")]
 		[SMBFieldDescription("Paygroup")]
 		public long paygrp;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Hours/Pieces                    
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("hrspce")]
 		[SMBFieldDescription("Hours/Pieces")]
 		public decimal hrspce;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Absence Reason                  
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("absnce")]
 		[SMBFieldDescription("Absence Reason")]
 		public long absnce;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Required Training               
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("reqtrn")]
 		[SMBFieldDescription("Required Training")]
 		public long reqtrn;

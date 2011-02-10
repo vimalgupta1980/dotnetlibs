@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class pmcgln : smbtable {
+	public partial class pmcgln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Estimated                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("estamt")]
 		[SMBFieldDescription("Estimated")]
 		public decimal estamt;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// O/H Rate                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("ovhmrk")]
 		[SMBFieldDescription("O/H Rate")]
 		public decimal ovhmrk;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Profit Rate                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("pftmrk")]
 		[SMBFieldDescription("Profit Rate")]
 		public decimal pftmrk;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Requested                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("reqprc")]
 		[SMBFieldDescription("Requested")]
 		public decimal reqprc;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Approved                        
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("aprprc")]
 		[SMBFieldDescription("Approved")]
 		public decimal aprprc;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type                       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("csttyp")]
 		[SMBFieldDescription("Cost Type")]
 		public long csttyp;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

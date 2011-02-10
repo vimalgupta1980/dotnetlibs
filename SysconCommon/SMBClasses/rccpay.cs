@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class rccpay : smbtable {
+	public partial class rccpay : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Invoice#                        
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("invnum")]
 		[SMBFieldDescription("Invoice#")]
 		public string invnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Vendor                          
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("vndnum")]
 		[SMBFieldDescription("Vendor")]
 		public long vndnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Job                             
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("jobnum")]
 		[SMBFieldDescription("Job")]
 		public long jobnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
 		public long phsnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Next Date                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("nxtdte")]
 		[SMBFieldDescription("Next Date")]
 		public DateTime nxtdte;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Type                            
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("invtyp")]
 		[SMBFieldDescription("Type")]
 		public long invtyp;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Status                          
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("status")]
 		[SMBFieldDescription("Status")]
 		public long status;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def1                       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Def1")]
 		public string usrdf1;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def2                       
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("usrdf2")]
 		[SMBFieldDescription("User Def2")]
 		public string usrdf2;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Discount                        
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("dscavl")]
 		[SMBFieldDescription("Discount")]
 		public decimal dscavl;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Retention                       
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("retain")]
 		[SMBFieldDescription("Retention")]
 		public decimal retain;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Set to Pay                      
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("setpay")]
 		[SMBFieldDescription("Set to Pay")]
 		public decimal setpay;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Invoice Total                   
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("invttl")]
 		[SMBFieldDescription("Invoice Total")]
 		public decimal invttl;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Invoice Net                     
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("invnet")]
 		[SMBFieldDescription("Invoice Net")]
 		public decimal invnet;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Edited Date                     
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("edtdte")]
 		[SMBFieldDescription("Edited Date")]
 		public DateTime edtdte;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Name                       
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User Name")]
 		public string usrnme;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Batch#                          
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("btcnum")]
 		[SMBFieldDescription("Batch#")]
 		public long btcnum;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Hot List                        
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("hotlst")]
 		[SMBFieldDescription("Hot List")]
 		public long hotlst;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

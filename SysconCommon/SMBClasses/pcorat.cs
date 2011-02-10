@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class pcorat : smbtable {
+	public partial class pcorat : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Document                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("docnme")]
 		[SMBFieldDescription("Document")]
 		public string docnme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Copies                          
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("copies")]
 		[SMBFieldDescription("Copies")]
 		public long copies;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

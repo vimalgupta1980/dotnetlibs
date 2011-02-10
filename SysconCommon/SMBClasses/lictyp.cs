@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class lictyp : smbtable {
+	public partial class lictyp : smbtable {
 		/// <summary>
 		/// License#                        
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("License#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// License Type                    
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("typnme")]
 		[SMBFieldDescription("License Type")]
 		public string typnme;

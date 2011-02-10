@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class calnte : smbtable {
+	public partial class calnte : smbtable {
 		/// <summary>
 		/// Date                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("caldte")]
 		[SMBFieldDescription("Date")]
 		public DateTime caldte;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Start                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("caltim")]
 		[SMBFieldDescription("Start")]
 		public DateTime caltim;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// End                             
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("endtim")]
 		[SMBFieldDescription("End")]
 		public DateTime endtim;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Appt. Type                      
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("apttyp")]
 		[SMBFieldDescription("Appt. Type")]
 		public long apttyp;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employee                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Employee")]
 		public long empnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Client                          
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("clnnum")]
 		[SMBFieldDescription("Client")]
 		public long clnnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("caltxt")]
 		[SMBFieldDescription("Notes")]
 		public string caltxt;

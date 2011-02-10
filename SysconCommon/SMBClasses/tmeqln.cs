@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class tmeqln : smbtable {
+	public partial class tmeqln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Type                  
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("eqptyp")]
 		[SMBFieldDescription("Equipment Type")]
 		public long eqptyp;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("eqpnum")]
 		[SMBFieldDescription("Equipment")]
 		public long eqpnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Operated                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("oprrte")]
 		[SMBFieldDescription("Operated")]
 		public decimal oprrte;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Standby                         
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("stdrte")]
 		[SMBFieldDescription("Standby")]
 		public decimal stdrte;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Idle                            
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("idlrte")]
 		[SMBFieldDescription("Idle")]
 		public decimal idlrte;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Minimum Hrs                     
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("minhrs")]
 		[SMBFieldDescription("Minimum Hrs")]
 		public decimal minhrs;

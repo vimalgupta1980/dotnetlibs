@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
+using System.IO;
 // using System.Windows.Forms;
 
 using SysconCommon.Common;
@@ -33,8 +34,18 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         static private Workbook getWorkbook(string template)
         {
+            if (template == null)
+            {
+                return app.Workbooks.Add(Type.Missing);
+            }
+
             if (workbooks.ContainsKey(template))
                 return workbooks[template];
+
+            if (!File.Exists(template))
+            {
+                throw new SysconException("Workbook " + template + " does not exist");
+            }
 
             workbooks.Add(template, app.Workbooks.Add(template));
             return workbooks[template];
@@ -57,6 +68,11 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)
         {
+            return self.WriteToExcel(template, worksheet, namedrange, false);
+        }
+
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange, bool write_headers)
+        {
             var wb = getWorkbook(template);
             var ws = getWorksheet(wb, worksheet);
 
@@ -73,7 +89,7 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             }
 
             // writing to the named range directly fills empty cells with #N/A, we don't want that
-            return self.WriteToExcel(template, worksheet, r.Row - 1, r.Column - 1, false);
+            return self.WriteToExcel(template, worksheet, r.Row - 1, r.Column - 1, write_headers);
         }
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)
@@ -104,7 +120,7 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
                 return new string(new char[] { (char)((int)'A' + colnum) });
             }
 
-            var rem = colnum % 26 - 1;
+            var rem = colnum % 26;
             var first = (colnum / 26) - 1;
             return first.ConvertToExcelColumn() + rem.ConvertToExcelColumn();
         }

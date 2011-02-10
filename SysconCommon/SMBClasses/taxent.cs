@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class taxent : smbtable {
+	public partial class taxent : smbtable {
 		/// <summary>
 		/// Tax Entity#                     
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Tax Entity#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Entity Name                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("entnme")]
 		[SMBFieldDescription("Entity Name")]
 		public string entnme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Remit To                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("paynme")]
 		[SMBFieldDescription("Remit To")]
 		public string paynme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Address 1                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("addrs1")]
 		[SMBFieldDescription("Address 1")]
 		public string addrs1;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Address 2                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("addrs2")]
 		[SMBFieldDescription("Address 2")]
 		public string addrs2;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// City                            
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("ctynme")]
 		[SMBFieldDescription("City")]
 		public string ctynme;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("state_")]
 		[SMBFieldDescription("State")]
 		public string state_;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Zip                             
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("zipcde")]
 		[SMBFieldDescription("Zip")]
 		public string zipcde;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Rate                        
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("taxrt1")]
 		[SMBFieldDescription("Tax Rate")]
 		public decimal taxrt1;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Billing Limit                   
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("limit1")]
 		[SMBFieldDescription("Billing Limit")]
 		public decimal limit1;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit Type                      
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("lmtyp1")]
 		[SMBFieldDescription("Limit Type")]
 		public long lmtyp1;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

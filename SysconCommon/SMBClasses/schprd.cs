@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class schprd : smbtable {
+	public partial class schprd : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase Record                    
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("recphs")]
 		[SMBFieldDescription("Phase Record")]
 		public long recphs;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Task#                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("tsknum")]
 		[SMBFieldDescription("Task#")]
 		public decimal tsknum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Job                             
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("jobnum")]
 		[SMBFieldDescription("Job")]
 		public long jobnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
 		public long phsnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Predecessor                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("prdnum")]
 		[SMBFieldDescription("Predecessor")]
 		public decimal prdnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Relation                        
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("reltyp")]
 		[SMBFieldDescription("Relation")]
 		public long reltyp;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lead/Lag                        
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("ledlag")]
 		[SMBFieldDescription("Lead/Lag")]
 		public long ledlag;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class invout : smbtable {
+	public partial class invout : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("prtnum")]
 		[SMBFieldDescription("Part#")]
 		public long prtnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quantity                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("trnqty")]
 		[SMBFieldDescription("Quantity")]
 		public decimal trnqty;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Transaction Date                
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("trndte")]
 		[SMBFieldDescription("Transaction Date")]
 		public DateTime trndte;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Transaction Type                
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("trntyp")]
 		[SMBFieldDescription("Transaction Type")]
 		public long trntyp;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Source                          
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("srcnum")]
 		[SMBFieldDescription("Source")]
 		public long srcnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Link#                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("lgrref")]
 		[SMBFieldDescription("Link#")]
 		public long lgrref;

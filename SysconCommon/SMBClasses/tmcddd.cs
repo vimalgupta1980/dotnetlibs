@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class tmcddd : smbtable {
+	public partial class tmcddd : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Calculation                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("clcnum")]
 		[SMBFieldDescription("Calculation")]
 		public long clcnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Amount                          
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("amount")]
 		[SMBFieldDescription("Amount")]
 		public decimal amount;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State Wages                     
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("stewge")]
 		[SMBFieldDescription("State Wages")]
 		public decimal stewge;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State Gross                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("stegrs")]
 		[SMBFieldDescription("State Gross")]
 		public decimal stegrs;

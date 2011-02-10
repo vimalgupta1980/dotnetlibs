@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class ptotkf : smbtable {
+	public partial class ptotkf : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material Overhead               
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("matovh")]
 		[SMBFieldDescription("Material Overhead")]
 		public decimal matovh;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material Profit                 
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("matpft")]
 		[SMBFieldDescription("Material Profit")]
 		public decimal matpft;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor Overhead                  
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("labovh")]
 		[SMBFieldDescription("Labor Overhead")]
 		public decimal labovh;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor Profit                    
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("labpft")]
 		[SMBFieldDescription("Labor Profit")]
 		public decimal labpft;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Overhead              
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("eqpovh")]
 		[SMBFieldDescription("Equipment Overhead")]
 		public decimal eqpovh;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Profit                
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("eqppft")]
 		[SMBFieldDescription("Equipment Profit")]
 		public decimal eqppft;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Overhead            
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("subovh")]
 		[SMBFieldDescription("Subcontract Overhead")]
 		public decimal subovh;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Profit              
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("subpft")]
 		[SMBFieldDescription("Subcontract Profit")]
 		public decimal subpft;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Overhead                  
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("otrovh")]
 		[SMBFieldDescription("Other Overhead")]
 		public decimal otrovh;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Profit                    
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("otrpft")]
 		[SMBFieldDescription("Other Profit")]
 		public decimal otrpft;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 6  Overhead       
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("cs6ovh")]
 		[SMBFieldDescription("User Def Type 6  Overhead")]
 		public decimal cs6ovh;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 6  Profit         
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("cs6pft")]
 		[SMBFieldDescription("User Def Type 6  Profit")]
 		public decimal cs6pft;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 7  Overhead       
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("cs7ovh")]
 		[SMBFieldDescription("User Def Type 7  Overhead")]
 		public decimal cs7ovh;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 7  Profit         
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("cs7pft")]
 		[SMBFieldDescription("User Def Type 7  Profit")]
 		public decimal cs7pft;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 8  Overhead       
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("cs8ovh")]
 		[SMBFieldDescription("User Def Type 8  Overhead")]
 		public decimal cs8ovh;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 8  Profit         
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("cs8pft")]
 		[SMBFieldDescription("User Def Type 8  Profit")]
 		public decimal cs8pft;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 9  Overhead       
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("cs9ovh")]
 		[SMBFieldDescription("User Def Type 9  Overhead")]
 		public decimal cs9ovh;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 9  Profit         
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("cs9pft")]
 		[SMBFieldDescription("User Def Type 9  Profit")]
 		public decimal cs9pft;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Edit                       
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("edtdte")]
 		[SMBFieldDescription("Last Edit")]
 		public DateTime edtdte;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User                            
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User")]
 		public string usrnme;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part Price                      
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("prtprc")]
 		[SMBFieldDescription("Part Price")]
 		public long prtprc;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Payroll Subject Percent         
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("paysbj")]
 		[SMBFieldDescription("Payroll Subject Percent")]
 		public decimal paysbj;
@@ -166,6 +190,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Subject Percent     
 		/// </summary>
+		[ColumnOrder(240)]
 		[SMBFieldName("subsbj")]
 		[SMBFieldDescription("Subcontract Subject Percent")]
 		public decimal subsbj;
@@ -173,6 +198,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Subject Percent             
 		/// </summary>
+		[ColumnOrder(250)]
 		[SMBFieldName("bidsbj")]
 		[SMBFieldDescription("Bid Subject Percent")]
 		public decimal bidsbj;
@@ -180,6 +206,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Subject Percent             
 		/// </summary>
+		[ColumnOrder(260)]
 		[SMBFieldName("taxsbj")]
 		[SMBFieldDescription("Tax Subject Percent")]
 		public decimal taxsbj;
@@ -187,6 +214,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Limit 1                 
 		/// </summary>
+		[ColumnOrder(270)]
 		[SMBFieldName("bndlt1")]
 		[SMBFieldDescription("Bonding Limit 1")]
 		public long bndlt1;
@@ -194,6 +222,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Limit 2                 
 		/// </summary>
+		[ColumnOrder(280)]
 		[SMBFieldName("bndlt2")]
 		[SMBFieldDescription("Bonding Limit 2")]
 		public long bndlt2;
@@ -201,6 +230,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Limit 3                 
 		/// </summary>
+		[ColumnOrder(290)]
 		[SMBFieldName("bndlt3")]
 		[SMBFieldDescription("Bonding Limit 3")]
 		public long bndlt3;
@@ -208,6 +238,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Payroll Rate                    
 		/// </summary>
+		[ColumnOrder(300)]
 		[SMBFieldName("payrte")]
 		[SMBFieldDescription("Payroll Rate")]
 		public decimal payrte;
@@ -215,6 +246,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Rate                
 		/// </summary>
+		[ColumnOrder(310)]
 		[SMBFieldName("subrte")]
 		[SMBFieldDescription("Subcontract Rate")]
 		public decimal subrte;
@@ -222,6 +254,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Rate                        
 		/// </summary>
+		[ColumnOrder(320)]
 		[SMBFieldName("bidrte")]
 		[SMBFieldDescription("Bid Rate")]
 		public decimal bidrte;
@@ -229,6 +262,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Rate                        
 		/// </summary>
+		[ColumnOrder(330)]
 		[SMBFieldName("taxrte")]
 		[SMBFieldDescription("Tax Rate")]
 		public decimal taxrte;
@@ -236,6 +270,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 1 Rate                    
 		/// </summary>
+		[ColumnOrder(340)]
 		[SMBFieldName("lt1rte")]
 		[SMBFieldDescription("Limit 1 Rate")]
 		public decimal lt1rte;
@@ -243,6 +278,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 2 Rate                    
 		/// </summary>
+		[ColumnOrder(350)]
 		[SMBFieldName("lt2rte")]
 		[SMBFieldDescription("Limit 2 Rate")]
 		public decimal lt2rte;
@@ -250,6 +286,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 3 Rate                    
 		/// </summary>
+		[ColumnOrder(360)]
 		[SMBFieldName("lt3rte")]
 		[SMBFieldDescription("Limit 3 Rate")]
 		public decimal lt3rte;
@@ -257,6 +294,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Payroll Summary Amount          
 		/// </summary>
+		[ColumnOrder(370)]
 		[SMBFieldName("payamt")]
 		[SMBFieldDescription("Payroll Summary Amount")]
 		public decimal payamt;
@@ -264,6 +302,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Summary Amount      
 		/// </summary>
+		[ColumnOrder(380)]
 		[SMBFieldName("subamt")]
 		[SMBFieldDescription("Subcontract Summary Amount")]
 		public decimal subamt;
@@ -271,6 +310,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Summary Amount              
 		/// </summary>
+		[ColumnOrder(390)]
 		[SMBFieldName("bidamt")]
 		[SMBFieldDescription("Bid Summary Amount")]
 		public decimal bidamt;
@@ -278,6 +318,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Summary Amount              
 		/// </summary>
+		[ColumnOrder(400)]
 		[SMBFieldName("taxamt")]
 		[SMBFieldDescription("Tax Summary Amount")]
 		public decimal taxamt;
@@ -285,6 +326,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 1 Summary Amount          
 		/// </summary>
+		[ColumnOrder(410)]
 		[SMBFieldName("lt1amt")]
 		[SMBFieldDescription("Limit 1 Summary Amount")]
 		public decimal lt1amt;
@@ -292,6 +334,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 2 Summary Amount          
 		/// </summary>
+		[ColumnOrder(420)]
 		[SMBFieldName("lt2amt")]
 		[SMBFieldDescription("Limit 2 Summary Amount")]
 		public decimal lt2amt;
@@ -299,6 +342,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Limit 3 Summary Amount          
 		/// </summary>
+		[ColumnOrder(430)]
 		[SMBFieldName("lt3amt")]
 		[SMBFieldDescription("Limit 3 Summary Amount")]
 		public decimal lt3amt;
@@ -306,6 +350,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance Cost Type             
 		/// </summary>
+		[ColumnOrder(440)]
 		[SMBFieldName("instyp")]
 		[SMBFieldDescription("Insurance Cost Type")]
 		public long instyp;
@@ -313,6 +358,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance Cost Code             
 		/// </summary>
+		[ColumnOrder(450)]
 		[SMBFieldName("inscde")]
 		[SMBFieldDescription("Insurance Cost Code")]
 		public decimal inscde;
@@ -320,6 +366,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Cost Type                   
 		/// </summary>
+		[ColumnOrder(460)]
 		[SMBFieldName("taxtyp")]
 		[SMBFieldDescription("Tax Cost Type")]
 		public long taxtyp;
@@ -327,6 +374,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Cost Code                   
 		/// </summary>
+		[ColumnOrder(470)]
 		[SMBFieldName("taxcde")]
 		[SMBFieldDescription("Tax Cost Code")]
 		public decimal taxcde;
@@ -334,6 +382,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Cost Type               
 		/// </summary>
+		[ColumnOrder(480)]
 		[SMBFieldName("bndtyp")]
 		[SMBFieldDescription("Bonding Cost Type")]
 		public long bndtyp;
@@ -341,6 +390,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Cost Code               
 		/// </summary>
+		[ColumnOrder(490)]
 		[SMBFieldName("bndcde")]
 		[SMBFieldDescription("Bonding Cost Code")]
 		public decimal bndcde;
@@ -348,6 +398,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance Include in Budget     
 		/// </summary>
+		[ColumnOrder(500)]
 		[SMBFieldName("insinc")]
 		[SMBFieldDescription("Insurance Include in Budget")]
 		public long insinc;
@@ -355,6 +406,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Include in Budget           
 		/// </summary>
+		[ColumnOrder(510)]
 		[SMBFieldName("taxinc")]
 		[SMBFieldDescription("Tax Include in Budget")]
 		public long taxinc;
@@ -362,6 +414,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Include in Budget       
 		/// </summary>
+		[ColumnOrder(520)]
 		[SMBFieldName("bndinc")]
 		[SMBFieldDescription("Bonding Include in Budget")]
 		public long bndinc;
@@ -369,6 +422,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance Bid Item              
 		/// </summary>
+		[ColumnOrder(530)]
 		[SMBFieldName("insitm")]
 		[SMBFieldDescription("Insurance Bid Item")]
 		public long insitm;
@@ -376,6 +430,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Insurance Phase                 
 		/// </summary>
+		[ColumnOrder(540)]
 		[SMBFieldName("insphs")]
 		[SMBFieldDescription("Insurance Phase")]
 		public long insphs;
@@ -383,6 +438,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Bid Item                    
 		/// </summary>
+		[ColumnOrder(550)]
 		[SMBFieldName("taxitm")]
 		[SMBFieldDescription("Tax Bid Item")]
 		public long taxitm;
@@ -390,6 +446,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Phase                       
 		/// </summary>
+		[ColumnOrder(560)]
 		[SMBFieldName("taxphs")]
 		[SMBFieldDescription("Tax Phase")]
 		public long taxphs;
@@ -397,6 +454,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Bid Item                
 		/// </summary>
+		[ColumnOrder(570)]
 		[SMBFieldName("bnditm")]
 		[SMBFieldDescription("Bonding Bid Item")]
 		public long bnditm;
@@ -404,6 +462,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bonding Phase                   
 		/// </summary>
+		[ColumnOrder(580)]
 		[SMBFieldName("bndphs")]
 		[SMBFieldDescription("Bonding Phase")]
 		public long bndphs;
@@ -411,6 +470,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(590)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -418,6 +478,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Current Editor                  
 		/// </summary>
+		[ColumnOrder(600)]
 		[SMBFieldName("edtnme")]
 		[SMBFieldDescription("Current Editor")]
 		public string edtnme;
@@ -425,6 +486,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Margin/Markup Option            
 		/// </summary>
+		[ColumnOrder(610)]
 		[SMBFieldName("mrgmrk")]
 		[SMBFieldDescription("Margin/Markup Option")]
 		public long mrgmrk;
@@ -432,6 +494,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Gross Margin Override           
 		/// </summary>
+		[ColumnOrder(620)]
 		[SMBFieldName("mrgovr")]
 		[SMBFieldDescription("Gross Margin Override")]
 		public decimal mrgovr;
@@ -439,6 +502,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Markup %                        
 		/// </summary>
+		[ColumnOrder(630)]
 		[SMBFieldName("mrkrte")]
 		[SMBFieldDescription("Markup %")]
 		public decimal mrkrte;
@@ -446,6 +510,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Dollar Markup                   
 		/// </summary>
+		[ColumnOrder(640)]
 		[SMBFieldName("mrkdlr")]
 		[SMBFieldDescription("Dollar Markup")]
 		public decimal mrkdlr;
@@ -453,6 +518,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Amount                      
 		/// </summary>
+		[ColumnOrder(650)]
 		[SMBFieldName("bidovr")]
 		[SMBFieldDescription("Bid Amount")]
 		public decimal bidovr;
@@ -460,6 +526,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Lock Bid Amount                 
 		/// </summary>
+		[ColumnOrder(660)]
 		[SMBFieldName("lckbid")]
 		[SMBFieldDescription("Lock Bid Amount")]
 		public long lckbid;
@@ -467,6 +534,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Work Order Exports              
 		/// </summary>
+		[ColumnOrder(670)]
 		[SMBFieldName("wrkord")]
 		[SMBFieldDescription("Work Order Exports")]
 		public string wrkord;

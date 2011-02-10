@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class artxdt : smbtable {
+	public partial class artxdt : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Entity                      
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("taxent")]
 		[SMBFieldDescription("Tax Entity")]
 		public long taxent;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subject to Tax                  
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("sbjtax")]
 		[SMBFieldDescription("Subject to Tax")]
 		public decimal sbjtax;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Rate                        
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("taxrte")]
 		[SMBFieldDescription("Tax Rate")]
 		public decimal taxrte;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax Amount                      
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("taxamt")]
 		[SMBFieldDescription("Tax Amount")]
 		public decimal taxamt;

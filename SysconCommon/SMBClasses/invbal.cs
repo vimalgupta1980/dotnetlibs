@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class invbal : smbtable {
+	public partial class invbal : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("prtnum")]
 		[SMBFieldDescription("Part#")]
 		public long prtnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quantity                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("trnqty")]
 		[SMBFieldDescription("Quantity")]
 		public decimal trnqty;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quantity Remaining              
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("qtyrmn")]
 		[SMBFieldDescription("Quantity Remaining")]
 		public decimal qtyrmn;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Transaction Date                
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("trndte")]
 		[SMBFieldDescription("Transaction Date")]
 		public DateTime trndte;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Transaction Time                
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("trntme")]
 		[SMBFieldDescription("Transaction Time")]
 		public long trntme;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part Price                      
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("prtprc")]
 		[SMBFieldDescription("Part Price")]
 		public decimal prtprc;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Source                          
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("srcnum")]
 		[SMBFieldDescription("Source")]
 		public long srcnum;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Link#                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("lgrref")]
 		[SMBFieldDescription("Link#")]
 		public long lgrref;

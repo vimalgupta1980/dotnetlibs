@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class prplin : smbtable {
+	public partial class prplin : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
 		public long phsnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Item                        
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("itmnum")]
 		[SMBFieldDescription("Bid Item")]
 		public long itmnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material                        
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("matprp")]
 		[SMBFieldDescription("Material")]
 		public decimal matprp;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor                           
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("labprp")]
 		[SMBFieldDescription("Labor")]
 		public decimal labprp;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment                       
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("eqpprp")]
 		[SMBFieldDescription("Equipment")]
 		public decimal eqpprp;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract                     
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("subprp")]
 		[SMBFieldDescription("Subcontract")]
 		public decimal subprp;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other                           
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("othprp")]
 		[SMBFieldDescription("Other")]
 		public decimal othprp;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 6                 
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("usrcs6")]
 		[SMBFieldDescription("User Def Type 6")]
 		public decimal usrcs6;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 7                 
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("usrcs7")]
 		[SMBFieldDescription("User Def Type 7")]
 		public decimal usrcs7;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 8                 
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("usrcs8")]
 		[SMBFieldDescription("User Def Type 8")]
 		public decimal usrcs8;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Def Type 9                 
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("usrcs9")]
 		[SMBFieldDescription("User Def Type 9")]
 		public decimal usrcs9;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total                           
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("ttlprp")]
 		[SMBFieldDescription("Total")]
 		public decimal ttlprp;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Material                   
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("matorg")]
 		[SMBFieldDescription("Orig Material")]
 		public decimal matorg;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Labor                      
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("laborg")]
 		[SMBFieldDescription("Orig Labor")]
 		public decimal laborg;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Equipment                  
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("eqporg")]
 		[SMBFieldDescription("Orig Equipment")]
 		public decimal eqporg;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Subcontract                
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("suborg")]
 		[SMBFieldDescription("Orig Subcontract")]
 		public decimal suborg;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Other                      
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("othorg")]
 		[SMBFieldDescription("Orig Other")]
 		public decimal othorg;
@@ -166,6 +190,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig User Def Type 6            
 		/// </summary>
+		[ColumnOrder(240)]
 		[SMBFieldName("cs6org")]
 		[SMBFieldDescription("Orig User Def Type 6")]
 		public decimal cs6org;
@@ -173,6 +198,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig User Def Type 7            
 		/// </summary>
+		[ColumnOrder(250)]
 		[SMBFieldName("cs7org")]
 		[SMBFieldDescription("Orig User Def Type 7")]
 		public decimal cs7org;
@@ -180,6 +206,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig User Def Type 8            
 		/// </summary>
+		[ColumnOrder(260)]
 		[SMBFieldName("cs8org")]
 		[SMBFieldDescription("Orig User Def Type 8")]
 		public decimal cs8org;
@@ -187,6 +214,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig User Def Type 9            
 		/// </summary>
+		[ColumnOrder(270)]
 		[SMBFieldName("cs9org")]
 		[SMBFieldDescription("Orig User Def Type 9")]
 		public decimal cs9org;
@@ -194,6 +222,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Orig Total                      
 		/// </summary>
+		[ColumnOrder(280)]
 		[SMBFieldName("ttlorg")]
 		[SMBFieldDescription("Orig Total")]
 		public decimal ttlorg;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class prichk : smbtable {
+	public partial class prichk : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Trans#                          
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("trnnum")]
 		[SMBFieldDescription("Trans#")]
 		public string trnnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Date                            
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("trndte")]
 		[SMBFieldDescription("Date")]
 		public DateTime trndte;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Payee                           
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("paydsc")]
 		[SMBFieldDescription("Payee")]
 		public string paydsc;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Status                          
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("status")]
 		[SMBFieldDescription("Status")]
 		public long status;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Account#                        
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("lgract")]
 		[SMBFieldDescription("Account#")]
 		public long lgract;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Debit Amount                    
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("dbtamt")]
 		[SMBFieldDescription("Debit Amount")]
 		public decimal dbtamt;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Credit Amount                   
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("crdamt")]
 		[SMBFieldDescription("Credit Amount")]
 		public decimal crdamt;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Source                          
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("srcnum")]
 		[SMBFieldDescription("Source")]
 		public long srcnum;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Reconciliation In Process       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("active")]
 		[SMBFieldDescription("Reconciliation In Process")]
 		public long active;

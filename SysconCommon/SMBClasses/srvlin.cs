@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class srvlin : smbtable {
+	public partial class srvlin : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assembly#                       
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("asmnum")]
 		[SMBFieldDescription("Assembly#")]
 		public long asmnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		///                                 
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("asmchk")]
 		[SMBFieldDescription("")]
 		public long asmchk;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Part#                           
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("prtnum")]
 		[SMBFieldDescription("Part#")]
 		public long prtnum;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Alpha Part#                     
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("alpnum")]
 		[SMBFieldDescription("Alpha Part#")]
 		public string alpnum;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("untdsc")]
 		[SMBFieldDescription("Unit")]
 		public string untdsc;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Quantity                        
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("prtqty")]
 		[SMBFieldDescription("Quantity")]
 		public decimal prtqty;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Price                           
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("prtprc")]
 		[SMBFieldDescription("Price")]
 		public decimal prtprc;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ext Qty                         
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("extqty")]
 		[SMBFieldDescription("Ext Qty")]
 		public decimal extqty;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ext Price                       
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("extprc")]
 		[SMBFieldDescription("Ext Price")]
 		public decimal extprc;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ticket#                         
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("tktnum")]
 		[SMBFieldDescription("Ticket#")]
 		public string tktnum;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Billed to Date                  
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("blldte")]
 		[SMBFieldDescription("Billed to Date")]
 		public decimal blldte;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Current                         
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("curbll")]
 		[SMBFieldDescription("Current")]
 		public decimal curbll;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type                       
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("csttyp")]
 		[SMBFieldDescription("Cost Type")]
 		public long csttyp;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Account                         
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("actnum")]
 		[SMBFieldDescription("Account")]
 		public long actnum;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subaccount                      
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("subact")]
 		[SMBFieldDescription("Subaccount")]
 		public long subact;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Inv. Location                   
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("invloc")]
 		[SMBFieldDescription("Inv. Location")]
 		public long invloc;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Serial Number                   
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("sernum")]
 		[SMBFieldDescription("Serial Number")]
 		public string sernum;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Site Location                   
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("sitloc")]
 		[SMBFieldDescription("Site Location")]
 		public string sitloc;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment                       
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("eqpnum")]
 		[SMBFieldDescription("Equipment")]
 		public long eqpnum;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -166,6 +190,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Shop Notes                      
 		/// </summary>
+		[ColumnOrder(240)]
 		[SMBFieldName("shpnte")]
 		[SMBFieldDescription("Shop Notes")]
 		public string shpnte;
@@ -173,6 +198,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Owner Notes                     
 		/// </summary>
+		[ColumnOrder(250)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Owner Notes")]
 		public string ntetxt;

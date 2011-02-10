@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class clnsts : smbtable {
+	public partial class clnsts : smbtable {
 		/// <summary>
 		/// Client Status#                  
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Client Status#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Status Name                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("stsnme")]
 		[SMBFieldDescription("Status Name")]
 		public string stsnme;

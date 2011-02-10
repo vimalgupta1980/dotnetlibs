@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class srveqp : smbtable {
+	public partial class srveqp : smbtable {
 		/// <summary>
 		/// Client#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Client#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment#                      
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("eqpnum")]
 		[SMBFieldDescription("Equipment#")]
 		public long eqpnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("eqpnme")]
 		[SMBFieldDescription("Description")]
 		public string eqpnme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Manufacturer                    
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("manfct")]
 		[SMBFieldDescription("Manufacturer")]
 		public string manfct;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Man Part#                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("eqpmdl")]
 		[SMBFieldDescription("Man Part#")]
 		public string eqpmdl;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Serial#                         
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("sernum")]
 		[SMBFieldDescription("Serial#")]
 		public string sernum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Client Location                 
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("locnum")]
 		[SMBFieldDescription("Client Location")]
 		public long locnum;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Site Location                   
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("sitloc")]
 		[SMBFieldDescription("Site Location")]
 		public string sitloc;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Installed Date                  
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("istdte")]
 		[SMBFieldDescription("Installed Date")]
 		public DateTime istdte;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// In Service Date                 
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("isvdte")]
 		[SMBFieldDescription("In Service Date")]
 		public DateTime isvdte;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// OEM Warranty Exp                
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("oemexp")]
 		[SMBFieldDescription("OEM Warranty Exp")]
 		public DateTime oemexp;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Service                    
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("lstsrv")]
 		[SMBFieldDescription("Last Service")]
 		public DateTime lstsrv;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Next Serv                       
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("nxtsrv")]
 		[SMBFieldDescription("Next Serv")]
 		public DateTime nxtsrv;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

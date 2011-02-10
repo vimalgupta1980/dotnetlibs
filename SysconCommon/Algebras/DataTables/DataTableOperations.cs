@@ -541,7 +541,16 @@ namespace SysconCommon.Algebras.DataTables
                            where new MemberTypes[] { MemberTypes.Field, MemberTypes.Property }.Contains(mtype)
                            select mi;
 
-            _columns = _columns.Sort((m1, m2) => m1.GetColumnOrder() > m2.GetColumnOrder() ? 1 :
+
+            // this is supposed to force the columns into member declaration order, but doesn't seem to work
+            // TODO: figure out how to do this
+            _columns = _columns.InsertSort((m1, m2) => m1.MetadataToken > m2.MetadataToken
+                ? 1
+                : m1.MetadataToken < m2.MetadataToken
+                    ? -1
+                    : 0);
+
+            _columns = _columns.InsertSort((m1, m2) => m1.GetColumnOrder() > m2.GetColumnOrder() ? 1 :
                     m1.GetColumnOrder() < m2.GetColumnOrder() ? -1 : 0);
 
             var columns = _columns.Select(c =>

@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using com.softwarekey.Client.Licensing;
 
+using SysconCommon.Common.Environment;
+
 namespace SysconCommon.Protection
 {
     public class ClientLicense : License, IClientLicense
@@ -81,6 +83,7 @@ namespace SysconCommon.Protection
         /// <returns>bool</returns>
         public bool IsValid()
         {
+            // we only check if it's valid every 20 runs
             LicenseError tmpError = new LicenseError(LicenseError.ERROR_NONE); ;
 
             if (!this.CheckInstallationStatus())
@@ -98,6 +101,7 @@ namespace SysconCommon.Protection
                 return false;
             }
 
+            // Env.SetConfigVar("run_count", run_count + 1);
             return true;
         }
 

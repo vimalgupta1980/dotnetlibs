@@ -28,6 +28,13 @@ namespace SysconCommon.GUI
         public ProgressDialog(int ticks)
             : this(ticks, "Progress")
         {
+            this.FormClosing += new FormClosingEventHandler(ProgressDialog_FormClosing);
+        }
+
+        void ProgressDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!sender.Equals(this))
+                e.Cancel = true;
         }
 
         private void ProgressDialog_Load(object sender, EventArgs e)

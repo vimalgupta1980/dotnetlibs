@@ -102,6 +102,7 @@
     <Compile Include="Accounting\IPhase.cs" />
     <Compile Include="Accounting\ISource.cs" />
     <Compile Include="Accounting\ITimeAndMaterialLineItem.cs" />
+    <Compile Include="Accounting\IVendor.cs" />
     <Compile Include="Accounting\MasterBuilder\Client.cs" />
     <Compile Include="Accounting\IJobType.cs" />
     <Compile Include="Accounting\IInvoice.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Accounting\MasterBuilder\Source.cs" />
     <Compile Include="Accounting\MasterBuilder\TimeAndMaterial.cs" />
     <Compile Include="Accounting\MasterBuilder\TimeAndMaterialLineItem.cs" />
+    <Compile Include="Accounting\MasterBuilder\Vendor.cs" />
     <Compile Include="Algebras\DataTables\ColumnOrderAttribute.cs" />
     <Compile Include="Algebras\Graphs\GraphOperations.cs" />
     <Compile Include="Algebras\Graphs\GraphStructures.cs" />
@@ -472,6 +474,9 @@
     <EmbeddedResource Include="Protection\ProtectionPlusOnlineActivationForm.resx">
       <DependentUpon>ProtectionPlusOnlineActivationForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,6 +23,16 @@ namespace SysconCommon.Accounting.MasterBuilder
             get { return _Recnum; }
         }
 
+        public string Name {
+            get {
+                return Cache.CacheResult(() =>
+                    {
+                        var nme = Connections.GetScalar<string>("select eqpnme from eqpmnt where recnum = {0}", EquipmentNumber);
+                        return nme;
+                    });
+            }
+        }
+
         public IEquipmentType EquipmentType
         {
             get

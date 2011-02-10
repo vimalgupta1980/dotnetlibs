@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class tsktyp : smbtable {
+	public partial class tsktyp : smbtable {
 		/// <summary>
 		/// Task Type #                     
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Task Type #")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("tsknme")]
 		[SMBFieldDescription("Description")]
 		public string tsknme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Task Color                      
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("tskclr")]
 		[SMBFieldDescription("Task Color")]
 		public string tskclr;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class stetax : smbtable {
+	public partial class stetax : smbtable {
 		/// <summary>
 		/// State                           
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("state_")]
 		[SMBFieldDescription("State")]
 		public string state_;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State Tax Id#                   
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("stetax")]
 		[SMBFieldDescription("State Tax Id#")]
 		public string _stetax;

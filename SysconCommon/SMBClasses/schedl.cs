@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class schedl : smbtable {
+	public partial class schedl : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("schphs")]
 		[SMBFieldDescription("Phase")]
 		public long schphs;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Edit Date                       
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("edtdte")]
 		[SMBFieldDescription("Edit Date")]
 		public DateTime edtdte;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User                            
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User")]
 		public string usrnme;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// First Date                      
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("strdte")]
 		[SMBFieldDescription("First Date")]
 		public DateTime strdte;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Date                       
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("findte")]
 		[SMBFieldDescription("Last Date")]
 		public DateTime findte;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Check Boxes                     
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("chkbox")]
 		[SMBFieldDescription("Check Boxes")]
 		public string chkbox;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Work Days                       
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("wrkdys")]
 		[SMBFieldDescription("Work Days")]
 		public long wrkdys;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Calendar Days                   
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("caldys")]
 		[SMBFieldDescription("Calendar Days")]
 		public long caldys;

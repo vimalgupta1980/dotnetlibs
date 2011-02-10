@@ -66,8 +66,12 @@ namespace SysconCommon.Protection
                 {
                     var seat = new ClientLicense(LicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, product_version);
                     seat.LoadFile();
-                    if (seat.IsValid())
+                    var run_count = Env.GetConfigVar("run_count", 0, true);
+                    if (run_count % 20 != 0 || seat.IsValid())
+                    {
+                        Env.SetConfigVar("run_count", run_count + 1);
                         return seat;
+                    }
                     else
                         throw new InvalidLicenseException();
                 }

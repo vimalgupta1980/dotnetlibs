@@ -28,5 +28,6 @@ namespace SysconCommon.Accounting
         DateTime TransactionDate { get; set; }
         ISource Source { get; set; }
         IPhase Phase { get; set; }
+        IVendor Vendor { get; set; }
     }
 }

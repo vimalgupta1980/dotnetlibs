@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class srvloc : smbtable {
+	public partial class srvloc : smbtable {
 		/// <summary>
 		/// Client#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Client#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Location#                       
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("locnum")]
 		[SMBFieldDescription("Location#")]
 		public long locnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Name                            
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("locnme")]
 		[SMBFieldDescription("Name")]
 		public string locnme;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Address 1                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("addrs1")]
 		[SMBFieldDescription("Address 1")]
 		public string addrs1;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Address 2                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("addrs2")]
 		[SMBFieldDescription("Address 2")]
 		public string addrs2;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// City                            
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("ctynme")]
 		[SMBFieldDescription("City")]
 		public string ctynme;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("state_")]
 		[SMBFieldDescription("State")]
 		public string state_;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Zip                             
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("zipcde")]
 		[SMBFieldDescription("Zip")]
 		public string zipcde;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phone#                          
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("phnnum")]
 		[SMBFieldDescription("Phone#")]
 		public string phnnum;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Contact                         
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("contct")]
 		[SMBFieldDescription("Contact")]
 		public string contct;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Area                            
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("srvgeo")]
 		[SMBFieldDescription("Area")]
 		public long srvgeo;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Map Locate                      
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("maploc")]
 		[SMBFieldDescription("Map Locate")]
 		public string maploc;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cross Street                    
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("crsstr")]
 		[SMBFieldDescription("Cross Street")]
 		public string crsstr;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Tax District                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("taxdst")]
 		[SMBFieldDescription("Tax District")]
 		public long taxdst;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

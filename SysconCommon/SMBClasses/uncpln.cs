@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class uncpln : smbtable {
+	public partial class uncpln : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase")]
 		public long phsnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Budget Cost                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("bdgcst")]
 		[SMBFieldDescription("Budget Cost")]
 		public decimal bdgcst;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Budget Units                    
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("bdgunt")]
 		[SMBFieldDescription("Budget Units")]
 		public decimal bdgunt;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost to Date                    
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("cstdte")]
 		[SMBFieldDescription("Cost to Date")]
 		public decimal cstdte;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Units Comp                      
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("untcmp")]
 		[SMBFieldDescription("Units Comp")]
 		public decimal untcmp;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bdg. $/Unit                     
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("bdgprc")]
 		[SMBFieldDescription("Bdg. $/Unit")]
 		public decimal bdgprc;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Act. $/Unit                     
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("actprc")]
 		[SMBFieldDescription("Act. $/Unit")]
 		public decimal actprc;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// O/(U) /Unit                     
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("ovrund")]
 		[SMBFieldDescription("O/(U) /Unit")]
 		public decimal ovrund;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Units Remain                    
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("untrem")]
 		[SMBFieldDescription("Units Remain")]
 		public decimal untrem;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost to Comp                    
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("cstcmp")]
 		[SMBFieldDescription("Cost to Comp")]
 		public decimal cstcmp;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Over/(Under)                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("ovrttl")]
 		[SMBFieldDescription("Over/(Under)")]
 		public decimal ovrttl;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

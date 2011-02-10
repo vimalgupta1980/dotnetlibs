@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class paypst : smbtable {
+	public partial class paypst : smbtable {
 		/// <summary>
 		/// Position#                       
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Position#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("pstnme")]
 		[SMBFieldDescription("Description")]
 		public string pstnme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Job Wages                       
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("jobact")]
 		[SMBFieldDescription("Job Wages")]
 		public long jobact;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equip/Shop Wages                
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("eqpact")]
 		[SMBFieldDescription("Equip/Shop Wages")]
 		public long eqpact;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Wages                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("othact")]
 		[SMBFieldDescription("Other Wages")]
 		public long othact;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Department                      
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("dptmnt")]
 		[SMBFieldDescription("Department")]
 		public long dptmnt;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

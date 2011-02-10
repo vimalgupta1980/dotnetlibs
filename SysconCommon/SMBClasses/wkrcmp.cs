@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class wkrcmp : smbtable {
+	public partial class wkrcmp : smbtable {
 		/// <summary>
 		/// Code#                           
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Code#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("cdenme")]
 		[SMBFieldDescription("Description")]
 		public string cdenme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// State                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("taxste")]
 		[SMBFieldDescription("State")]
 		public string taxste;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employer %                      
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("pctrte")]
 		[SMBFieldDescription("Employer %")]
 		public decimal pctrte;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employee Hrly                   
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("emehrs")]
 		[SMBFieldDescription("Employee Hrly")]
 		public decimal emehrs;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employer Hrly                   
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("emrhrs")]
 		[SMBFieldDescription("Employer Hrly")]
 		public decimal emrhrs;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Liability                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("libins")]
 		[SMBFieldDescription("Liability")]
 		public decimal libins;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Exper Mod                       
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("expmod")]
 		[SMBFieldDescription("Exper Mod")]
 		public decimal expmod;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add Exper Mod                   
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("addmod")]
 		[SMBFieldDescription("Add Exper Mod")]
 		public decimal addmod;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Maximum Wage                    
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("maxwge")]
 		[SMBFieldDescription("Maximum Wage")]
 		public decimal maxwge;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

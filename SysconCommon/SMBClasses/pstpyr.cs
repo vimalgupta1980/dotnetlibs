@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class pstpyr : smbtable {
+	public partial class pstpyr : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Posting#                        
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("pstnum")]
 		[SMBFieldDescription("Posting#")]
 		public long pstnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Department                      
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("dptmnt")]
 		[SMBFieldDescription("Department")]
 		public long dptmnt;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Dr Acct                         
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("dbtact")]
 		[SMBFieldDescription("Dr Acct")]
 		public long dbtact;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Amount                          
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("amount")]
 		[SMBFieldDescription("Amount")]
 		public decimal amount;

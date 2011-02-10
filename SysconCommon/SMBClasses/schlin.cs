@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class schlin : smbtable {
+	public partial class schlin : smbtable {
 		/// <summary>
 		/// Job#                            
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Job#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Phase#                          
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("phsnum")]
 		[SMBFieldDescription("Phase#")]
 		public long phsnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Task#                           
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("tsknum")]
 		[SMBFieldDescription("Task#")]
 		public decimal tsknum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("tsknme")]
 		[SMBFieldDescription("Description")]
 		public string tsknme;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Duration                        
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("tskdur")]
 		[SMBFieldDescription("Duration")]
 		public long tskdur;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Task Type                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("tsktyp")]
 		[SMBFieldDescription("Task Type")]
 		public long tsktyp;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Fixed Date                      
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("fxddte")]
 		[SMBFieldDescription("Fixed Date")]
 		public DateTime fxddte;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Not Before                      
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("notbfr")]
 		[SMBFieldDescription("Not Before")]
 		public DateTime notbfr;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Not After                       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("notaft")]
 		[SMBFieldDescription("Not After")]
 		public DateTime notaft;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Start Date                      
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("strdte")]
 		[SMBFieldDescription("Start Date")]
 		public DateTime strdte;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Finish Date                     
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("findte")]
 		[SMBFieldDescription("Finish Date")]
 		public DateTime findte;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Late Start                      
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("ltestr")]
 		[SMBFieldDescription("Late Start")]
 		public DateTime ltestr;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Late Finish                     
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("ltefin")]
 		[SMBFieldDescription("Late Finish")]
 		public DateTime ltefin;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Float                           
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("tskflt")]
 		[SMBFieldDescription("Float")]
 		public long tskflt;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Duration               
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("orgdur")]
 		[SMBFieldDescription("Original Duration")]
 		public long orgdur;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Start                  
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("orgstr")]
 		[SMBFieldDescription("Original Start")]
 		public DateTime orgstr;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Finish                 
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("orgfin")]
 		[SMBFieldDescription("Original Finish")]
 		public DateTime orgfin;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Float                  
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("orgflt")]
 		[SMBFieldDescription("Original Float")]
 		public long orgflt;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

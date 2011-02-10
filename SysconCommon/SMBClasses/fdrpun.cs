@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class fdrpun : smbtable {
+	public partial class fdrpun : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Bid Item                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("itmnum")]
 		[SMBFieldDescription("Bid Item")]
 		public long itmnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Item Code                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("itmcde")]
 		[SMBFieldDescription("Item Code")]
 		public string itmcde;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("untdsc")]
 		[SMBFieldDescription("Unit")]
 		public string untdsc;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Completed Today                 
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("cmptdy")]
 		[SMBFieldDescription("Completed Today")]
 		public decimal cmptdy;

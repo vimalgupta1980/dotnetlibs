@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class trmtyp : smbtable {
+	public partial class trmtyp : smbtable {
 		/// <summary>
 		/// Transmittal Type#               
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Transmittal Type#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Type Name                       
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("typnme")]
 		[SMBFieldDescription("Type Name")]
 		public string typnme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class sbcnln : smbtable {
+	public partial class sbcnln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type                       
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("csttyp")]
 		[SMBFieldDescription("Cost Type")]
 		public long csttyp;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Original Contract               
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("amount")]
 		[SMBFieldDescription("Original Contract")]
 		public decimal amount;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Changes                         
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("change")]
 		[SMBFieldDescription("Changes")]
 		public decimal change;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// New Contract                    
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("cntrct")]
 		[SMBFieldDescription("New Contract")]
 		public decimal cntrct;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Invoiced                        
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("billed")]
 		[SMBFieldDescription("Invoiced")]
 		public decimal billed;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Remaining                       
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("remain")]
 		[SMBFieldDescription("Remaining")]
 		public decimal remain;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Line Reference #    
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("linref")]
 		[SMBFieldDescription("Subcontract Line Reference #")]
 		public string linref;

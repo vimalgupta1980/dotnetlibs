@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class assemb : smbtable {
+	public partial class assemb : smbtable {
 		/// <summary>
 		/// Assembly#                       
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Assembly#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("asmnme")]
 		[SMBFieldDescription("Description")]
 		public string asmnme;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Unit                            
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("asmunt")]
 		[SMBFieldDescription("Unit")]
 		public string asmunt;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Formula                         
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("asmfrm")]
 		[SMBFieldDescription("Formula")]
 		public string asmfrm;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assembly Class                  
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("asmcls")]
 		[SMBFieldDescription("Assembly Class")]
 		public long asmcls;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total Cost                      
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("ttlcst")]
 		[SMBFieldDescription("Total Cost")]
 		public decimal ttlcst;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User                            
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("usrnme")]
 		[SMBFieldDescription("User")]
 		public string usrnme;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Edit                       
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("lstedt")]
 		[SMBFieldDescription("Last Edit")]
 		public DateTime lstedt;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material Cost                   
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("matcst")]
 		[SMBFieldDescription("Material Cost")]
 		public decimal matcst;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material Markup                 
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("matmrk")]
 		[SMBFieldDescription("Material Markup")]
 		public decimal matmrk;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Material Sell                   
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("matsel")]
 		[SMBFieldDescription("Material Sell")]
 		public decimal matsel;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor Cost                      
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("labcst")]
 		[SMBFieldDescription("Labor Cost")]
 		public decimal labcst;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor Markup                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("labmrk")]
 		[SMBFieldDescription("Labor Markup")]
 		public decimal labmrk;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Labor Sell                      
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("labsel")]
 		[SMBFieldDescription("Labor Sell")]
 		public decimal labsel;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Cost                  
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("eqpcst")]
 		[SMBFieldDescription("Equipment Cost")]
 		public decimal eqpcst;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Markup                
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("eqpmrk")]
 		[SMBFieldDescription("Equipment Markup")]
 		public decimal eqpmrk;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment Sell                  
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("eqpsel")]
 		[SMBFieldDescription("Equipment Sell")]
 		public decimal eqpsel;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Cost                
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("subcst")]
 		[SMBFieldDescription("Subcontract Cost")]
 		public decimal subcst;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Markup              
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("submrk")]
 		[SMBFieldDescription("Subcontract Markup")]
 		public decimal submrk;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Sell                
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("subsel")]
 		[SMBFieldDescription("Subcontract Sell")]
 		public decimal subsel;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Cost                      
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("othcst")]
 		[SMBFieldDescription("Other Cost")]
 		public decimal othcst;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Markup                    
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("othmrk")]
 		[SMBFieldDescription("Other Markup")]
 		public decimal othmrk;
@@ -166,6 +190,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Other Sell                      
 		/// </summary>
+		[ColumnOrder(240)]
 		[SMBFieldName("othsel")]
 		[SMBFieldDescription("Other Sell")]
 		public decimal othsel;
@@ -173,6 +198,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 6 Cost                
 		/// </summary>
+		[ColumnOrder(250)]
 		[SMBFieldName("tp6cst")]
 		[SMBFieldDescription("Cost Type 6 Cost")]
 		public decimal tp6cst;
@@ -180,6 +206,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 6 Markup              
 		/// </summary>
+		[ColumnOrder(260)]
 		[SMBFieldName("tp6mrk")]
 		[SMBFieldDescription("Cost Type 6 Markup")]
 		public decimal tp6mrk;
@@ -187,6 +214,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 6 Sell                
 		/// </summary>
+		[ColumnOrder(270)]
 		[SMBFieldName("tp6sel")]
 		[SMBFieldDescription("Cost Type 6 Sell")]
 		public decimal tp6sel;
@@ -194,6 +222,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 7 Cost                
 		/// </summary>
+		[ColumnOrder(280)]
 		[SMBFieldName("tp7cst")]
 		[SMBFieldDescription("Cost Type 7 Cost")]
 		public decimal tp7cst;
@@ -201,6 +230,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 7 Markup              
 		/// </summary>
+		[ColumnOrder(290)]
 		[SMBFieldName("tp7mrk")]
 		[SMBFieldDescription("Cost Type 7 Markup")]
 		public decimal tp7mrk;
@@ -208,6 +238,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 7 Sell                
 		/// </summary>
+		[ColumnOrder(300)]
 		[SMBFieldName("tp7sel")]
 		[SMBFieldDescription("Cost Type 7 Sell")]
 		public decimal tp7sel;
@@ -215,6 +246,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 8 Cost                
 		/// </summary>
+		[ColumnOrder(310)]
 		[SMBFieldName("tp8cst")]
 		[SMBFieldDescription("Cost Type 8 Cost")]
 		public decimal tp8cst;
@@ -222,6 +254,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 8 Markup              
 		/// </summary>
+		[ColumnOrder(320)]
 		[SMBFieldName("tp8mrk")]
 		[SMBFieldDescription("Cost Type 8 Markup")]
 		public decimal tp8mrk;
@@ -229,6 +262,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 8 Sell                
 		/// </summary>
+		[ColumnOrder(330)]
 		[SMBFieldName("tp8sel")]
 		[SMBFieldDescription("Cost Type 8 Sell")]
 		public decimal tp8sel;
@@ -236,6 +270,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 9 Cost                
 		/// </summary>
+		[ColumnOrder(340)]
 		[SMBFieldName("tp9cst")]
 		[SMBFieldDescription("Cost Type 9 Cost")]
 		public decimal tp9cst;
@@ -243,6 +278,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 9 Markup              
 		/// </summary>
+		[ColumnOrder(350)]
 		[SMBFieldName("tp9mrk")]
 		[SMBFieldDescription("Cost Type 9 Markup")]
 		public decimal tp9mrk;
@@ -250,6 +286,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type 9 Sell                
 		/// </summary>
+		[ColumnOrder(360)]
 		[SMBFieldName("tp9sel")]
 		[SMBFieldDescription("Cost Type 9 Sell")]
 		public decimal tp9sel;
@@ -257,6 +294,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Travel Time                     
 		/// </summary>
+		[ColumnOrder(370)]
 		[SMBFieldName("tvltim")]
 		[SMBFieldDescription("Travel Time")]
 		public long tvltim;
@@ -264,6 +302,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Travel Cost                     
 		/// </summary>
+		[ColumnOrder(380)]
 		[SMBFieldName("tvlcst")]
 		[SMBFieldDescription("Travel Cost")]
 		public decimal tvlcst;
@@ -271,6 +310,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Travel Markup                   
 		/// </summary>
+		[ColumnOrder(390)]
 		[SMBFieldName("tvlmrk")]
 		[SMBFieldDescription("Travel Markup")]
 		public decimal tvlmrk;
@@ -278,6 +318,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Travel Sell                     
 		/// </summary>
+		[ColumnOrder(400)]
 		[SMBFieldName("tvlsel")]
 		[SMBFieldDescription("Travel Sell")]
 		public decimal tvlsel;
@@ -285,6 +326,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Technician Time                 
 		/// </summary>
+		[ColumnOrder(410)]
 		[SMBFieldName("tchtim")]
 		[SMBFieldDescription("Technician Time")]
 		public long tchtim;
@@ -292,6 +334,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Technician Cost                 
 		/// </summary>
+		[ColumnOrder(420)]
 		[SMBFieldName("tchcst")]
 		[SMBFieldDescription("Technician Cost")]
 		public decimal tchcst;
@@ -299,6 +342,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Technician Markup               
 		/// </summary>
+		[ColumnOrder(430)]
 		[SMBFieldName("tchmrk")]
 		[SMBFieldDescription("Technician Markup")]
 		public decimal tchmrk;
@@ -306,6 +350,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Technician Sell                 
 		/// </summary>
+		[ColumnOrder(440)]
 		[SMBFieldName("tchsel")]
 		[SMBFieldDescription("Technician Sell")]
 		public decimal tchsel;
@@ -313,6 +358,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assistant Time                  
 		/// </summary>
+		[ColumnOrder(450)]
 		[SMBFieldName("asttim")]
 		[SMBFieldDescription("Assistant Time")]
 		public long asttim;
@@ -320,6 +366,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assistant Cost                  
 		/// </summary>
+		[ColumnOrder(460)]
 		[SMBFieldName("astcst")]
 		[SMBFieldDescription("Assistant Cost")]
 		public decimal astcst;
@@ -327,6 +374,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assistant Markup                
 		/// </summary>
+		[ColumnOrder(470)]
 		[SMBFieldName("astmrk")]
 		[SMBFieldDescription("Assistant Markup")]
 		public decimal astmrk;
@@ -334,6 +382,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Assistant Sell                  
 		/// </summary>
+		[ColumnOrder(480)]
 		[SMBFieldName("astsel")]
 		[SMBFieldDescription("Assistant Sell")]
 		public decimal astsel;
@@ -341,6 +390,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Misc Cost                       
 		/// </summary>
+		[ColumnOrder(490)]
 		[SMBFieldName("msccst")]
 		[SMBFieldDescription("Misc Cost")]
 		public decimal msccst;
@@ -348,6 +398,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Misc Markup                     
 		/// </summary>
+		[ColumnOrder(500)]
 		[SMBFieldName("mscmrk")]
 		[SMBFieldDescription("Misc Markup")]
 		public decimal mscmrk;
@@ -355,6 +406,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Misc Sell                       
 		/// </summary>
+		[ColumnOrder(510)]
 		[SMBFieldName("mscsel")]
 		[SMBFieldDescription("Misc Sell")]
 		public decimal mscsel;
@@ -362,6 +414,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Overhead Cost                   
 		/// </summary>
+		[ColumnOrder(520)]
 		[SMBFieldName("ovhcst")]
 		[SMBFieldDescription("Overhead Cost")]
 		public decimal ovhcst;
@@ -369,6 +422,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Overhead Markup                 
 		/// </summary>
+		[ColumnOrder(530)]
 		[SMBFieldName("ovhmrk")]
 		[SMBFieldDescription("Overhead Markup")]
 		public decimal ovhmrk;
@@ -376,6 +430,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Overhead Sell                   
 		/// </summary>
+		[ColumnOrder(540)]
 		[SMBFieldName("ovhsel")]
 		[SMBFieldDescription("Overhead Sell")]
 		public decimal ovhsel;
@@ -383,6 +438,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Primary Time                    
 		/// </summary>
+		[ColumnOrder(550)]
 		[SMBFieldName("prmtim")]
 		[SMBFieldDescription("Primary Time")]
 		public long prmtim;
@@ -390,6 +446,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Primary Cost                    
 		/// </summary>
+		[ColumnOrder(560)]
 		[SMBFieldName("prmcst")]
 		[SMBFieldDescription("Primary Cost")]
 		public decimal prmcst;
@@ -397,6 +454,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Primary Sell                    
 		/// </summary>
+		[ColumnOrder(570)]
 		[SMBFieldName("prmsel")]
 		[SMBFieldDescription("Primary Sell")]
 		public decimal prmsel;
@@ -404,6 +462,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add-on Time                     
 		/// </summary>
+		[ColumnOrder(580)]
 		[SMBFieldName("addtim")]
 		[SMBFieldDescription("Add-on Time")]
 		public long addtim;
@@ -411,6 +470,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add-on Cost                     
 		/// </summary>
+		[ColumnOrder(590)]
 		[SMBFieldName("addcst")]
 		[SMBFieldDescription("Add-on Cost")]
 		public decimal addcst;
@@ -418,6 +478,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add-on Sell                     
 		/// </summary>
+		[ColumnOrder(600)]
 		[SMBFieldName("addsel")]
 		[SMBFieldDescription("Add-on Sell")]
 		public decimal addsel;
@@ -425,6 +486,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Primary Contract Sell           
 		/// </summary>
+		[ColumnOrder(610)]
 		[SMBFieldName("cpmsel")]
 		[SMBFieldDescription("Primary Contract Sell")]
 		public decimal cpmsel;
@@ -432,6 +494,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Add on Contract Sell            
 		/// </summary>
+		[ColumnOrder(620)]
 		[SMBFieldName("cadsel")]
 		[SMBFieldDescription("Add on Contract Sell")]
 		public decimal cadsel;
@@ -439,6 +502,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Contract Disc                   
 		/// </summary>
+		[ColumnOrder(630)]
 		[SMBFieldName("condsc")]
 		[SMBFieldDescription("Contract Disc")]
 		public decimal condsc;
@@ -446,6 +510,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Print in Book                   
 		/// </summary>
+		[ColumnOrder(640)]
 		[SMBFieldName("pntbok")]
 		[SMBFieldDescription("Print in Book")]
 		public long pntbok;
@@ -453,6 +518,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Print Parts                     
 		/// </summary>
+		[ColumnOrder(650)]
 		[SMBFieldName("pntprt")]
 		[SMBFieldDescription("Print Parts")]
 		public long pntprt;
@@ -460,6 +526,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Taxable                         
 		/// </summary>
+		[ColumnOrder(660)]
 		[SMBFieldName("taxabl")]
 		[SMBFieldDescription("Taxable")]
 		public long taxabl;

@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class vndprc : smbtable {
+	public partial class vndprc : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Preference#                     
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("vndprf")]
 		[SMBFieldDescription("Preference#")]
 		public long vndprf;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Vendor                          
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("vndnum")]
 		[SMBFieldDescription("Vendor")]
 		public long vndnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Order#                          
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("vndord")]
 		[SMBFieldDescription("Order#")]
 		public string vndord;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Disc. Rate                      
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("vnddsc")]
 		[SMBFieldDescription("Disc. Rate")]
 		public decimal vnddsc;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Price                           
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("vndprc")]
 		[SMBFieldDescription("Price")]
 		public decimal _vndprc;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Last Update                     
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("lstupd")]
 		[SMBFieldDescription("Last Update")]
 		public DateTime lstupd;

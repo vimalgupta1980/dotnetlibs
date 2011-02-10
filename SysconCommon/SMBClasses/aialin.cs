@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class aialin : smbtable {
+	public partial class aialin : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Division                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("divnum")]
 		[SMBFieldDescription("Division")]
 		public long divnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Vendor                          
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("vndnum")]
 		[SMBFieldDescription("Vendor")]
 		public long vndnum;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Scheduled                       
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("schamt")]
 		[SMBFieldDescription("Scheduled")]
 		public decimal schamt;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Changes                         
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("chgamt")]
 		[SMBFieldDescription("Changes")]
 		public decimal chgamt;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Contract                        
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("newcon")]
 		[SMBFieldDescription("Contract")]
 		public decimal newcon;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Prev. Comp.                     
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("prvbll")]
 		[SMBFieldDescription("Prev. Comp.")]
 		public decimal prvbll;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Current Comp.                   
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("curbll")]
 		[SMBFieldDescription("Current Comp.")]
 		public decimal curbll;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Ret. Rate                       
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("retrte")]
 		[SMBFieldDescription("Ret. Rate")]
 		public decimal retrte;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Comp. Ret.                      
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("curret")]
 		[SMBFieldDescription("Comp. Ret.")]
 		public decimal curret;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Prev. Stored                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("prvstr")]
 		[SMBFieldDescription("Prev. Stored")]
 		public decimal prvstr;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Current Stored                  
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("curstr")]
 		[SMBFieldDescription("Current Stored")]
 		public decimal curstr;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total Stored                    
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("strmat")]
 		[SMBFieldDescription("Total Stored")]
 		public decimal strmat;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Stored Ret.                     
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("strret")]
 		[SMBFieldDescription("Stored Ret.")]
 		public decimal strret;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total Comp.                     
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("ttlcmp")]
 		[SMBFieldDescription("Total Comp.")]
 		public decimal ttlcmp;
@@ -131,6 +150,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// % Comp                          
 		/// </summary>
+		[ColumnOrder(190)]
 		[SMBFieldName("pctcmp")]
 		[SMBFieldDescription("% Comp")]
 		public decimal pctcmp;
@@ -138,6 +158,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Balance                         
 		/// </summary>
+		[ColumnOrder(200)]
 		[SMBFieldName("balfin")]
 		[SMBFieldDescription("Balance")]
 		public decimal balfin;
@@ -145,6 +166,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Total Ret.                      
 		/// </summary>
+		[ColumnOrder(210)]
 		[SMBFieldName("retamt")]
 		[SMBFieldDescription("Total Ret.")]
 		public decimal retamt;
@@ -152,6 +174,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(220)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -159,6 +182,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Notes                           
 		/// </summary>
+		[ColumnOrder(230)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Notes")]
 		public string ntetxt;

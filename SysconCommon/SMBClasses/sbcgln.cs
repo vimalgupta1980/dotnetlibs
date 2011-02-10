@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class sbcgln : smbtable {
+	public partial class sbcgln : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Description                     
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("dscrpt")]
 		[SMBFieldDescription("Description")]
 		public string dscrpt;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Budget Hours                    
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("chghrs")]
 		[SMBFieldDescription("Budget Hours")]
 		public decimal chghrs;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Budget Units                    
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("chgunt")]
 		[SMBFieldDescription("Budget Units")]
 		public decimal chgunt;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Budget Amount                   
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("bdgprc")]
 		[SMBFieldDescription("Budget Amount")]
 		public decimal bdgprc;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Vendor                          
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("vndnum")]
 		[SMBFieldDescription("Vendor")]
 		public long vndnum;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract                     
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("vndctc")]
 		[SMBFieldDescription("Subcontract")]
 		public long vndctc;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Line                
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("ctclin")]
 		[SMBFieldDescription("Subcontract Line")]
 		public long ctclin;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Change#                         
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("chgnum")]
 		[SMBFieldDescription("Change#")]
 		public string chgnum;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Status                          
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("chgsts")]
 		[SMBFieldDescription("Status")]
 		public long chgsts;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Date                            
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("chgdte")]
 		[SMBFieldDescription("Date")]
 		public DateTime chgdte;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Code                       
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("cstcde")]
 		[SMBFieldDescription("Cost Code")]
 		public decimal cstcde;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Cost Type                       
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("csttyp")]
 		[SMBFieldDescription("Cost Type")]
 		public long csttyp;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Change Order Notes              
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Change Order Notes")]
 		public string ntetxt;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subcontract Line Reference #    
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("linref")]
 		[SMBFieldDescription("Subcontract Line Reference #")]
 		public string linref;

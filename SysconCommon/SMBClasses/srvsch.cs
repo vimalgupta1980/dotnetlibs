@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class srvsch : smbtable {
+	public partial class srvsch : smbtable {
 		/// <summary>
 		/// Record#                         
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Record#")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Line#                           
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("linnum")]
 		[SMBFieldDescription("Line#")]
 		public long linnum;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Employee                        
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("empnum")]
 		[SMBFieldDescription("Employee")]
 		public long empnum;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Equipment                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("eqpnum")]
 		[SMBFieldDescription("Equipment")]
 		public long eqpnum;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Priority                        
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("priort")]
 		[SMBFieldDescription("Priority")]
 		public long priort;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Sched. Date                     
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("schdte")]
 		[SMBFieldDescription("Sched. Date")]
 		public DateTime schdte;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Sched. Start                    
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("schstr")]
 		[SMBFieldDescription("Sched. Start")]
 		public DateTime schstr;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Sched. Finish                   
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("schfin")]
 		[SMBFieldDescription("Sched. Finish")]
 		public DateTime schfin;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Sched. Hours                    
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("esthrs")]
 		[SMBFieldDescription("Sched. Hours")]
 		public decimal esthrs;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Travel Time                     
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("tvltim")]
 		[SMBFieldDescription("Travel Time")]
 		public string tvltim;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Completed Date                  
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("findte")]
 		[SMBFieldDescription("Completed Date")]
 		public DateTime findte;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Actual Start                    
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("actstr")]
 		[SMBFieldDescription("Actual Start")]
 		public DateTime actstr;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Actual Finish                   
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("actfin")]
 		[SMBFieldDescription("Actual Finish")]
 		public DateTime actfin;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Actual Hours                    
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("acthrs")]
 		[SMBFieldDescription("Actual Hours")]
 		public decimal acthrs;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Billed Date                     
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("bildte")]
 		[SMBFieldDescription("Billed Date")]
 		public DateTime bildte;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Defined                    
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("usrdf1")]
 		[SMBFieldDescription("User Defined")]
 		public string usrdf1;

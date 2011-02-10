@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 using SysconCommon.Common.Environment;
 using SysconCommon.Common;
@@ -124,6 +125,35 @@ namespace SMB.Tables
         {
             // return base.ToString();
             return string.Format("{0} {1}", this.fstnme.Trim(), this.lstnme.Trim());
+        }
+
+        /// <summary>
+        /// checks the ssn and zipcode for validity
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                var match = Regex.Match(this.socsec, @"^\s*(\d\d\d)-(\d\d)-(\d\d\d\d)\s*$");
+                if (!match.Success)
+                    return false;
+
+                int aaa = int.Parse(match.Groups[1].Value);
+                int gg = int.Parse(match.Groups[2].Value);
+                int ssss = int.Parse(match.Groups[3].Value);
+                if (aaa == 0 || aaa == 66 || aaa > 800)
+                    return false;
+                if (gg == 0)
+                    return false;
+                if (ssss == 0)
+                    return false;
+
+                match = Regex.Match(this.zipcde, @"^\s*\d{5}([-]\d{4})?\s*$");
+                if (!match.Success)
+                    return false;
+
+                return true;
+            }
         }
     }
 }

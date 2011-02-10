@@ -1,10 +1,12 @@
 using System;
+using SysconCommon.Algebras.DataTables;
 
 namespace SMB.Tables {
-	public class rptscd : smbtable {
+	public partial class rptscd : smbtable {
 		/// <summary>
 		/// Schedule ID                     
 		/// </summary>
+		[ColumnOrder(10)]
 		[SMBFieldName("recnum")]
 		[SMBFieldDescription("Schedule ID")]
 		public long recnum;
@@ -12,6 +14,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Report Title                    
 		/// </summary>
+		[ColumnOrder(20)]
 		[SMBFieldName("rptttl")]
 		[SMBFieldDescription("Report Title")]
 		public string rptttl;
@@ -19,6 +22,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Report RPF File                 
 		/// </summary>
+		[ColumnOrder(30)]
 		[SMBFieldName("rptkey")]
 		[SMBFieldDescription("Report RPF File")]
 		public string rptkey;
@@ -26,6 +30,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// User Name                       
 		/// </summary>
+		[ColumnOrder(40)]
 		[SMBFieldName("userid")]
 		[SMBFieldDescription("User Name")]
 		public string userid;
@@ -33,6 +38,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Date Created                    
 		/// </summary>
+		[ColumnOrder(50)]
 		[SMBFieldName("creatd")]
 		[SMBFieldDescription("Date Created")]
 		public DateTime creatd;
@@ -40,6 +46,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Scheduled                       
 		/// </summary>
+		[ColumnOrder(60)]
 		[SMBFieldName("scedul")]
 		[SMBFieldDescription("Scheduled")]
 		public string scedul;
@@ -47,6 +54,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Printer                         
 		/// </summary>
+		[ColumnOrder(70)]
 		[SMBFieldName("output")]
 		[SMBFieldDescription("Printer")]
 		public string output;
@@ -54,6 +62,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Report Drive                    
 		/// </summary>
+		[ColumnOrder(80)]
 		[SMBFieldName("rptdrv")]
 		[SMBFieldDescription("Report Drive")]
 		public string rptdrv;
@@ -61,6 +70,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Report Form Design              
 		/// </summary>
+		[ColumnOrder(90)]
 		[SMBFieldName("rptfrm")]
 		[SMBFieldDescription("Report Form Design")]
 		public string rptfrm;
@@ -68,6 +78,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Report Criteria                 
 		/// </summary>
+		[ColumnOrder(100)]
 		[SMBFieldName("dtafld")]
 		[SMBFieldDescription("Report Criteria")]
 		public string dtafld;
@@ -75,6 +86,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Reporting Defaults              
 		/// </summary>
+		[ColumnOrder(110)]
 		[SMBFieldName("rptdft")]
 		[SMBFieldDescription("Reporting Defaults")]
 		public string rptdft;
@@ -82,6 +94,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Email Message                   
 		/// </summary>
+		[ColumnOrder(120)]
 		[SMBFieldName("ntetxt")]
 		[SMBFieldDescription("Email Message")]
 		public string ntetxt;
@@ -89,6 +102,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Subject Line                    
 		/// </summary>
+		[ColumnOrder(130)]
 		[SMBFieldName("subjct")]
 		[SMBFieldDescription("Subject Line")]
 		public string subjct;
@@ -96,6 +110,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Task GUID                       
 		/// </summary>
+		[ColumnOrder(140)]
 		[SMBFieldName("tskgid")]
 		[SMBFieldDescription("Task GUID")]
 		public string tskgid;
@@ -103,6 +118,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Machine Name                    
 		/// </summary>
+		[ColumnOrder(150)]
 		[SMBFieldName("mchnam")]
 		[SMBFieldDescription("Machine Name")]
 		public string mchnam;
@@ -110,6 +126,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Send Copy                       
 		/// </summary>
+		[ColumnOrder(160)]
 		[SMBFieldName("sndcpy")]
 		[SMBFieldDescription("Send Copy")]
 		public string sndcpy;
@@ -117,6 +134,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Read Receipt                    
 		/// </summary>
+		[ColumnOrder(170)]
 		[SMBFieldName("rceipt")]
 		[SMBFieldDescription("Read Receipt")]
 		public string rceipt;
@@ -124,6 +142,7 @@ namespace SMB.Tables {
 		/// <summary>
 		/// Importance Level                
 		/// </summary>
+		[ColumnOrder(180)]
 		[SMBFieldName("implvl")]
 		[SMBFieldDescription("Importance Level")]
 		public long implvl;
