@@ -38,7 +38,7 @@ namespace SysconCommon.Common
 
         // used to get different random numbers all the time, better than time based because
         // we may get 2 in the same ms
-        private static int next_seed = 0;
+        private static int next_seed = Convert.ToInt32(DateTime.Now.Ticks % 1000000);
         
         /// <summary>
         /// infinite list of naturals (starting with 1)

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.IO;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.OleDb;
 // using System.Data.SQLite; // used for sql dependancies, ie.. cursors
 
 using SysconCommon.Common.Validity;
@@ -723,6 +724,47 @@ namespace SysconCommon.Common.Environment
 
             return new TempFile(tempDir + "/" + tempFileName);
 
+        }
+
+        public class TempDBFPointer : IDisposable
+        {
+            public readonly string filename;
+            public OleDbConnection connection;
+
+            public TempDBFPointer(string fname, OleDbConnection con)
+            {
+                this.filename = fname;
+                this.connection = con;
+            }
+
+            public override string ToString()
+            {
+                return filename;
+            }
+
+            public void Dispose()
+            {
+                connection.Disposed += new EventHandler(connection_Disposed);
+            }
+
+            void connection_Disposed(object sender, EventArgs e)
+            {
+                if (File.Exists(filename))
+                {
+                    try
+                    {
+                        File.Delete(filename);
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        static public TempDBFPointer GetTempDBF(this OleDbConnection con)
+        {
+            var tempDir = Env.GetConfigVar("TempFileDirectory", Path.GetTempPath(), true);
+            var tempFileName = FunctionalOperators.CreateRandomString(10,20) + ".dbf";
+            return new TempDBFPointer(tempDir + @"\" + tempFileName, con);
         }
 
         #endregion

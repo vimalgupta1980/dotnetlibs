@@ -65,8 +65,10 @@ namespace SysconCommon.Accounting.MasterBuilder
                     this.LastName = "";
                     this.MiddleName = "";
                 }
-
-                loadFromDataRow(dt.Rows[0]);
+                else
+                {
+                    loadFromDataRow(dt.Rows[0]);
+                }
             }
         }
 

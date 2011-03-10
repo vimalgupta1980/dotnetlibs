@@ -2,13 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Data.Odbc;
+using System.Data.OleDb;
 
 namespace SysconCommon.Common.Environment
 {
     public static class Connections
     {
         static private OdbcConnection _con = null;
+
+        static public void SetOLEDBFreeTableDirectory(string mbdir)
+        {
+            SysconCommon.Common.Environment.Connections.OLEDBConnectionString = string.Format(
+                "Provider=VFPOLEDB.1;Data Source={0};Mode=ReadWrite|Share Deny None;Password=\"\";Collating Sequence=Machine"
+                , mbdir);
+        }
+
+        static private string _OLEDBConnectionString = null;
+        static public string OLEDBConnectionString
+        {
+            get
+            {
+                return _OLEDBConnectionString;
+            }
+            set
+            {
+                if (_OLEDBConnectionString == value)
+                    return;
+
+                _OLEDBConnectionString = value;
+            }
+        }
+
+        static public OleDbConnection GetOLEDBConnection()
+        {
+            var con = new OleDbConnection(OLEDBConnectionString);
+            con.Open();
+            return con;
+        }
 
         static private string _OdbcConnectionString = null;
         static public string OdbcConnectionString
@@ -102,6 +134,13 @@ namespace SysconCommon.Common.Environment
         static public IEnumerable<T> GetList<T>(string sqlfmt, params object[] args)
         {
             return Connection.GetList<T>(sqlfmt, args);
+        }
+
+        static public void ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
+        {
+            var cmd = con.CreateCommand();
+            cmd.CommandText = string.Format(sqlfmt, args);
+            cmd.ExecuteNonQuery();
         }
     }
 }

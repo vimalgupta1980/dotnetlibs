@@ -66,6 +66,16 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return wb.ActiveSheet;
         }
 
+        public static Application WriteScalarToExcel<T>(this T self, string template, string worksheet, string namedrange)
+        {
+            var tmpdt = new System.Data.DataTable();
+            tmpdt.Columns.Add("Value");
+            var tmprow = tmpdt.NewRow();
+            tmprow["Value"] = self;
+            tmpdt.Rows.Add(tmprow);
+            return tmpdt.WriteToExcel(template, worksheet, namedrange);
+        }
+
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)
         {
             return self.WriteToExcel(template, worksheet, namedrange, false);

@@ -25,6 +25,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using System.Reflection;
 
 
@@ -73,6 +74,51 @@ namespace SysconCommon.Algebras.DataTables
                 da.Fill(dt);
                 return dt;
             }
+        }
+
+        public static DataTable GetDataTable(this OleDbConnection con, string datatablename, string sqlfmt, params object[] args)
+        {
+#if false
+            var da = new OleDbDataAdapter();
+            using (var cmd = new OleDbCommand(string.Format(sqlfmt, args)))
+            {
+                cmd.Connection = con;
+                da.SelectCommand = cmd;
+                Env.DebugPrint(cmd.CommandText);
+                var dt = new DataTable(datatablename);
+                da.Fill(dt);
+                return dt;
+            }
+#else
+            using (var cmd = new OleDbCommand(string.Format(sqlfmt, args)))
+            {
+                cmd.Connection = con;
+                var rdr = cmd.ExecuteReader();
+                var fcount = rdr.FieldCount;
+                var dt = new DataTable();
+                foreach(var i in FunctionalOperators.Range(fcount))
+                {
+                    dt.Columns.Add(rdr.GetName(i), rdr.GetFieldType(i));
+                }
+
+                while(rdr.Read()) 
+                {
+                    var row = dt.NewRow();
+                    foreach (var i in FunctionalOperators.Range(fcount))
+                    {
+                        // try
+                        // {
+                            row[i] = rdr[i];
+                        // }
+                        // catch { }
+                    }
+
+                    dt.Rows.Add(row);
+                }
+
+                return dt;
+            }
+#endif
         }
 
         public static IEnumerable<T> ToList<T>(this DataTable self)
