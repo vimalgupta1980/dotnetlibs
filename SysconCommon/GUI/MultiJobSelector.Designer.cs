@@ -39,6 +39,8 @@
             this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkSelectAll = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.btnFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdJobs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,9 +61,9 @@
             this.JobStatus,
             this.ClientNumber,
             this.ClientName});
-            this.grdJobs.Location = new System.Drawing.Point(0, 47);
+            this.grdJobs.Location = new System.Drawing.Point(0, 71);
             this.grdJobs.Name = "grdJobs";
-            this.grdJobs.Size = new System.Drawing.Size(770, 408);
+            this.grdJobs.Size = new System.Drawing.Size(770, 343);
             this.grdJobs.TabIndex = 0;
             // 
             // IsSelected
@@ -117,7 +119,7 @@
             // chkSelectAll
             // 
             this.chkSelectAll.AutoSize = true;
-            this.chkSelectAll.Location = new System.Drawing.Point(12, 24);
+            this.chkSelectAll.Location = new System.Drawing.Point(12, 48);
             this.chkSelectAll.Name = "chkSelectAll";
             this.chkSelectAll.Size = new System.Drawing.Size(70, 17);
             this.chkSelectAll.TabIndex = 1;
@@ -127,7 +129,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(683, 12);
+            this.button1.Location = new System.Drawing.Point(683, 423);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -135,11 +137,30 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // txtFilter
+            // 
+            this.txtFilter.Location = new System.Drawing.Point(13, 13);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(651, 20);
+            this.txtFilter.TabIndex = 3;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Location = new System.Drawing.Point(683, 11);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnFilter.TabIndex = 4;
+            this.btnFilter.Text = "&Filter";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
             // MultiJobSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 455);
+            this.ClientSize = new System.Drawing.Size(770, 452);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chkSelectAll);
             this.Controls.Add(this.grdJobs);
@@ -165,5 +186,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientName;
         private System.Windows.Forms.CheckBox chkSelectAll;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtFilter;
+        private System.Windows.Forms.Button btnFilter;
     }
 }

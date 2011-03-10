@@ -18,12 +18,25 @@ namespace SysconCommon.GUI
     {
         class DataLine
         {
+            [ColumnOrder(10)]
             public bool IsSelected;
+
+            [ColumnOrder(20)]
             public long jobnumber;
+
+            [ColumnOrder(30)]
             public string jobname;
+
+            [ColumnOrder(40)]
             public string jobtype;
+
+            [ColumnOrder(50)]
             public long jobstatus;
+
+            [ColumnOrder(60)]
             public long clientnumber;
+
+            [ColumnOrder(70)]
             public string clientname;
         }
 
@@ -46,14 +59,25 @@ namespace SysconCommon.GUI
             var datalines = datalines_dt.ToList<DataLine>();
             datalines_dt = datalines.ToDataTable("datalines");
 
-            this.grdJobs.DataSource = datalines_dt;
+            current_dt = datalines_dt;
+        }
+
+        private DataTable current_dt
+        {
+            get
+            {
+                return this.grdJobs.DataSource as DataTable;
+            } set 
+            {
+                this.grdJobs.DataSource = value;
+            }
         }
 
         public IEnumerable<long> SelectedJobNumbers
         {
             get
             {
-                foreach (DataLine row in datalines_dt.ToList<DataLine>())
+                foreach (DataLine row in current_dt.ToList<DataLine>())
                 {
                     if (row.IsSelected)
                         yield return row.jobnumber;
@@ -63,7 +87,7 @@ namespace SysconCommon.GUI
 
         private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (DataRow row in datalines_dt.Rows)
+            foreach (DataRow row in current_dt.Rows)
             {
                 row["IsSelected"] = this.chkSelectAll.Checked;
             }
@@ -74,6 +98,29 @@ namespace SysconCommon.GUI
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            var filter_text = this.txtFilter.Text.Trim();
+
+            if (filter_text == "")
+            {
+                current_dt = datalines_dt;
+            }
+            else
+            {
+                current_dt = datalines_dt.FilterRows(row =>
+                {
+                    foreach (DataColumn c in row.Table.Columns)
+                    {
+                        if (row[c].ToString().ToUpper().Contains(filter_text.ToUpper()))
+                            return true;
+                    }
+
+                    return false;
+                });
+            }
         }
     }
 }

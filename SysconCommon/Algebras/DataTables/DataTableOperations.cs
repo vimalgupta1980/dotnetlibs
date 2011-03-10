@@ -1420,5 +1420,26 @@ namespace SysconCommon.Algebras.DataTables
 
             return dt;
         }
+
+        public static DataTable FilterRows(this DataTable self, Func<DataRow, bool> filter)
+        {
+            var new_dt = self.Copy();
+            new_dt.Rows.Clear();
+
+            foreach (DataRow row in self.Rows)
+            {
+                if (filter(row))
+                {
+                    var new_row = new_dt.NewRow();
+                    foreach (var i in FunctionalOperators.Range(new_dt.Columns.Count))
+                    {
+                        new_row[i] = row[i];
+                    }
+                    new_dt.Rows.Add(new_row);
+                }
+            }
+
+            return new_dt;
+        }
     }
 }
