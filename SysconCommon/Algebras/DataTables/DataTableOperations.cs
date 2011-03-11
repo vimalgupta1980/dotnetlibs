@@ -1441,5 +1441,26 @@ namespace SysconCommon.Algebras.DataTables
 
             return new_dt;
         }
+
+        public static DataTable Append(this DataTable self, DataTable append_data)
+        {
+            var result = self.Copy();
+            if (self.Columns.Count != append_data.Columns.Count)
+            {
+                throw new SysconException("Datatable being appended must have the same # of columns");
+            }
+
+            foreach (DataRow row in append_data.Rows)
+            {
+                var new_row = result.NewRow();
+                foreach (var i in FunctionalOperators.Range(self.Columns.Count))
+                {
+                    new_row[i] = row[i];
+                }
+                result.Rows.Add(new_row);
+            }
+
+            return result;
+        }
     }
 }

@@ -210,8 +210,7 @@ namespace SysconCommon.Common.Environment
         static bool _config_file_used = false;
 
         /// <summary>
-        /// set the config file name, this can only happen before the config
-        /// is ever used.  The default is config.xml in the directory of the
+        /// set the config file name.  The default is config.xml in the directory of the
         /// .exe file if this is never called.
         /// </summary>
         /// <param name="filename">
@@ -226,7 +225,7 @@ namespace SysconCommon.Common.Environment
             if (filename == _config_file && _config_file_used)
                 return; 
 
-            Validity.Validity.Assert(!_config_file_used, "SetConfigFile set after config use");
+            // Validity.Validity.Assert(!_config_file_used, "SetConfigFile set after config use")
 
             if (!File.Exists(filename))
             {
@@ -238,11 +237,11 @@ namespace SysconCommon.Common.Environment
 
             _config_file = filename;
             _config_file_used = true;
+            configDoc = null;
         }
 
         /// <summary>
-        /// set the config file name, this can only happen before the config
-        /// is ever used.  The default is config.xml in the directory of the
+        /// set the config file name.  The default is config.xml in the directory of the
         /// .exe file if this is never called.
         /// </summary>
         /// <param name="filename">
@@ -308,6 +307,10 @@ namespace SysconCommon.Common.Environment
 
         static private XmlDocument configDoc
         {
+            set
+            {
+                _configDoc = value;
+            }
             get
             {
                 if (_configDoc != null)
