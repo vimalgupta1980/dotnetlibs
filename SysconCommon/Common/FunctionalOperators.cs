@@ -4,9 +4,13 @@
 using System;
 // using System.Numerics;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
+using System.Security.Cryptography;
+using SysconCommon.GUI;
 
 namespace SysconCommon.Common
 {
@@ -28,12 +32,92 @@ namespace SysconCommon.Common
             return copy;
         }
 
+        public static string RSAEncrypt(this string inputString, int dwKeySize, string xmlKeys)
+        {
+            RSACryptoServiceProvider provider = new RSACryptoServiceProvider(dwKeySize);
+            provider.FromXmlString(xmlKeys);
+            int keysize = dwKeySize / 8;
+            byte[] bytes = Encoding.UTF32.GetBytes(inputString);
+            int maxLength = keysize - 42;
+            int dataLength = bytes.Length;
+            int iterations = dataLength / maxLength;
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i <= iterations; i++)
+            {
+                byte[] tempBytes = new byte[
+                    (dataLength - maxLength * i > maxLength) ? maxLength : dataLength - maxLength * i];
+                Buffer.BlockCopy(bytes, maxLength * i, tempBytes, 0, tempBytes.Length);
+                byte[] encrypted_bytes = provider.Encrypt(tempBytes, true);
+                builder.Append(Convert.ToBase64String(encrypted_bytes));
+            }
+
+            return builder.ToString();
+        }
+
+        public static string RSADecrypt(this string inputString, int dwKeySize, string xmlKeys)
+        {
+            RSACryptoServiceProvider provider = new RSACryptoServiceProvider(dwKeySize);
+            provider.FromXmlString(xmlKeys);
+            int base64BlockSize = ((dwKeySize / 8) % 3 != 0) ?
+                (((dwKeySize / 8) / 3) * 4) + 4 : ((dwKeySize / 8) / 3) * 4;
+            int iterations = inputString.Length / base64BlockSize;
+
+            var progress = new ProgressDialog(iterations);
+            progress.Text = "Decrypting";
+            progress.Show();
+
+            try
+            {
+                ArrayList arrayList = new ArrayList();
+                for (int i = 0; i < iterations; i++)
+                {
+                    progress.Tick();
+                    byte[] encryptedBytes = Convert.FromBase64String(inputString.Substring(base64BlockSize * i, base64BlockSize));
+                    arrayList.AddRange(provider.Decrypt(encryptedBytes, true));
+                }
+
+                return Encoding.UTF32.GetString(arrayList.ToArray(Type.GetType("System.Byte")) as byte[]);
+            }
+            finally
+            {
+                progress.Close();
+            }
+        }
+
         public static T FirstOrDefault<T>(this IEnumerable<T> self, T defaultValue)
         {
             if (self.IsEmpty())
                 return defaultValue;
             else
                 return self.First();
+        }
+
+        public static T MinOrDefault<T>(this IEnumerable<T> self)
+        {
+            if (self.IsEmpty())
+                return default(T);
+
+            else
+                return self.Min();
+        }
+
+        public static T MaxOrDefault<T>(this IEnumerable<T> self)
+        {
+            if (self.IsEmpty())
+                return default(T);
+            else
+                return self.Max();
+        }
+
+        public static int IndexOf<T>(this T[] self, T needle)
+        {
+            foreach (var i in Range(self.Length))
+            {
+                if (self[i].Equals(needle))
+                    return i;
+            }
+
+            throw new SysconException("Could not find element in array");
         }
 
         // used to get different random numbers all the time, better than time based because

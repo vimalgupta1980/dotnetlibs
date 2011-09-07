@@ -54,9 +54,9 @@ namespace SysconCommon.Protection
 
             //TODO: update the alias paths and set the last argument to false ONLY if you wish to DISABLE encryption
             this.AddAlias(new LicenseFileSystemAlias(alias_path, client_key, true));
-            //this.AddAlias(new LicenseFileSystemAlias(aliasPath + "TrialLicenseAlias2.xml", client_key, true));
-            this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias3"));
-            this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.LocalMachine, "TrialLicenseAlias4"));
+            // this.AddAlias(new LicenseFileSystemAlias(aliasPath + "TrialLicenseAlias2.xml", client_key, true));
+            // this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias3"));
+            // this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.LocalMachine, "TrialLicenseAlias4"));
             //this.AddAlias(new LicenseWindowsRegistryAlias("Software\\PLUSManaged\\Samples\\UnmanagedTrial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias4"));
 
             //add the time servers to check against - this check occurs in the IsValid method implementation

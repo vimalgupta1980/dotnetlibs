@@ -56,6 +56,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Name = "ProgressDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Progress";
             this.Load += new System.EventHandler(this.ProgressDialog_Load);
             this.ResumeLayout(false);

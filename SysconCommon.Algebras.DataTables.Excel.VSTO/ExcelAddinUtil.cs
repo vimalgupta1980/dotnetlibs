@@ -30,9 +30,14 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             }
         }
 
+        static private Workbook openWorkbook(string fileName)
+        {
+            return app.Workbooks.Open(fileName);
+        }
+
         static private Dictionary<string, Workbook> workbooks = new Dictionary<string, Workbook>();
 
-        static private Workbook getWorkbook(string template)
+        static public Workbook getWorkbook(string template)
         {
             if (template == null)
             {
@@ -45,13 +50,13 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             if (!File.Exists(template))
             {
                 throw new SysconException("Workbook " + template + " does not exist");
-            }
+           } 
 
             workbooks.Add(template, app.Workbooks.Add(template));
             return workbooks[template];
         }
 
-        static private Worksheet getWorksheet(Workbook wb, string sheetname)
+        static public Worksheet getWorksheet(this Workbook wb, string sheetname)
         {
             foreach (var i in FunctionalOperators.Range(wb.Worksheets.Count))
             {
@@ -74,6 +79,45 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             tmprow["Value"] = self;
             tmpdt.Rows.Add(tmprow);
             return tmpdt.WriteToExcel(template, worksheet, namedrange);
+        }
+
+        public static System.Data.DataTable GetNamedRangeData(string filename, string worksheet_name, string named_range_name)
+        {
+            var wb = openWorkbook(filename);
+            var ws = getWorksheet(wb, worksheet_name);
+            Range rng = ws.get_Range(named_range_name);
+            object[,] val = rng.get_Value();
+
+            var dt = new System.Data.DataTable(named_range_name);
+            
+            for(var i = 1; i < val.GetLength(1) + 1; i++) {
+                dt.Columns.Add("Column" + i.ToString());
+            }
+
+            for (var r = 1; r < val.GetLength(0) + 1; r++)
+            {
+                var row = dt.NewRow();
+                for (var c = 1; c < val.GetLength(1) + 1; c++)
+                {
+                    row[c - 1] = val[r, c];
+                }
+
+                dt.Rows.Add(row);
+            }
+
+            return dt;
+
+            // throw new NotImplementedException();
+        }
+
+        public static Application ClearNamedRange(string filename, string worksheet_name, string named_range_name)
+        {
+            // var wb = openWorkbook(filename);
+            var wb = getWorkbook(filename);
+            var ws = getWorksheet(wb, worksheet_name);
+            Range r = ws.get_Range(named_range_name);
+            r.Clear();
+            return _app;
         }
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)

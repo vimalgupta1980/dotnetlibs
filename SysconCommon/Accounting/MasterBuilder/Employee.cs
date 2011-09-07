@@ -132,5 +132,11 @@ namespace SysconCommon.Accounting.MasterBuilder
                 _MiddleName = value;
             }
         }
+
+        public override string ToString()
+        {
+            // return base.ToString();
+            return string.Format("{0} {1}", FirstName == null ? "" : FirstName.Trim(), LastName == null ? "" : LastName.Trim());
+        }
     }
 }

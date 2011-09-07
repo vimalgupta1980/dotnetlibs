@@ -15,6 +15,7 @@ namespace SysconCommon.Accounting
         IEnumerable<IInvoice> Invoices { get; }
         ITimeAndMaterial TimeAndMaterials { get; }
         IEmployee Supervisor { get; set; }
+        IEmployee Estimator { get; set; }
         decimal LotPremium { get; set; }
     }
 }

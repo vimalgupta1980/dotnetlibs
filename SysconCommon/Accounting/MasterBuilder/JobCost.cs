@@ -78,6 +78,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             this.TransactionDate = Convert.ToDateTime(row["trndte"]);
             this.CostType = new CostType(Convert.ToInt32(row["csttyp"]));
             this.Vendor = new Vendor(Convert.ToInt64(row["vndnum"]));
+            // this.Acrinv = Convert.ToInt64(row["acrinv"]);
         }
 
         static public void SetCache(string sqlfmt, params object[] args)
@@ -560,5 +561,18 @@ namespace SysconCommon.Accounting.MasterBuilder
         }
 
         public IVendor Vendor { get; set; }
+
+
+        public long Acrinv
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

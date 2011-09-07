@@ -54,7 +54,7 @@ namespace SysconCommon.Algebras.DataTables
         }
 
         public DataTableAlgebraException(Exception innerException)
-            : this(innerException, null, null)
+            : this(innerException, innerException.Message)
         {
         }
     }
@@ -106,11 +106,14 @@ namespace SysconCommon.Algebras.DataTables
                     var row = dt.NewRow();
                     foreach (var i in FunctionalOperators.Range(fcount))
                     {
-                        // try
-                        // {
+                        try
+                        {
                             row[i] = rdr[i];
-                        // }
-                        // catch { }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new SysconException(ex);
+                        }
                     }
 
                     dt.Rows.Add(row);
@@ -301,22 +304,34 @@ namespace SysconCommon.Algebras.DataTables
 
         public static string AsHTML(this DataTable self)
         {
-            string html = "<html class='datatable'>";
-            html += "<tr class='datatableHeader'>";
+            return self.AsHTML(true);
+        }
 
-            foreach (var c in self.Columns.ToIEnumerable())
+        public static string AsHTML(this DataTable self, bool includedHeaders)
+        {
+            string html = "<table class='datatable'>";
+
+            if (includedHeaders)
             {
-                html += string.Format("<td>{0}</td>", c.ColumnName);
-            }
+                html += "<tr class='datatableHeader'>";
 
-            html += "</tr>";
+                foreach (var c in self.Columns.ToIEnumerable())
+                {
+                    html += string.Format("<th>{0}</th>", c.ColumnName);
+                }
+
+                html += "</tr>";
+            }
 
             foreach (var r in self.Rows.ToIEnumerable())
             {
                 html += "<tr class='datatabledata'>";
+
+                var colnum = 1;
                 foreach (var c in self.Columns.ToIEnumerable())
                 {
-                    html += string.Format("<td>{0}</td>", r[c]);
+                    html += string.Format("<td class='datatablecolumn{1}'>{0}</td>", r[c], colnum.ToString());
+                    colnum += 1;
                 }
                 html += "</tr>";
             }

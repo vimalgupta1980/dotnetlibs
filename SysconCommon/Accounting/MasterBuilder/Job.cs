@@ -250,5 +250,22 @@ namespace SysconCommon.Accounting.MasterBuilder
             _cache = null;
             _cache_dictionary = null;
         }
+
+
+        public IEmployee Estimator
+        {
+            get
+            {
+                return Cache.CacheResult(() =>
+                    {
+                        var estemp = Connections.GetScalar<int>("select estemp from actrec where recnum = {0}", this.JobNumber);
+                        return estemp == 0 ? null : new Employee(estemp);
+                    });
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

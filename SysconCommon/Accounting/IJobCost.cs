@@ -29,5 +29,6 @@ namespace SysconCommon.Accounting
         ISource Source { get; set; }
         IPhase Phase { get; set; }
         IVendor Vendor { get; set; }
+        long Acrinv { get; set; }
     }
 }

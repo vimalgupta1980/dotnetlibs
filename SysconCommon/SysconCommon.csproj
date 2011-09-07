@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,6 +73,7 @@
     </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -126,12 +127,11 @@
     <Compile Include="Algebras\DataTables\ColumnOrderAttribute.cs" />
     <Compile Include="Algebras\Graphs\GraphOperations.cs" />
     <Compile Include="Algebras\Graphs\GraphStructures.cs" />
-    <Compile Include="Algebras\JSON\CommonJsonExtensions.cs" />
-    <Compile Include="Algebras\JSON\FormBuilder.cs" />
     <Compile Include="Common\ArgumentHandling.cs" />
     <Compile Include="Common\Cache.cs" />
     <Compile Include="Common\Connections.cs" />
     <Compile Include="Common\DictionaryOperators.cs" />
+    <Compile Include="Common\FixedSpace.cs" />
     <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SysconException.cs" />
     <Compile Include="Common\Environment.cs" />
@@ -149,6 +149,12 @@
     </Compile>
     <Compile Include="GUI\ComboBox.cs" />
     <Compile Include="GUI\DataGridViewExtensions.cs" />
+    <Compile Include="GUI\FileSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\FileSelector.Designer.cs">
+      <DependentUpon>FileSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MultiJobSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -422,6 +428,7 @@
     <Compile Include="SMBClasses\vndtyp.cs" />
     <Compile Include="SMBClasses\wkrcmp.cs" />
     <Compile Include="SMBClasses\wnddft.cs" />
+    <Compile Include="SMBReversed\Security.cs" />
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Web\Forms.cs" />
   </ItemGroup>
@@ -449,8 +456,12 @@
     <EmbeddedResource Include="GUI\AssociationGridView.resx">
       <DependentUpon>AssociationGridView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FileSelector.resx">
+      <DependentUpon>FileSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MultiJobSelector.resx">
       <DependentUpon>MultiJobSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
@@ -460,6 +471,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SysconLogo.resx">
       <DependentUpon>SysconLogo.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\WebLink.resx">
       <DependentUpon>WebLink.cs</DependentUpon>
