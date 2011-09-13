@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -127,6 +128,7 @@
     <Compile Include="Algebras\DataTables\ColumnOrderAttribute.cs" />
     <Compile Include="Algebras\Graphs\GraphOperations.cs" />
     <Compile Include="Algebras\Graphs\GraphStructures.cs" />
+    <Compile Include="COMMethods.cs" />
     <Compile Include="Common\ArgumentHandling.cs" />
     <Compile Include="Common\Cache.cs" />
     <Compile Include="Common\Connections.cs" />

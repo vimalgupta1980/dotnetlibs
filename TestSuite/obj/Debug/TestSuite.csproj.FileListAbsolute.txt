@@ -36,3 +36,6 @@ C:\projects\dotnetlibs\TestSuite\bin\Debug\nunit.framework.xml
 C:\projects\dotnetlibs\TestSuite\bin\Debug\GemBox.ExcelLite.xml
 C:\projects\dotnetlibs\TestSuite\obj\Debug\TestSuite.dll
 C:\projects\dotnetlibs\TestSuite\obj\Debug\TestSuite.pdb
+C:\!dev\dotnetlibs\TestSuite\obj\Debug\ResolveAssemblyReference.cache
+C:\!dev\dotnetlibs\TestSuite\obj\Debug\TestSuite.dll
+C:\!dev\dotnetlibs\TestSuite\obj\Debug\TestSuite.pdb

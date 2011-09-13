@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSuite", "TestSuite\TestSuite.csproj", "{AC7D9945-BFED-473E-B3BA-FE0F89EAA0AC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysconCommon", "SysconCommon\SysconCommon.csproj", "{4EE1750F-BDE7-4664-B76F-86F60C45390E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysconCommon.Algebras.DataTables.Excel", "SysconCommon.Algebras.DataTables.Excel\SysconCommon.Algebras.DataTables.Excel.csproj", "{1C1F0762-9B58-421C-812E-CCCFC243BAB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysconCommon.Algebras.DataTables.Excel.VSTO", "SysconCommon.Algebras.DataTables.Excel.VSTO\SysconCommon.Algebras.DataTables.Excel.VSTO.csproj", "{944ECEB7-92ED-4457-A617-C39D692021C7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Syscon API Installer", "Syscon API Installer\Syscon API Installer.vdproj", "{8BFCAA52-9173-48B1-951F-E58A0E075893}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AC7D9945-BFED-473E-B3BA-FE0F89EAA0AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC7D9945-BFED-473E-B3BA-FE0F89EAA0AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC7D9945-BFED-473E-B3BA-FE0F89EAA0AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC7D9945-BFED-473E-B3BA-FE0F89EAA0AC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4EE1750F-BDE7-4664-B76F-86F60C45390E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4EE1750F-BDE7-4664-B76F-86F60C45390E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE1750F-BDE7-4664-B76F-86F60C45390E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE1750F-BDE7-4664-B76F-86F60C45390E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C1F0762-9B58-421C-812E-CCCFC243BAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C1F0762-9B58-421C-812E-CCCFC243BAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C1F0762-9B58-421C-812E-CCCFC243BAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C1F0762-9B58-421C-812E-CCCFC243BAB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{944ECEB7-92ED-4457-A617-C39D692021C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{944ECEB7-92ED-4457-A617-C39D692021C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{944ECEB7-92ED-4457-A617-C39D692021C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{944ECEB7-92ED-4457-A617-C39D692021C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BFCAA52-9173-48B1-951F-E58A0E075893}.Debug|Any CPU.ActiveCfg = Debug
+		{8BFCAA52-9173-48B1-951F-E58A0E075893}.Debug|Any CPU.Build.0 = Debug
+		{8BFCAA52-9173-48B1-951F-E58A0E075893}.Release|Any CPU.ActiveCfg = Release
+		{8BFCAA52-9173-48B1-951F-E58A0E075893}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

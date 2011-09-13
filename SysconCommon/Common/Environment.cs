@@ -58,6 +58,17 @@ namespace SysconCommon.Common.Environment
             return File.Exists(fileName);
         }
 
+        /// <summary>
+        /// set master builder directory, sets odbc and oledb connections up
+        /// </summary>
+        static public void SetMBDir(string mbdir)
+        {
+            Connections.SetOLEDBFreeTableDirectory(mbdir);
+            Connections.OdbcConnectionString = string.Format(
+                "Driver={{Microsoft Visual FoxPro Driver}};UID=;PWD=;SourceDB={0};SourceType=DBF;"
+                + "Exclusive=No;BackgroundFetch=Yes;Collate=Machine;Null=Yes;Deleted=Yes;", mbdir);
+        }
+
         static private string _LogFile = null;
 
         /// <summary>
