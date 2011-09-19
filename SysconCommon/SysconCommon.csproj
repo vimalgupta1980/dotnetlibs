@@ -150,12 +150,24 @@
       <DependentUpon>AssociationGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ComboBox.cs" />
+    <Compile Include="GUI\CopyableMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CopyableMsgBox.Designer.cs">
+      <DependentUpon>CopyableMsgBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DataGridViewExtensions.cs" />
     <Compile Include="GUI\FileSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\FileSelector.Designer.cs">
       <DependentUpon>FileSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FldlibBasedGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FldlibBasedGrid.Designer.cs">
+      <DependentUpon>FldlibBasedGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MultiJobSelector.cs">
       <SubType>Form</SubType>
@@ -174,6 +186,12 @@
     </Compile>
     <Compile Include="GUI\SearchableComboBox.Designer.cs">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SMBLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SMBLogin.Designer.cs">
+      <DependentUpon>SMBLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\SysconLogo.cs">
       <SubType>Component</SubType>
@@ -430,6 +448,7 @@
     <Compile Include="SMBClasses\vndtyp.cs" />
     <Compile Include="SMBClasses\wkrcmp.cs" />
     <Compile Include="SMBClasses\wnddft.cs" />
+    <Compile Include="SMBReversed\Fldlib.cs" />
     <Compile Include="SMBReversed\Security.cs" />
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Web\Forms.cs" />
@@ -458,8 +477,14 @@
     <EmbeddedResource Include="GUI\AssociationGridView.resx">
       <DependentUpon>AssociationGridView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\CopyableMsgBox.resx">
+      <DependentUpon>CopyableMsgBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FileSelector.resx">
       <DependentUpon>FileSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FldlibBasedGrid.resx">
+      <DependentUpon>FldlibBasedGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MultiJobSelector.resx">
       <DependentUpon>MultiJobSelector.cs</DependentUpon>
@@ -470,6 +495,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SearchableComboBox.resx">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SMBLogin.resx">
+      <DependentUpon>SMBLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SysconLogo.resx">
       <DependentUpon>SysconLogo.cs</DependentUpon>

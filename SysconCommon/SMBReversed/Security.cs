@@ -71,5 +71,112 @@ namespace SysconCommon.SMBReversed
             }
             return string.Empty;
         }
+
+        public static string omEncrypt(string strUnencryptedString)
+        {
+            string str = string.Empty;
+            int num = 0;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(string.Empty);
+            str = "";
+            if (strUnencryptedString.Length > 0)
+            {
+                for (int i = 1; i <= strUnencryptedString.Length; i++)
+                {
+                    char ch = strUnencryptedString[i - 1];
+                    if (ch.ToString()[0] >= '(')
+                    {
+                        char ch2 = strUnencryptedString[i - 1];
+                        if (ch2.ToString()[0] <= '~')
+                        {
+                            goto Label_0069;
+                        }
+                    }
+                    return str;
+                Label_0069: ;
+                }
+                builder = new StringBuilder("");
+                for (int j = 1; j <= strUnencryptedString.Length; j++)
+                {
+                    char ch3 = strUnencryptedString[j - 1];
+                    num = ch3.ToString()[0] + '\x0014';
+                    if (num > 0x7e)
+                    {
+                        num = (num - 0x7e) + 0x27;
+                    }
+                    builder.Append((char)num);
+                }
+                for (int k = 1; k <= builder.ToString().Length; k++)
+                {
+                    if ((k % 2) == 1)
+                    {
+                        str = str + builder.ToString()[k - 1].ToString();
+                    }
+                    else
+                    {
+                        str = builder.ToString()[k - 1].ToString() + str;
+                    }
+                }
+            }
+            return str;
+        }
+
+        public static string omDecrypt(string strEncryptedString)
+        {
+            string str = string.Empty;
+            int num = 0;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(string.Empty);
+            string str2 = string.Empty;
+            str = "";
+            if (strEncryptedString.Length > 0)
+            {
+                for (int i = 1; i <= strEncryptedString.Length; i++)
+                {
+                    char ch = strEncryptedString[i - 1];
+                    if (ch.ToString()[0] >= '\'')
+                    {
+                        char ch2 = strEncryptedString[i - 1];
+                        if (ch2.ToString()[0] <= '~')
+                        {
+                            goto Label_0072;
+                        }
+                    }
+                    return str;
+                Label_0072: ;
+                }
+                builder = new StringBuilder("");
+                str2 = strEncryptedString;
+                do
+                {
+                    if ((str2.Length % 2) == 1)
+                    {
+                        builder.Append(str2.Substring(str2.Length - Math.Min(str2.Length, 1)));
+                        str2 = str2.Substring(0, str2.Length - 1);
+                    }
+                    else
+                    {
+                        builder.Append(str2[0].ToString());
+                        str2 = str2.Substring(str2.Length - (str2.Length - 1));
+                    }
+                }
+                while (str2.Length != 0);
+                for (int j = 1; j <= builder.ToString().Length; j++)
+                {
+                    char ch4 = builder.ToString()[j - 1];
+                    num = ch4.ToString()[0] - '\x0014';
+                    if (num == 0x13)
+                    {
+                        num = 0x4c;
+                    }
+                    if (num < 40)
+                    {
+                        num = (num + 0x7e) - 0x27;
+                    }
+                    str = ((char)num) + str;
+                }
+            }
+            return str;
+        }
     }
 }

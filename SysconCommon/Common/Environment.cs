@@ -58,11 +58,20 @@ namespace SysconCommon.Common.Environment
             return File.Exists(fileName);
         }
 
+        static private string _mbdir = null;
+
+        static public string GetMBDir()
+        {
+            return _mbdir;
+        }
+
         /// <summary>
         /// set master builder directory, sets odbc and oledb connections up
         /// </summary>
         static public void SetMBDir(string mbdir)
         {
+            _mbdir = mbdir;
+
             Connections.SetOLEDBFreeTableDirectory(mbdir);
             Connections.OdbcConnectionString = string.Format(
                 "Driver={{Microsoft Visual FoxPro Driver}};UID=;PWD=;SourceDB={0};SourceType=DBF;"
@@ -203,6 +212,16 @@ namespace SysconCommon.Common.Environment
             File.WriteAllText(filename, txt);
         }
 
+        static public void AccessSMB()
+        {
+            var con = Connections.GetOLEDBConnection();
+
+            con.ExecuteNonQuery("USE lckcmp");
+            con.ExecuteNonQuery("APPEND BLANK");
+            con.ExecuteNonQuery("GO BOTTOM");
+            var lck = con.GetScalar<object>("RLOCK()");
+        }
+
         #region Configuration Stuff
 
         /// <summary>
@@ -249,6 +268,11 @@ namespace SysconCommon.Common.Environment
             _config_file = filename;
             _config_file_used = true;
             configDoc = null;
+        }
+
+        static public string GetConfigFile()
+        {
+            return configDocFileName;
         }
 
         /// <summary>
@@ -444,9 +468,7 @@ namespace SysconCommon.Common.Environment
             }
             else
             {
-                throw new EnvironmentalError(null, "Cannot get configuration value ({0})", name);
-                    //string.Format("Cannot get configuration value ({0})", name)
-                    //, null);
+                return default(T);
             }
         }
 
