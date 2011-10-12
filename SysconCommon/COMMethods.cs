@@ -14,6 +14,7 @@ using SysconCommon.Common;
 using SysconCommon.Algebras.DataTables;
 using SysconCommon.GUI;
 using SysconCommon.Common.Environment;
+using SysconCommon.Common.Validity;
 
 namespace SysconCommon
 {
@@ -36,6 +37,14 @@ namespace SysconCommon
         {
             // we want the config file to default to the current directory, not the directory of the COM dll
             Env.SetConfigFile(Directory.GetCurrentDirectory() + @"\config.xml");
+        }
+
+        public string GetCalcMethodName(int clcmth)
+        {
+            Validity.Assert(clcmth >= 1, "invalid calc method");
+            Validity.Assert(clcmth <= SMBConstants.CalcMethods.Length - 1, "invalid calc method");
+ 
+            return SMBConstants.CalcMethods[clcmth];
         }
 
         public string smartEncrypt(string input)

@@ -775,7 +775,7 @@ namespace SysconCommon.Common.Environment
 
             public override string ToString()
             {
-                return filename;
+                return "[" + filename + "]";
             }
 
             public void Dispose()

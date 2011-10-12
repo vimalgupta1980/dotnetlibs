@@ -448,8 +448,10 @@
     <Compile Include="SMBClasses\vndtyp.cs" />
     <Compile Include="SMBClasses\wkrcmp.cs" />
     <Compile Include="SMBClasses\wnddft.cs" />
+    <Compile Include="SMBConstants.cs" />
     <Compile Include="SMBReversed\Fldlib.cs" />
     <Compile Include="SMBReversed\Security.cs" />
+    <Compile Include="FoxproUtil.cs" />
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Web\Forms.cs" />
   </ItemGroup>

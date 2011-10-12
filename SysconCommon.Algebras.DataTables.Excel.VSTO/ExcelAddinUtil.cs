@@ -122,10 +122,15 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)
         {
-            return self.WriteToExcel(template, worksheet, namedrange, false);
+            return self.WriteToExcel(template, worksheet, namedrange, null, null);
         }
 
-        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange, bool write_headers)
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange, string clear_worksheet, string clear_named_range)
+        {
+            return self.WriteToExcel(template, worksheet, namedrange, clear_worksheet, clear_named_range, false);
+        }
+
+        public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange, string clear_worksheet, string clear_named_range, bool write_headers)
         {
             var wb = getWorkbook(template);
             var ws = getWorksheet(wb, worksheet);
@@ -143,7 +148,24 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             }
 
             // writing to the named range directly fills empty cells with #N/A, we don't want that
-            return self.WriteToExcel(template, worksheet, r.Row - 1, r.Column - 1, write_headers);
+            var rv = self.WriteToExcel(template, worksheet, r.Row - 1, r.Column - 1, write_headers);
+
+            if (clear_named_range != null && clear_worksheet != null)
+            {
+                // hide unused rows in clear_named_range
+                var cws = wb.getWorksheet(clear_worksheet);
+                Range cr = cws.get_Range(clear_named_range, System.Reflection.Missing.Value);
+
+                var used_row_count = self.Rows.Count;
+
+                // var hide_range = cr.Rows.get_Range(string.Format("{0}:{1}", used_row_count + 1, cr.Rows.Count));
+                Range c1 = cr.Cells[used_row_count + 1, 1];
+                Range c2 = cr.Cells[cr.Rows.Count, 1];
+                Range hide_range = cws.get_Range(c1, c2);
+                hide_range.Rows.Hidden = true;
+            }
+
+            return rv;
         }
 
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column, bool write_headers)
