@@ -120,6 +120,54 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return _app;
         }
 
+        public static Application ConfigurableWriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange, string clear_worksheet = null, string clear_named_range = null)
+        {
+            // var config_dt = GetNamedRangeData(template, worksheet, namedrange);
+            // var dest_column_names = (from c in config_dt.Columns.ToIEnumerable()
+            //                         select config_dt.Rows[0][c].ToString()).ToArray();
+
+            var wb = getWorkbook(template);
+            var ws = wb.getWorksheet(worksheet);
+            Range r = ws.get_Range(namedrange);
+            if (r.Rows.Count < 1)
+                throw new SysconException("Named Range has no rows");
+
+            if (r.Columns.Count < 1)
+                throw new SysconException("Named range has no columns");
+
+            List<string> dest_column_names = new List<string>();
+
+            for(var i = 1; i <= r.Columns.Count; i++)
+            {
+                dest_column_names.Add(r[1, i].Text);
+            }
+
+            // var dest_column_names = _dest_column_names.ToArray();
+
+            var all_column_names = (from c in self.Columns.ToIEnumerable()
+                                    select c.ColumnName).ToArray();
+
+            // we are going to manipulate self, so make a copy
+            self = self.Copy();
+
+            // remove the columns we don't want
+            foreach (var c in all_column_names)
+            {
+                if (!dest_column_names.Contains(c))
+                {
+                    self = self.RemoveColumn(c);
+                }
+            }
+
+            // re-order the columns we do want
+            foreach (var i in FunctionalOperators.Range(dest_column_names.Count()))
+            {
+                self.Columns[dest_column_names[i]].SetOrdinal(i);
+            }
+
+            return self.WriteToExcel(template, worksheet, namedrange, clear_worksheet, clear_named_range);
+        }
+
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, string namedrange)
         {
             return self.WriteToExcel(template, worksheet, namedrange, null, null);

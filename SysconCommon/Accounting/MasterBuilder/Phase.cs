@@ -12,9 +12,9 @@ namespace SysconCommon.Accounting.MasterBuilder
     public class Phase : IPhase
     {
         private readonly IJob _Job;
-        private readonly int _PhaseNumber;
+        private readonly long _PhaseNumber;
 
-        public Phase(IJob job, int phaseNumber)
+        public Phase(IJob job, long phaseNumber)
         {
             _Job = job;
             _PhaseNumber = phaseNumber;
@@ -25,7 +25,7 @@ namespace SysconCommon.Accounting.MasterBuilder
             get { return _Job; }
         }
 
-        public int PhaseNumber
+        public long PhaseNumber
         {
             get { return _PhaseNumber; }
         }

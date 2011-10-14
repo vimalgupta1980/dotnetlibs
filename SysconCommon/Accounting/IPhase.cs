@@ -8,6 +8,6 @@ namespace SysconCommon.Accounting
     public interface IPhase
     {
         IJob Job { get; }
-        int PhaseNumber { get; }
+        long PhaseNumber { get; }
     }
 }

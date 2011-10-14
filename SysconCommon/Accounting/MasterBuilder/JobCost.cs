@@ -549,7 +549,7 @@ namespace SysconCommon.Accounting.MasterBuilder
                 {
                     return Cache.CacheResult(() =>
                     {
-                        var phsnum = Connections.GetScalar<int>("select phsnum from jobcst where recnum = {0}", Recnum);
+                        var phsnum = Connections.GetScalar<long>("select phsnum from jobcst where recnum = {0}", Recnum);
                         return new Phase(this.Job, phsnum);
                     }, Recnum);
                 }
