@@ -34,5 +34,20 @@ namespace SysconCommon
                 };
             }
         }
+
+        public static string[] CalculationTypes
+        {
+            get
+            {
+                return new string[] {
+                    "Unused", // 0
+                    "Deduct From Emp.", // 1
+                    "Add to Gross", // 2
+                    "Employer Cost", // 3
+                    "Add/Deduct", // 4
+                    "Accrue Hours", // 5
+                };
+            }
+        }
     }
 }

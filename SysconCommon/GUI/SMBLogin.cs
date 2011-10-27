@@ -74,5 +74,12 @@ namespace SysconCommon.GUI
         {
             txtSMBDir.Text = methods.smartSelectSMBDirByGUI();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            LoggedInUser = null;
+            methods.SetSMBDir(null);
+            this.Close();
+        }
     }
 }

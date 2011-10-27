@@ -139,7 +139,7 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
             for(var i = 1; i <= r.Columns.Count; i++)
             {
-                dest_column_names.Add(r[1, i].Text);
+                dest_column_names.Add(r[1, i].Text.Trim());
             }
 
             // var dest_column_names = _dest_column_names.ToArray();

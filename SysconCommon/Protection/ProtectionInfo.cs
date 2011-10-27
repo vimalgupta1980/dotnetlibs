@@ -59,45 +59,86 @@ namespace SysconCommon.Protection
 
         static public IClientLicense GetLicense(int product_id, string product_version)
         {
-            string alias_path = "c:\\windows\\system32\\Trial" + product_id.ToString() + ".xml";
-            try
+            return GetLicense(product_id, product_version, 0);
+        }
+
+        static public IClientLicense GetLicense(int product_id, string product_version, int option_id)
+        {
+            return GetLicense(product_id, product_version, false, true, false, option_id);
+        }
+
+        static public IClientLicense GetLicense(int product_id, string product_version, bool AllowSubscription, bool AllowTrial, bool AlwaysCheck, int option_id)
+        {
+            if (!AllowSubscription)
             {
-                if (System.IO.File.Exists(LicenseLocation))
+                string alias_path = "c:\\windows\\system32\\Trial" + product_id.ToString() + ".xml";
+                try
                 {
-                    var seat = new ClientLicense(LicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, product_version);
-                    seat.LoadFile();
-                    var run_count = Env.GetConfigVar("run_count", 0, true);
-                    if (run_count % 20 != 0 || seat.IsValid())
+                    if (System.IO.File.Exists(LicenseLocation))
                     {
-                        Env.SetConfigVar("run_count", run_count + 1);
-                        return seat;
+                        var seat = new ClientLicense(LicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, product_version);
+                        seat.LoadFile();
+
+                        // make sure the option is valid
+                        if (option_id > 0 && option_id != seat.ProdOptionID)
+                        {
+                            // it's not
+                            System.IO.File.Move(LicenseLocation, LicenseLocation + ".option" + option_id.ToString());
+                            throw new InvalidLicenseException();
+                        }
+
+                        var run_count = Env.GetConfigVar("run_count", 0, true);
+                        if ((!AlwaysCheck && run_count % 5 != 0) || seat.IsValid())
+                        {
+                            Env.SetConfigVar("run_count", run_count + 1);
+                            return seat;
+                        }
+                        else
+                            throw new InvalidLicenseException();
                     }
                     else
+                    {
                         throw new InvalidLicenseException();
-                }
-                else
-                {
-                    throw new InvalidLicenseException();
-                }
+                    }
 
+                }
+                catch
+                {
+                    if (!System.IO.File.Exists(TrialLicenseLocation))
+                    {
+                        var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
+                        var got_new_trial = AllowTrial ? trial.CreateFreshTrial() : trial.CreateExpiredTrial();
+                        trial.LoadFile();
+                        return trial;
+                    }
+                    else
+                    {
+                        var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
+                        trial.LoadFile();
+                        return trial;
+                    }
+                }
             }
-            catch
+            else
             {
-                if (!System.IO.File.Exists(TrialLicenseLocation))
-                {
-                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
-                    var got_new_trial = trial.CreateFreshTrial();
-                    trial.LoadFile();
-                    return trial;
-                }
-                else
-                {
-                    var trial = new TrialLicense(LicenseLocation, TrialLicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, alias_path);
-                    trial.LoadFile();
-                    return trial;
-                }
+                // check for subscription license
+                throw new NotImplementedException();
             }
         }
-        
+
+        static public bool CheckLicense(int product_id, string product_version, int option_id)
+        {
+            var license = GetLicense(product_id, product_version, option_id);
+            if (license.IsTrial)
+            {
+                var frm = new ProtectionPlusIntroFormFull(license as TrialLicense);
+                frm.ShowDialog();
+                return frm.LicenseOK;
+            }
+            else
+            {
+                return license.IsValid();
+            }
+        }
     }
 }

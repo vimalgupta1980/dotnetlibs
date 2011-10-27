@@ -223,6 +223,12 @@
     <Compile Include="Protection\ProtectionPlusIntroForm.Designer.cs">
       <DependentUpon>ProtectionPlusIntroForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Protection\ProtectionPlusIntroFormFull.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protection\ProtectionPlusIntroFormFull.Designer.cs">
+      <DependentUpon>ProtectionPlusIntroFormFull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Protection\ProtectionPlusOnlineActivationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -515,12 +521,20 @@
     <EmbeddedResource Include="Protection\ProtectionPlusIntroForm.resx">
       <DependentUpon>ProtectionPlusIntroForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Protection\ProtectionPlusIntroFormFull.resx">
+      <DependentUpon>ProtectionPlusIntroFormFull.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Protection\ProtectionPlusOnlineActivationForm.resx">
       <DependentUpon>ProtectionPlusOnlineActivationForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="syscon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

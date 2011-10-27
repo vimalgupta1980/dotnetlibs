@@ -114,7 +114,7 @@ namespace SysconCommon.Common.Environment
         {
             // var defaultLogFile = GetEXEDirectory() + "/log.txt";
             var defaultLogFile = "log.txt";
-            File.AppendAllText(LogFile, string.Format(msgFormat + "\r\n", arguments));
+            File.AppendAllText(LogFile, string.Format(DateTime.Now.ToString() + " - " + msgFormat + "\r\n", arguments));
         }
 
         /// <summary>

@@ -108,6 +108,7 @@ namespace SysconCommon
         public void SetSMBDir(string mbdir)
         {
             // _mbdir = mbdir;
+            // _mbdir = mbdir;
             Env.SetMBDir(mbdir);
         }
 
