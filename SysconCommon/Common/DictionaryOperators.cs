@@ -15,7 +15,6 @@ namespace SysconCommon.Common
 
     static public class DictionaryOperators
     {
-
         public static IDictionary<T, U> TupsToDictionary<T,U>(this IEnumerable<Tuple<T,U>> self)
         {
             var dict = new Dictionary<T, U>();

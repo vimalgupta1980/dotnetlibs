@@ -35,6 +35,13 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+        static public OleDbConnection GetExcelOleDbConnection(string workbook)
+        {
+            var con = new OleDbConnection(string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;\"", workbook));
+            con.Open();
+            return con;
+        }
+
         static public OleDbConnection GetOLEDBConnection()
         {
             var con = new OleDbConnection(OLEDBConnectionString);
@@ -136,11 +143,27 @@ namespace SysconCommon.Common.Environment
             return Connection.GetList<T>(sqlfmt, args);
         }
 
-        static public void ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
+        static public void ExecuteNonQuery(this IDbConnection con, OleDbTransaction trans, string sqlfmt, params object[] args)
         {
             var cmd = con.CreateCommand();
+            
+            if (trans != null)
+            {
+                var oledbcmd = cmd as OleDbCommand;
+                if (oledbcmd == null)
+                {
+                    throw new SysconException("Oledb transaction provided for non oledb connection!");
+                }
+                oledbcmd.Transaction = trans;
+            }
+
             cmd.CommandText = string.Format(sqlfmt, args);
             cmd.ExecuteNonQuery();
+        }
+
+        static public void ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
+        {
+            con.ExecuteNonQuery(null, sqlfmt, args);
         }
     }
 }

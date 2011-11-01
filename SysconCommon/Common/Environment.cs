@@ -793,6 +793,42 @@ namespace SysconCommon.Common.Environment
                     }
                     catch { }
                 }
+
+                var cdx_file = Path.GetDirectoryName(filename) + "/" + Path.GetFileNameWithoutExtension(filename) + ".cdx";
+                if (File.Exists(cdx_file))
+                {
+                    try
+                    {
+                        File.Delete(cdx_file);
+                    }
+                    catch { }
+                }
+                
+                var idx_file = Path.GetDirectoryName(filename) + "/" + Path.GetFileNameWithoutExtension(filename) + ".idx";
+                if (File.Exists(idx_file))
+                {
+                    try
+                    {
+                        File.Delete(idx_file);
+                    }
+                    catch { }
+                }
+            }
+
+            public void CreateIndex(string fldnme)
+            {
+                // FIXME: this doesn't work
+                throw new NotImplementedException();
+
+                try
+                {
+                    var tag = fldnme;
+                    this.connection.ExecuteNonQuery("execscript([select 0]+chr(13)+chr(10)+'use {0} exclusive again'+chr(13)+chr(10)+[index on {1} tag {2}])", filename, fldnme, tag);
+                }
+                catch
+                {
+                    Env.Log("Could not index {0} in {1}", fldnme, filename);
+                }
             }
         }
 

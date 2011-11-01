@@ -62,6 +62,18 @@ namespace SysconCommon.Algebras.DataTables
 
     public static partial class DatatableExtensions
     {
+        public static IEnumerable<T> Select<T>(this DataColumnCollection self, Func<DataColumn, T> fn)
+        {
+            foreach (var c in self.ToIEnumerable())
+                yield return fn(c);
+        }
+
+        public static IEnumerable<T> Select<T>(this DataRowCollection self, Func<DataRow, T> fn)
+        {
+            foreach (var r in self.ToIEnumerable())
+                yield return fn(r);
+        }
+
         public static DataTable GetDataTable(this OdbcConnection con, string datatableName, string sqlfmt, params object[] args)
         {
             var da = new OdbcDataAdapter();

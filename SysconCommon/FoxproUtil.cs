@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Data;
 
 using SysconCommon.Common;
 using SysconCommon.Common.Validity;
+using SysconCommon.Algebras.DataTables;
 
 namespace SysconCommon.Foxpro
 {
@@ -14,6 +16,33 @@ namespace SysconCommon.Foxpro
         public static string ToFoxproDate(this DateTime input)
         {
             return string.Format("Date({0},{1},{2})", input.Year, input.Month, input.Day);
+        }
+
+        public static string FoxproInsertString(this DataRow self, string table_name)
+        {
+            var numeric_types = new Type[] {
+                typeof(decimal), typeof(int), typeof(long), typeof(double), typeof(float)
+            };
+
+            var date_types = new Type[] {
+                typeof(DateTime)
+            };
+
+            var keys = from c in self.Table.Columns
+                       select c.ColumnName;
+
+            var vals = self.ItemArray.Select(v =>
+            {
+                if (numeric_types.Contains(v.GetType()))
+                    return v.ToString();
+
+                if (date_types.Contains(v.GetType()))
+                    return ((DateTime)v).ToFoxproDate();
+
+                return v.ToString().FoxproQuote();
+            });
+
+            return string.Format("insert into {0} ({1}) values ({2})", table_name, string.Join(",", keys), string.Join(",", vals));
         }
 
         public static string FoxproQuote(this string input)
