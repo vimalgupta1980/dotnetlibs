@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
+using System.IO;
 
 namespace SysconCommon.Common.Environment
 {
@@ -17,6 +18,14 @@ namespace SysconCommon.Common.Environment
             SysconCommon.Common.Environment.Connections.OLEDBConnectionString = string.Format(
                 "Provider=VFPOLEDB.1;Data Source={0};Mode=ReadWrite|Share Deny None;Password=\"\";Collating Sequence=Machine"
                 , mbdir);
+        }
+
+        static public System.Data.SQLite.SQLiteConnection GetInMemoryDB()
+        {
+            var con = new System.Data.SQLite.SQLiteConnection();
+            con.ConnectionString = "Data Source=:memory:";
+            con.Open();
+            return con;
         }
 
         static private string _OLEDBConnectionString = null;
@@ -37,7 +46,20 @@ namespace SysconCommon.Common.Environment
 
         static public OleDbConnection GetExcelOleDbConnection(string workbook)
         {
-            var con = new OleDbConnection(string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;\"", workbook));
+            OleDbConnection con = null;
+
+            switch (Path.GetExtension(workbook).ToLower())
+            {
+                case ".xlsm":
+                    con = new OleDbConnection(string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0 Macro;HDR=Yes;\"", workbook));
+                    break;
+                case ".xlsx":
+                    con = new OleDbConnection(string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0 Xml;HDR=Yes;\"", workbook));
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
             con.Open();
             return con;
         }

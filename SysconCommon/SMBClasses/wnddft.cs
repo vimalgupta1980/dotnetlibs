@@ -44,11 +44,11 @@ namespace SMB.Tables {
 		public long wndtop;
 
 		/// <summary>
-		/// Window Left                     
+		/// Window _left                     
 		/// </summary>
 		[ColumnOrder(60)]
 		[SMBFieldName("wndlft")]
-		[SMBFieldDescription("Window Left")]
+		[SMBFieldDescription("Window _left")]
 		public long wndlft;
 
 		/// <summary>
@@ -76,11 +76,11 @@ namespace SMB.Tables {
 		public string grdsze;
 
 		/// <summary>
-		/// Grid Left Column                
+		/// Grid _left Column                
 		/// </summary>
 		[ColumnOrder(100)]
 		[SMBFieldName("grdlft")]
-		[SMBFieldDescription("Grid Left Column")]
+		[SMBFieldDescription("Grid _left Column")]
 		public string grdlft;
 
 		/// <summary>

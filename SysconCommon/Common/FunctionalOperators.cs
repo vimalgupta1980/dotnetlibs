@@ -14,6 +14,29 @@ using SysconCommon.GUI;
 
 namespace SysconCommon.Common
 {
+    public enum BinarySearchOps
+    {
+        LessThan = 1,
+        GreaterThan = 2,
+        EqualTo = 4,
+        LessThanEqualTo = LessThan | EqualTo,
+        GreaterThanEqualTo = GreaterThan | EqualTo,
+    }
+
+    public class BinarySearchResult 
+    {
+        public readonly int lowerIndex;
+        public readonly int upperIndex;
+        public readonly BinarySearchOps searchType;
+
+        public BinarySearchResult(BinarySearchOps _type, int _lower, int _upper)
+        {
+            lowerIndex = _lower;
+            upperIndex = _upper;
+            searchType = _type;
+        }
+    }
+
     /// <summary>
     /// This defines some very common functional utility functions that can be used to make a
     /// very wide variety of more complex functions by simple composition, these functions are
@@ -30,6 +53,97 @@ namespace SysconCommon.Common
                 copy[k] = self[k];
 
             return copy;
+        }
+
+        public static BinarySearchResult BinarySearch<T>(
+            this T[] sortedArray
+            , T searchValue
+            , Comparison<T> compareFunc
+            , BinarySearchOps op = BinarySearchOps.EqualTo
+            , int starting_index = -1
+            , int ending_index = -1)
+        {
+            if (sortedArray.Length == 0)
+                return null;
+
+            if (ending_index < starting_index)
+                return null;
+
+            if (starting_index == -1)
+                starting_index = sortedArray.GetLowerBound(0);
+
+            if (ending_index == -1)
+                ending_index = starting_index + sortedArray.Length - 1;
+
+            // EqualTo is a special case
+            if (op == BinarySearchOps.EqualTo)
+            {
+                var smaller = sortedArray.BinarySearch(searchValue
+                    , compareFunc
+                    , BinarySearchOps.LessThan
+                    , starting_index
+                    , ending_index);
+
+                var bigger = sortedArray.BinarySearch(searchValue
+                    , compareFunc
+                    , BinarySearchOps.GreaterThan
+                    , smaller != null ? smaller.upperIndex + 1 : starting_index
+                    , ending_index);
+
+                if (smaller == null) // there are no smaller values
+                {
+                    if (bigger != null)
+                    {
+                        if (bigger.lowerIndex == starting_index)
+                            return null;
+                        else
+                            return new BinarySearchResult(BinarySearchOps.EqualTo, starting_index, bigger.lowerIndex - 1);
+                    }
+                    else
+                    {
+                        // they are all equal
+                        return new BinarySearchResult(BinarySearchOps.EqualTo, starting_index, ending_index);
+                    }
+                }
+                else
+                {
+                    if(smaller.upperIndex == ending_index)
+                        return null;
+
+                    if (bigger != null)
+                    {
+                        if (bigger.lowerIndex == smaller.upperIndex + 1)
+                            return null;
+                        else
+                            return new BinarySearchResult(BinarySearchOps.EqualTo
+                                , smaller.upperIndex + 1
+                                , bigger.lowerIndex - 1);
+                    }
+                    else
+                    {
+                        return new BinarySearchResult(BinarySearchOps.EqualTo
+                            , smaller.upperIndex + 1
+                            , ending_index);
+                    }
+                }
+            }
+
+            var count = ending_index - starting_index + 1;
+
+            // locate the mid-index and compare it to the searchValue
+            var midindex = starting_index + ((ending_index - starting_index) / 2);
+            var midresult = compareFunc(sortedArray[midindex], searchValue);
+
+            switch (op)
+            {
+                case BinarySearchOps.EqualTo:
+                    // find the last item that is smaller than this occurence
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            throw new NotImplementedException();
         }
 
         public static string RSAEncrypt(this string inputString, int dwKeySize, string xmlKeys)

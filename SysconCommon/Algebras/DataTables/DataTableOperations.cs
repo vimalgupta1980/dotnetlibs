@@ -27,9 +27,11 @@ using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Reflection;
+using System.IO;
 
 
 using Antlr.StringTemplate;
+using System.Data.SQLite;
 
 using SysconCommon.Common;
 using SysconCommon.Common.Validity;
@@ -83,6 +85,63 @@ namespace SysconCommon.Algebras.DataTables
                 da.SelectCommand = cmd;
                 Env.DebugPrint(cmd.CommandText);
                 var dt = new DataTable(datatableName);
+                da.Fill(dt);
+                return dt;
+            }
+        }
+
+        public static void LoadDataTable(this SQLiteConnection con, DataTable tbl, string tblname = null)
+        {
+            if(tblname == null)
+                tblname = tbl.TableName;
+
+            var column_names = from c in tbl.Columns.ToIEnumerable()
+                               select c.ColumnName;
+
+            var create_table_sql = string.Format("create table {0} ({1})", tblname, string.Join(", ", column_names));
+            
+            var transaction = con.BeginTransaction();
+
+            try
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.Transaction = transaction;
+                    cmd.CommandText = create_table_sql;
+                    cmd.ExecuteNonQuery();
+                }
+
+                foreach (DataRow row in tbl.Rows)
+                {
+                    var numeric_types = new Type[] { typeof(int), typeof(long), typeof(double), typeof(float), typeof(decimal) };
+                    var vals = from c in column_names
+                               select numeric_types.Contains(row[c].GetType()) ? row[c].ToString() : "'" + row[c].ToString().Replace("'", "''") + "'";
+
+                    using (var cmd = con.CreateCommand())
+                    {
+                        cmd.CommandText = string.Format("insert into {0} ({1}) values ({2})", tblname, string.Join(",", column_names), string.Join(",", vals));
+                        cmd.Transaction = transaction;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Env.Log("Could not load datatable into SQLLite table {0}", tblname);
+                throw new SysconCommon.Common.SysconException(ex);
+            }
+        }
+
+        public static DataTable GetDataTable(this SQLiteConnection con, string datatablename, string sqlfmt, params object[] args)
+        {
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = string.Format(sqlfmt, args);
+                var da = new SQLiteDataAdapter(cmd);
+                var dt = new DataTable(datatablename);
                 da.Fill(dt);
                 return dt;
             }
@@ -144,11 +203,28 @@ namespace SysconCommon.Algebras.DataTables
                 var rv = new T();
                 var fields = typeof(T).GetFields();
 
+                var props = typeof(T).GetProperties();
+
                 foreach (DataColumn dc in self.Columns)
                 {
                     var field = fields.Where(f => f.Name == dc.ColumnName).FirstOrDefault();
                     if (field == null)
+                    {
+                        var prop = props.Where(p => p.Name == dc.ColumnName).FirstOrDefault();
+                        if (prop != null)
+                        {
+                            if (prop.PropertyType != typeof(string) && row[dc].ToString().Trim() == "")
+                            {
+                                // do nothing
+                            }
+                            else
+                            {
+                                prop.SetValue(rv, Convert.ChangeType(row[dc], prop.PropertyType), null);
+                            }
+                        }
+
                         continue;
+                    }
 
                     if (field.FieldType != typeof(string) && row[dc].ToString().Trim() == "")
                     {
@@ -282,6 +358,43 @@ namespace SysconCommon.Algebras.DataTables
                     row[clen] = self[rlen][clen];
                 }
                 dt.Rows.Add(row);
+            }
+
+            return dt;
+        }
+
+        public static DataTable DataTableFromCSV(string tblName, string csvFile, bool includesHeaders)
+        {
+            var lines = File.ReadAllLines(csvFile);
+            var data  = (from l in lines
+                          select l.Split(',')).ToArray();
+
+            if (data.Length == 0)
+                return null ;
+
+            if (data[0].Length == 0)
+                return null ;
+
+            foreach (var i in FunctionalOperators.Range(1, data.Length))
+            {
+                if (data[i].Length != data[0].Length)
+                    throw new SysconException("CSV File has inconsistent amount of fields in lines");
+            }
+
+            var headers = includesHeaders ? data[0] : null;
+            if (includesHeaders)
+            {
+                data = data.Tail().ToArray();
+            }
+
+            var dt = data.MultArrayToDataTable(tblName);
+
+            if (headers != null)
+            {
+                foreach (var i in FunctionalOperators.Range(headers.Length))
+                {
+                    dt.Columns[i].ColumnName = headers[i];
+                }
             }
 
             return dt;

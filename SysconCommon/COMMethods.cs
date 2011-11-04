@@ -110,6 +110,7 @@ namespace SysconCommon
             // _mbdir = mbdir;
             // _mbdir = mbdir;
             Env.SetMBDir(mbdir);
+            SetConfigVar("mbdir", mbdir);
         }
 
         public string GetSMBDir()
@@ -194,10 +195,23 @@ namespace SysconCommon
             dlg.ShowDialog();
         }
 
+        private string _logged_in_user = null;
+
+        public string LoggedInUser
+        {
+            get
+            {
+                return _logged_in_user;
+            }
+        }
+
         public string RequireSMBLogin()
         {
             var dlg = new SysconCommon.GUI.SMBLogin(this);
             dlg.ShowDialog();
+            if (dlg.LoggedInUser != null)
+                _logged_in_user = dlg.LoggedInUser;
+
             return dlg.LoggedInUser;
         }
     }

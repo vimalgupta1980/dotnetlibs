@@ -32,7 +32,12 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         static private Workbook openWorkbook(string fileName)
         {
-            return app.Workbooks.Open(fileName);
+            if (workbooks.ContainsKey(fileName))
+                return workbooks[fileName];
+
+            Workbook rv = app.Workbooks.Open(fileName, ReadOnly: ReadOnly);
+            workbooks.Add(fileName, rv);
+            return rv;
         }
 
         static private Dictionary<string, Workbook> workbooks = new Dictionary<string, Workbook>();
@@ -81,7 +86,7 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return tmpdt.WriteToExcel(template, worksheet, namedrange);
         }
 
-        public static System.Data.DataTable GetNamedRangeData(string filename, string worksheet_name, string named_range_name)
+        public static System.Data.DataTable GetNamedRangeData(string filename, string worksheet_name, string named_range_name, bool includes_headers = false)
         {
             var wb = openWorkbook(filename);
             var ws = getWorksheet(wb, worksheet_name);
@@ -89,17 +94,61 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             object[,] val = rng.get_Value();
 
             var dt = new System.Data.DataTable(named_range_name);
-            
-            for(var i = 1; i < val.GetLength(1) + 1; i++) {
-                dt.Columns.Add("Column" + i.ToString());
+
+            Func<int, Type> GuessColumnType = (colnum) =>
+            {
+                var rows = val.GetLength(0) - (includes_headers ? 1 : 0);
+                // only check the first hundred rows, for speed purposes
+                if (rows > 100)
+                {
+                    rows = 100;
+                }
+
+                var is_decimal = true;
+                for (var i = (includes_headers ? 1 : 0); i < rows; i++)
+                {
+                    var value = val[i + 1, colnum];
+                    try
+                    {
+                        Convert.ToDecimal(value);
+                    }
+                    catch
+                    {
+                        is_decimal = false;
+                        break;
+                    }
+                }
+
+                return is_decimal ? typeof(decimal) : typeof(string);
+            };
+
+            var column_types = new Type[val.GetLength(1)];
+            for (int i = 1; i < val.GetLength(1) + 1; i++)
+            {
+                column_types[i - 1] = GuessColumnType(i);
             }
 
-            for (var r = 1; r < val.GetLength(0) + 1; r++)
+            if (!includes_headers)
+            {
+                for (var i = 1; i < val.GetLength(1) + 1; i++)
+                {
+                    dt.Columns.Add("Column" + i.ToString(), column_types[i - 1]);
+                }
+            }
+            else
+            {
+                for (var i = 1; i < val.GetLength(1) + 1; i++)
+                {
+                    dt.Columns.Add(val[1, i].ToString(), column_types[i - 1]);
+                }
+            }
+
+            for (var r = includes_headers ? 2 : 1; r < val.GetLength(0) + 1; r++)
             {
                 var row = dt.NewRow();
                 for (var c = 1; c < val.GetLength(1) + 1; c++)
                 {
-                    row[c - 1] = val[r, c];
+                    row[c - 1] = Convert.ChangeType(val[r, c], column_types[c - 1]);
                 }
 
                 dt.Rows.Add(row);
@@ -249,15 +298,54 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return first.ConvertToExcelColumn() + rem.ConvertToExcelColumn();
         }
 
+        public static System.Data.SQLite.SQLiteConnection LoadWorkbookToInMemoryDb(string workbook, bool include_headers)
+        {
+            var wb = openWorkbook(workbook);
+            var con = SysconCommon.Common.Environment.Connections.GetInMemoryDB();
+
+            foreach(Worksheet ws in wb.Worksheets) 
+            {
+                foreach (Name name in ws.Names)
+                {
+                    try
+                    {
+                        var dt = GetNamedRangeData(workbook, ws.Name, name.Name, include_headers);
+                        con.LoadDataTable(dt);
+                    }
+                    catch { }
+                }
+            }
+
+            return con;
+        }
+
         public static Application WriteToExcel(this System.Data.DataTable self, string template, string worksheet, int top_row, int left_column)
         {
             return self.WriteToExcel(template, worksheet, top_row, left_column, true);
         }
 
-        public static void UseNewApp()
+        private static bool ReadOnly = false;
+
+        public static void UseNewApp(bool _readonly=false)
         {
+            ReadOnly = _readonly;
             workbooks.Clear();
             _app = null;
+        }
+
+        public static void CloseApp(bool saveChanges)
+        {
+            foreach (Workbook wb in app.Workbooks)
+            {
+                if (saveChanges)
+                    wb.Save();
+                else
+                    wb.Saved = true;
+            }
+
+            app.Quit();
+
+            UseNewApp(_readonly: false);
         }
     }
 }

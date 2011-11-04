@@ -73,6 +73,10 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\System.Data.SQLite\2010\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
@@ -88,6 +92,11 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="test, Version=1.0.0.24427, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\..\Program Files (x86)\System.Data.SQLite\2010\bin\test.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Accounting.cs" />
@@ -128,6 +137,7 @@
     <Compile Include="Algebras\DataTables\ColumnOrderAttribute.cs" />
     <Compile Include="Algebras\Graphs\GraphOperations.cs" />
     <Compile Include="Algebras\Graphs\GraphStructures.cs" />
+    <Compile Include="Algebras\MemoryDB\BTree.cs" />
     <Compile Include="COMMethods.cs" />
     <Compile Include="Common\ArgumentHandling.cs" />
     <Compile Include="Common\Cache.cs" />
@@ -532,6 +542,9 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="syscon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

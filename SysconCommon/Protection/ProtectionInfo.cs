@@ -83,7 +83,7 @@ namespace SysconCommon.Protection
                         if (option_id > 0 && option_id != seat.ProdOptionID)
                         {
                             // it's not
-                            System.IO.File.Move(LicenseLocation, LicenseLocation + ".option" + option_id.ToString());
+                            System.IO.File.Move(LicenseLocation, LicenseLocation + ".option" + seat.ProdOptionID.ToString());
                             throw new InvalidLicenseException();
                         }
 
