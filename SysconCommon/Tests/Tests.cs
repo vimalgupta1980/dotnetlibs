@@ -8,17 +8,29 @@ using SysconCommon.Algebras.DataTables;
 using SysconCommon.Common;
 using SysconCommon.Parsing;
 using SysconCommon.Common.Environment;
+using SysconCommon.GUI;
+using SysconCommon.Analysis;
 
 namespace SysconCommon.Tests
 {
-    [TestFixture]
+    [TestFixture, RequiresSTA]
     public class Tests
     {
+        private COMMethods MBAPI = null;
+
         [SetUp]
-        [Ignore]
+        // [Ignore]
         public void Setup()
         {
-            Env.SetMBDir(@"C:\mb7\sample company");
+            // Env.SetMBDir(@"C:\mb7\sample company");
+            MBAPI = new COMMethods();
+            MBAPI.smartGetSMBDir();
+        }
+
+        [Test]
+        public void SelectSMBDir()
+        {
+            MBAPI.smartSelectSMBDirByGUI();
         }
 
         [Test]
@@ -78,7 +90,7 @@ namespace SysconCommon.Tests
             Assert.AreEqual(count, tree.Count);
 
             var find_tree = tree.Find(Algebras.MemoryDB.BTree<int>.FindOps.LessThan, count);
-            Assert.AreEqual(count/2, find_tree.Count);
+            Assert.AreEqual(count / 2, find_tree.Count);
 
             find_tree = tree.Find(Algebras.MemoryDB.BTree<int>.FindOps.EqualTo, 500);
             Assert.AreEqual(1, find_tree.Count);
@@ -126,6 +138,65 @@ namespace SysconCommon.Tests
         {
             Assert.AreEqual(1.0, Convert.ToDecimal(true));
             Assert.AreEqual(0.0, Convert.ToDecimal(false));
+        }
+
+        [Test]
+        public void EditJobTypes()
+        {
+            MBAPI.EditJobTypes();
+        }
+
+        [Test]
+        public void PaygroupSelector()
+        {
+            var frm = new Multi_Paygroup_Selector(MBAPI);
+            frm.ShowDialog();
+
+            Assert.IsTrue(frm.SelectedItems.Any());
+        }
+
+        [Test]
+        public void UnionSelector()
+        {
+            var frm = new Multi_Union_Selector(MBAPI);
+            frm.ShowDialog();
+
+            Assert.IsTrue(frm.SelectedItems.Any());
+        }
+
+        [Test]
+        public void PaygroupAnalysis()
+        {
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                var paygrps = from pg in Multi_Paygroup_Selector.SelectPaygroups(MBAPI)
+                              select pg.recnum;
+
+                Assert.IsTrue(paygrps.Any());
+
+                using (var paygrp_recnum_tbl = con.BuildRecnumTable(paygrps))
+                {
+                    var lines = con.GetDataTable("TC Lines", "select recnum, linnum from tmcdln where paygrp in (select recnum from {0})", paygrp_recnum_tbl)
+                        .Rows.ToIEnumerable()
+                        .Select(r =>
+                        {
+                            return new TimeCardLinesAnalysis.TCLineKey(Convert.ToInt64(r["recnum"]), Convert.ToInt64(r["linnum"]));
+                        });
+
+                    var results = TimeCardLinesAnalysis.FindAmount(lines, TimeCardLinesAnalysis.TCAmountType.Calculation, 7).Select(l =>
+                    {
+                        return new
+                        {
+                            l.line.payrec,
+                            l.line.lineno,
+                            LineERMed = l.amount,
+                            RecordERMed = l.payrec_ttl,
+                        };
+                    }).ToDataTable("ER Medicare");
+
+                    ShowDataTable.ShowTable(results);
+                }
+            }
         }
     }
 }

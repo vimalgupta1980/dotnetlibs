@@ -791,7 +791,10 @@ namespace SysconCommon.Common.Environment
                     {
                         File.Delete(filename);
                     }
-                    catch { }
+                    catch
+                    {
+                        Env.Log("Cleanup Error: Could not delete [{0}]", filename);
+                    }
                 }
 
                 var cdx_file = Path.GetDirectoryName(filename) + "/" + Path.GetFileNameWithoutExtension(filename) + ".cdx";

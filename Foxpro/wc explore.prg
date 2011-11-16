@@ -1,0 +1,9 @@
+mbdir = [c:\mb7\aps\]
+
+USE (mbdir + "fldlib") SHARED AGAIN IN 0
+USE (mbdir + "payrec") SHARED AGAIN IN 0
+USE (mbdir + "tmcdln") SHARED AGAIN IN 0
+USE (mbdir + "paygrp") SHARED AGAIN IN 0
+USE (mbdir + "wkrcmp") SHARED AGAIN IN 0
+
+SELECT * FROM wkrcmp

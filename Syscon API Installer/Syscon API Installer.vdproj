@@ -27,6 +27,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_34BC54A1A51E4B659CC2EAAC438FE6BA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6A84459554BFFC07D17F4EB851F5134A"
+        "OwnerKey" = "8:_EA31747ED1304F10B79635D7FD6DE677"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6A84459554BFFC07D17F4EB851F5134A"
+        "OwnerKey" = "8:_BB261BF6839A2603201D6738C10BB26C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_72831805C4609E2B2B92D2E2970D6727"
         "OwnerKey" = "8:_EA31747ED1304F10B79635D7FD6DE677"
         "MsmSig" = "8:_UNDEFINED"
@@ -47,6 +65,12 @@
         {
         "MsmKey" = "8:_84ECDFEEF33A4F0DAC79D396ABB7718D"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BB261BF6839A2603201D6738C10BB26C"
+        "OwnerKey" = "8:_EA31747ED1304F10B79635D7FD6DE677"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,25 +100,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E9E58CA5AC662AB60857DE8C29DA30AA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1D5BE21A48401EE2975DD54DAB63E3F6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CB6A9D7BF67ADB52889DA660245CAA9D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_75DF268A817B4F747A939A1079F70CF3"
+        "OwnerKey" = "8:_EA31747ED1304F10B79635D7FD6DE677"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,7 +112,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EA31747ED1304F10B79635D7FD6DE677"
+        "OwnerKey" = "8:_BB261BF6839A2603201D6738C10BB26C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6A84459554BFFC07D17F4EB851F5134A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_75DF268A817B4F747A939A1079F70CF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CB6A9D7BF67ADB52889DA660245CAA9D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1D5BE21A48401EE2975DD54DAB63E3F6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E9E58CA5AC662AB60857DE8C29DA30AA"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -134,6 +170,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -158,6 +207,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -181,8 +243,44 @@
             "AssemblyAsmDisplayName" = "8:antlr.runtime, Version=2.7.7.3, Culture=neutral, PublicKeyToken=d7701e059243744f"
                 "ScatterAssemblies"
                 {
+                    "_1D5BE21A48401EE2975DD54DAB63E3F6"
+                    {
+                    "Name" = "8:antlr.runtime.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:antlr.runtime.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_46696A93DE644C17BDC93A19BC3E31B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6A84459554BFFC07D17F4EB851F5134A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.76.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6A84459554BFFC07D17F4EB851F5134A"
+                    {
+                    "Name" = "8:System.Data.SQLite.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Data.SQLite.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_46696A93DE644C17BDC93A19BC3E31B6"
@@ -207,6 +305,11 @@
             "AssemblyAsmDisplayName" = "8:PLUSManaged, Version=1.10.4.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_72831805C4609E2B2B92D2E2970D6727"
+                    {
+                    "Name" = "8:PLUSManaged.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:PLUSManaged.dll"
             "TargetName" = "8:"
@@ -233,8 +336,44 @@
             "AssemblyAsmDisplayName" = "8:nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_75DF268A817B4F747A939A1079F70CF3"
+                    {
+                    "Name" = "8:nunit.framework.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:nunit.framework.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_46696A93DE644C17BDC93A19BC3E31B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BB261BF6839A2603201D6738C10BB26C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:test, Version=1.0.0.5049, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_BB261BF6839A2603201D6738C10BB26C"
+                    {
+                    "Name" = "8:test.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:test.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_46696A93DE644C17BDC93A19BC3E31B6"
@@ -259,6 +398,11 @@
             "AssemblyAsmDisplayName" = "8:StringTemplate, Version=3.0.1.6846, Culture=neutral, PublicKeyToken=beee492b52c41e85, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_CB6A9D7BF67ADB52889DA660245CAA9D"
+                    {
+                    "Name" = "8:StringTemplate.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:StringTemplate.dll"
             "TargetName" = "8:"
@@ -285,6 +429,11 @@
             "AssemblyAsmDisplayName" = "8:System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E9E58CA5AC662AB60857DE8C29DA30AA"
+                    {
+                    "Name" = "8:System.Web.Mvc.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Web.Mvc.dll"
             "TargetName" = "8:"
@@ -350,6 +499,17 @@
         }
         "MergeModule"
         {
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_34BC54A1A51E4B659CC2EAAC438FE6BA"
+            {
+            "UseDynamicProperties" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Common Files\\Merge Modules\\Microsoft_VC100_CRT_x86.msm"
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
             "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_7767EC08AECD463FBA4BB22ECE8D99E4"
             {
             "UseDynamicProperties" = "11:FALSE"
@@ -376,7 +536,7 @@
         "Module"
         {
         "ModuleSignature" = "8:MergeModule.F12CB7DCC28746F6B2CC65A0A2F34BC8"
-        "Version" = "8:1.0.0.0"
+        "Version" = "8:1.1.0.0"
         "Title" = "8:Syscon API Installer"
         "Subject" = "8:"
         "Author" = "8:Syscon, Inc."
@@ -391,6 +551,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B44A21B7FC384CA9959D1FF842263AAA"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_46696A93DE644C17BDC93A19BC3E31B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{4EE1750F-BDE7-4664-B76F-86F60C45390E}"
+            "ShowKeyOutput" = "11:FALSE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EA31747ED1304F10B79635D7FD6DE677"
             {
             "SourcePath" = "8:..\\SysconCommon\\obj\\Debug\\SysconCommon.dll"

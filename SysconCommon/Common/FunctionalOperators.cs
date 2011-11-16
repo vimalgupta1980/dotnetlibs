@@ -136,9 +136,6 @@ namespace SysconCommon.Common
 
             switch (op)
             {
-                case BinarySearchOps.EqualTo:
-                    // find the last item that is smaller than this occurence
-                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -237,6 +234,7 @@ namespace SysconCommon.Common
         // used to get different random numbers all the time, better than time based because
         // we may get 2 in the same ms
         private static int next_seed = Convert.ToInt32(DateTime.Now.Ticks % 1000000);
+        private static Random random = new Random(next_seed);
         
         /// <summary>
         /// infinite list of naturals (starting with 1)
@@ -266,19 +264,16 @@ namespace SysconCommon.Common
         /// <returns></returns>
         public static IEnumerable<int> CreateRandomInts(int minValue, int maxValue)
         {
-            var r = new Random(next_seed++);
-            while (true) { yield return r.Next(minValue, maxValue); }
+            while (true) { yield return random.Next(minValue, maxValue); }
         }
 
         public static IEnumerable<bool> CreateRandomBools()
         {
-            var r = new Random(next_seed++);
-            while (true) { yield return r.Next(1,2) == 1 ? true : false; }
+            while (true) { yield return random.Next(1,2) == 1 ? true : false; }
         }
 
         public static IEnumerable<char> CreateRandomChars()
         {
-            var r = new Random(next_seed++);
             foreach (var b in CreateRandomBools())
             {
                 yield return (char) (b ? CreateRandomInts('a', 'z') : CreateRandomInts('A', 'Z')).First();

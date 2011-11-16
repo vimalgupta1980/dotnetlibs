@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using SysconCommon.Common.Environment;
 using SysconCommon.Common;
 using SysconCommon.Algebras.DataTables;
+using SysconCommon.Common.Validity;
 
 namespace SMB.Tables
 {
@@ -153,6 +154,149 @@ namespace SMB.Tables
                     return false;
 
                 return true;
+            }
+        }
+    }
+
+    public partial class payrec : smbtable
+    {
+        private decimal? _nontaxable_deductions_total = null;
+        public decimal NonTaxableDeductionsTotal
+        {
+            get
+            {
+                if (_nontaxable_deductions_total == null)
+                {
+                    using (var con = Connections.GetOLEDBConnection())
+                    {
+                        _nontaxable_deductions_total = con.GetScalar<decimal>(
+                            "select sum(amount) from tmcddd join payded on tmcddd on payded.recnum = tmcddd.clcnum where tmcddd.recnum = {0} and payded.fedtax = 0 and payded.clctyp = 1"
+                            , this.recnum);
+                    }
+                }
+
+                return _nontaxable_deductions_total.Value;
+            }
+        }
+    }
+
+    public partial class tmcdln : smbtable
+    {
+        public decimal CalculationTotal(long payded_recnum)
+        {
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                // var dt = con.GetDataTable("data", "select payded.clcmth, payded.bsdded, payrec.grspay, tmcddd.amount, 
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal CalculationTotal(long clcmth, long bsdded, decimal grspay, decimal totalDeduction, decimal NonTaxableDeductionsTotal, decimal ttlhrs, long taxtyp)
+        {
+            // Validity.IsNotNull(deduction);
+            // Validity.IsNotNull(payrecord);
+            // Validity.IsNotNull(calc);
+
+            // if (this.paygrp > 0)
+                // Validity.IsNotNull(paygroup);
+
+            switch (clcmth)
+            {
+                case 1:
+                    return CalculationByGrossTotal(grspay, totalDeduction);
+                
+                case 2:
+                    return CalculationByTaxableGrossTotal(grspay, NonTaxableDeductionsTotal, totalDeduction);
+                
+                case 7:
+                    // use the base calculation type
+                    // calc.clcmth = calc.bsdded;
+                    // var rv = CalculationTotal(deduction, payrecord, calc, paygroup);
+                    // calc.clcmth = 7;
+                    // return rv;
+                    using(var con = Connections.GetOLEDBConnection()) 
+                    {
+                        clcmth = con.GetScalar<long>("select clcmth from payded where recnum = {0}", bsdded);
+                        bsdded = con.GetScalar<long>("select bsdded from payded where recnum = {0}", bsdded);
+                        return CalculationTotal(clcmth, bsdded, grspay, totalDeduction, NonTaxableDeductionsTotal, ttlhrs, taxtyp);
+                    }
+
+                case 8:
+                    return CalculationByWorkingHours(ttlhrs, this.hrswrk, totalDeduction);
+
+                case 11: // Per Pay Period... no great way to allocate this across line items, so just do it as a % of the total
+                    return CalculationByGrossTotal(grspay, totalDeduction);
+
+                case 17:
+                    switch (taxtyp)
+                    {
+                        case 11: // it's workmans comp
+                            return CalculateWorkmansComp();                   
+                        case 12: // it's liability insurance
+                            return CalculateLiabilityInsurance();
+                        default: // we don't know what it is, and cannot calculate it
+                            throw new NotImplementedException();
+                    }
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private decimal CalculateWorkmansComp()
+        {
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                var pctrte = con.GetScalar<decimal>("select pctrte from wrkcmp where recnum = {0}", this.cmpcde);
+                return NonOvertimeGrossWages * pctrte / 100.0m;
+            }
+        }
+
+        private decimal CalculateLiabilityInsurance()
+        {
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                var libins = con.GetScalar<decimal>("select libins from wrkcmp where recnum = {0}", this.cmpcde);
+                return libins * NonOvertimeGrossWages;
+            }
+        }
+
+        private decimal CalculationByGrossTotal(decimal payrec_gross, decimal deduction_total)
+        {
+            return deduction_total * (GrossWages / payrec_gross);
+        }
+
+        private decimal CalculationByTaxableGrossTotal(decimal paygrec_gross, decimal nontaxable_deductions, decimal deduction_total)
+        {
+            var taxable_gross = paygrec_gross - nontaxable_deductions;
+            var taxable_pcnt = taxable_gross / paygrec_gross;
+
+            return CalculationByGrossTotal(paygrec_gross, deduction_total) * taxable_pcnt;
+        }
+
+        private decimal CalculationByWorkingHours(decimal payrec_total_hrs, decimal line_hrs, decimal deduction_total)
+        {
+            return deduction_total * (line_hrs / payrec_total_hrs);
+        }
+
+        public decimal GrossWages 
+        {
+            get
+            {
+                return this.payrte * this.hrswrk;
+            }
+        }
+
+        public decimal NonOvertimeGrossWages
+        {
+            get
+            {
+                var grs = GrossWages;
+                var ot = this.paytyp == 2 || this.paytyp == 3
+                    ? this.payrte * this.hrswrk - this.cmpsub * this.hrswrk
+                    : 0.0m;
+
+                return grs - ot;
             }
         }
     }

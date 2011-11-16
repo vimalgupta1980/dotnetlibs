@@ -77,6 +77,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files (x86)\System.Data.SQLite\2010\bin\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
@@ -138,6 +139,9 @@
     <Compile Include="Algebras\Graphs\GraphOperations.cs" />
     <Compile Include="Algebras\Graphs\GraphStructures.cs" />
     <Compile Include="Algebras\MemoryDB\BTree.cs" />
+    <Compile Include="Algebras\Sorting.cs" />
+    <Compile Include="Analysis\AnalysisHelper.cs" />
+    <Compile Include="Analysis\TimeCardLinesAnalysis.cs" />
     <Compile Include="COMMethods.cs" />
     <Compile Include="Common\ArgumentHandling.cs" />
     <Compile Include="Common\Cache.cs" />
@@ -167,6 +171,12 @@
       <DependentUpon>CopyableMsgBox.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\DataGridViewExtensions.cs" />
+    <Compile Include="GUI\Edit Job Types.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Edit Job Types.Designer.cs">
+      <DependentUpon>Edit Job Types.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\FileSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,6 +188,18 @@
     </Compile>
     <Compile Include="GUI\FldlibBasedGrid.Designer.cs">
       <DependentUpon>FldlibBasedGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Multi Paygroup Selector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Multi Paygroup Selector.Designer.cs">
+      <DependentUpon>Multi Paygroup Selector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Multi Union Selector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Multi Union Selector.Designer.cs">
+      <DependentUpon>Multi Union Selector.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MultiJobSelector.cs">
       <SubType>Form</SubType>
@@ -196,6 +218,12 @@
     </Compile>
     <Compile Include="GUI\SearchableComboBox.Designer.cs">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ShowDataTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ShowDataTable.Designer.cs">
+      <DependentUpon>ShowDataTable.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\SMBLogin.cs">
       <SubType>Form</SubType>
@@ -498,11 +526,20 @@
     <EmbeddedResource Include="GUI\CopyableMsgBox.resx">
       <DependentUpon>CopyableMsgBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Edit Job Types.resx">
+      <DependentUpon>Edit Job Types.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FileSelector.resx">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FldlibBasedGrid.resx">
       <DependentUpon>FldlibBasedGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Multi Paygroup Selector.resx">
+      <DependentUpon>Multi Paygroup Selector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Multi Union Selector.resx">
+      <DependentUpon>Multi Union Selector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MultiJobSelector.resx">
       <DependentUpon>MultiJobSelector.cs</DependentUpon>
@@ -513,6 +550,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SearchableComboBox.resx">
       <DependentUpon>SearchableComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ShowDataTable.resx">
+      <DependentUpon>ShowDataTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SMBLogin.resx">
       <DependentUpon>SMBLogin.cs</DependentUpon>
@@ -540,6 +580,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <Content Include="syscon_jobtyp.CDX">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="syscon_jobtyp.DBF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLite.Interop.dll">

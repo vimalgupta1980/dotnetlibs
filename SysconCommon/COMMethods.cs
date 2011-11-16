@@ -214,6 +214,19 @@ namespace SysconCommon
 
             return dlg.LoggedInUser;
         }
+
+        public void EditJobTypes()
+        {
+            var frm = new Edit_Job_Types(this);
+            frm.ShowDialog();
+        }
+
+        public void EnsureJobTypesExist()
+        {
+            var pi = GetProgramInfo();
+            if (!File.Exists(pi.SMBDir + "/syscon_jobtyp.dbf"))
+                EditJobTypes();
+        }
     }
 
     [ComVisible(true)]
