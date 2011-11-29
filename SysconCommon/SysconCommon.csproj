@@ -157,6 +157,12 @@
     <Compile Include="Common\SqlHelpers.cs" />
     <Compile Include="Common\Structures.cs" />
     <Compile Include="Common\Validity.cs" />
+    <Compile Include="GUI\Assembly Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Assembly Editor.Designer.cs">
+      <DependentUpon>Assembly Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\AssociationGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -520,6 +526,9 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\Assembly Editor.resx">
+      <DependentUpon>Assembly Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\AssociationGridView.resx">
       <DependentUpon>AssociationGridView.cs</DependentUpon>
     </EmbeddedResource>

@@ -198,5 +198,15 @@ namespace SysconCommon.Tests
                 }
             }
         }
+
+        [Test]
+        public void TemplateTest()
+        {
+            var tmplt = SysconTemplate.FromString("some $value$ is value");
+            tmplt.SetAttribute("value", 0);
+            tmplt.SetAttribute("non-existant", -1);
+
+            Assert.AreEqual("some 0 is value", tmplt.ToString());
+        }
     }
 }

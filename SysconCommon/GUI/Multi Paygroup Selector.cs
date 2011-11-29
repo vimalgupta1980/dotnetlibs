@@ -43,15 +43,26 @@ namespace SysconCommon.GUI
             public string uninme { get; set; }
         }
 
+        public bool UserHitOK
+        {
+            get
+            {
+                return OK;
+            }
+        }
+
         _SelectRow[] SelectItems = null;
 
         public IEnumerable<_SelectRow> SelectedItems
         {
             get
             {
-                foreach (var i in SelectItems)
-                    if (i.IsSelected)
-                        yield return i;
+                if (OK)
+                {
+                    foreach (var i in SelectItems)
+                        if (i.IsSelected)
+                            yield return i;
+                }
             }
         }
 
@@ -82,8 +93,11 @@ namespace SysconCommon.GUI
             }
         }
 
+        private bool OK = false;
+
         private void btnOK_Click(object sender, EventArgs e)
         {
+            OK = true;
             this.Close();
         }
 

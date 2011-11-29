@@ -755,7 +755,7 @@ namespace SysconCommon.Common.Environment
 
         static public TempFile GetTempFile()
         {
-            var tempDir = Env.GetConfigVar("TempFileDirectory", Path.GetTempPath(), true);
+            var tempDir = Path.GetTempPath();
             var tempFileName = FunctionalOperators.CreateRandomString(10, 20);
 
             return new TempFile(tempDir + "/" + tempFileName);
@@ -818,6 +818,7 @@ namespace SysconCommon.Common.Environment
                 }
             }
 
+            [Obsolete]
             public void CreateIndex(string fldnme)
             {
                 // FIXME: this doesn't work
@@ -837,7 +838,7 @@ namespace SysconCommon.Common.Environment
 
         static public TempDBFPointer GetTempDBF(this OleDbConnection con)
         {
-            var tempDir = Env.GetConfigVar("TempFileDirectory", Path.GetTempPath(), true);
+            var tempDir = Path.GetTempPath();
             var tempFileName = FunctionalOperators.CreateRandomString(10,20) + ".dbf";
             return new TempDBFPointer(tempDir + @"\" + tempFileName, con);
         }

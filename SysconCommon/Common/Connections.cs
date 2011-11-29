@@ -165,7 +165,7 @@ namespace SysconCommon.Common.Environment
             return Connection.GetList<T>(sqlfmt, args);
         }
 
-        static public void ExecuteNonQuery(this IDbConnection con, OleDbTransaction trans, string sqlfmt, params object[] args)
+        static public int ExecuteNonQuery(this IDbConnection con, OleDbTransaction trans, string sqlfmt, params object[] args)
         {
             var cmd = con.CreateCommand();
             
@@ -180,12 +180,12 @@ namespace SysconCommon.Common.Environment
             }
 
             cmd.CommandText = string.Format(sqlfmt, args);
-            cmd.ExecuteNonQuery();
+            return cmd.ExecuteNonQuery();
         }
 
-        static public void ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
+        static public int ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
         {
-            con.ExecuteNonQuery(null, sqlfmt, args);
+            return con.ExecuteNonQuery(null, sqlfmt, args);
         }
     }
 }

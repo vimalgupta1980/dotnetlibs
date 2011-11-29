@@ -207,10 +207,10 @@ namespace SysconCommon.Algebras.DataTables
 
                 foreach (DataColumn dc in self.Columns)
                 {
-                    var field = fields.Where(f => f.Name == dc.ColumnName).FirstOrDefault();
+                    var field = fields.Where(f => f.Name.ToUpper() == dc.ColumnName.ToUpper()).FirstOrDefault();
                     if (field == null)
                     {
-                        var prop = props.Where(p => p.Name == dc.ColumnName).FirstOrDefault();
+                        var prop = props.Where(p => p.Name.ToUpper() == dc.ColumnName.ToUpper()).FirstOrDefault();
                         if (prop != null)
                         {
                             if (prop.PropertyType != typeof(string) && row[dc].ToString().Trim() == "")

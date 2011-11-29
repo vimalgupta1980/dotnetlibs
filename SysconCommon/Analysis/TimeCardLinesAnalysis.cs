@@ -68,7 +68,7 @@ namespace SysconCommon.Analysis
         {
             var con = analysis_tbl.connection;
 
-            con.ExecuteNonQuery("update anal set anal.amount = IIF(tmcdln.hrswrk=0,1,tmcdln.hrswrk) * tmcdln.payrte"
+            con.ExecuteNonQuery("update anal set anal.amount = IIF(tmcdln.paytyp=9,1,tmcdln.hrswrk) * tmcdln.payrte"
                 + " from {0} anal"
                 + " join tmcdln on tmcdln.linnum = anal.linnum and tmcdln.recnum = anal.recnum"
                 , analysis_tbl);
@@ -79,6 +79,7 @@ namespace SysconCommon.Analysis
                 , analysis_tbl);
 
             // populate the payrate for salaried employees
+#if DontUseSalary
             using (var zeros = con.GetTempDBF())
             {
                 con.ExecuteNonQuery("select anal.recnum, sum(amount) as amount, sum(tmcdln.hrswrk) as ttlhrs, max(anal.recttl) as recttl"
@@ -99,6 +100,41 @@ namespace SysconCommon.Analysis
                     + " join tmcdln on tmcdln.recnum = anal.recnum and tmcdln.linnum = anal.linnum"
                     , analysis_tbl, zeros);
             }
+#else
+            using (Env.TempDBFPointer 
+                salaries = con.GetTempDBF(),
+                ttlhrs = con.GetTempDBF())
+            {
+                con.ExecuteNonQuery("select distinct anal.recnum, payrec.salary, 0000000000000.0000 as hours, 00000000000000.0000 as rate"
+                    + " from {0} anal"
+                    + " join payrec on payrec.recnum = anal.recnum"
+                    + " where payrec.salary <> 0"
+                    + " into table {1}"
+                    , analysis_tbl, salaries);
+
+                con.ExecuteNonQuery("select anal.recnum, sum(tmcdln.hrswrk) as ttlhrs"
+                    + " from {0} anal"
+                    + " join tmcdln on tmcdln.linnum = anal.linnum and tmcdln.recnum = anal.recnum"
+                    + " where tmcdln.payrte = 0"
+                    + " and tmcdln.paytyp < 7"
+                    + " group by anal.recnum"
+                    + " into table {1}"
+                    , analysis_tbl, ttlhrs);
+
+                con.ExecuteNonQuery("update salaries set hours = ttlhrs.ttlhrs, rate = salaries.salary / ttlhrs.ttlhrs"
+                    + " from {0} salaries"
+                    + " join {1} ttlhrs on ttlhrs.recnum = salaries.recnum"
+                    + " where ttlhrs.ttlhrs <> 0"
+                    , salaries, ttlhrs);
+
+                con.ExecuteNonQuery("update anal set anal.amount = salaries.rate * tmcdln.hrswrk"
+                    + " from {0} anal"
+                    + " join {1} salaries on salaries.recnum = anal.recnum"
+                    + " join tmcdln on tmcdln.recnum = anal.recnum and tmcdln.linnum = anal.linnum"
+                    + " where tmcdln.paytyp < 7 and tmcdln.payrte = 0"
+                    , analysis_tbl, salaries);
+            }
+#endif
         }
 
         private static void _do_weight(payded ded, Env.TempDBFPointer analysis_tbl)
@@ -140,6 +176,13 @@ namespace SysconCommon.Analysis
                     */
                     SetAmountToGrossPay(analysis_tbl);
 
+                    // the gross pay is 0 for paytyps 7 and 8 when calculating gross, but this is wrong
+                    // when calculating calculations, so update it
+                    con.ExecuteNonQuery("update anal set amount = tmcdln.payrte"
+                        + " from {0} anal"
+                        + " join tmcdln on tmcdln.linnum = anal.linnum and tmcdln.recnum = anal.recnum and tmcdln.paytyp in (7,8)"
+                        , analysis_tbl);
+
                     // sometimes for salaried employees there are hours on the timecard
                     // but no rates, assuming all cases like this are for salaried employees
                     // we can just take the hours and let the scaling to match tmcddd work
@@ -167,17 +210,18 @@ namespace SysconCommon.Analysis
             // find our zeros, then weigh them against the zeros in tmcddd
             using (Env.TempDBFPointer 
                 totals = con.GetTempDBF(),
-                zeros = con.GetTempDBF())
+                zeros = con.GetTempDBF(),
+                all_zeros = con.GetTempDBF())
             {
-                con.ExecuteNonQuery("select anal.recnum, sum(anal.amount) as amount, payrec.ttlhrs"
+                con.ExecuteNonQuery("select anal.recnum, sum(anal.amount) as amount, max(payrec.ttlhrs) as ttlhrs"
                     + " from {0} anal"
                     + " join payrec on payrec.recnum = anal.recnum"
-                    + " group by recnum into table {1}"
+                    + " group by anal.recnum into table {1}"
                     , analysis_tbl, totals);
 
-                con.ExecuteNonQuery("update anal set anal.recttl = zeros.amount"
+                con.ExecuteNonQuery("update anal set anal.recttl = totals.amount"
                     + " from {0} anal"
-                    + " join {1} zeros on zeros.recnum = anal.recnum"
+                    + " join {1} totals on totals.recnum = anal.recnum"
                     , analysis_tbl, totals);
 
                 // some calculations (like workmans comp may still have a recttl of 0 even though the tmcddd has an entry... fix this
@@ -200,6 +244,20 @@ namespace SysconCommon.Analysis
                     + " into table {2}"
                     , analysis_tbl, _payded.recnum, zeros);
 
+                con.ExecuteNonQuery("select zeros.recnum, count(*) as cnt"
+                    + " from {0} zeros"
+                    + " join {1} totals on totals.recnum = zeros.recnum"
+                    + " where totals.ttlhrs = 0"
+                    + " group by zeros.recnum"
+                    + " into table {2}"
+                    , zeros, totals, all_zeros);
+
+                con.ExecuteNonQuery("update zeros set zeros.hrswrk = tmcdln.payrte"
+                    + " from {0} zeros"
+                    + " join {1} all_zeros on zeros.recnum = all_zeros.recnum"
+                    + " join tmcdln on tmcdln.recnum = zeros.recnum and tmcdln.linnum = zeros.linnum"
+                    , zeros, all_zeros);
+
                 con.ExecuteNonQuery("update anal set anal.amount = zeros.hrswrk"
                     + " from {0} anal"
                     + " join {1} zeros on zeros.recnum = anal.recnum and zeros.linnum = anal.linnum"
@@ -212,9 +270,9 @@ namespace SysconCommon.Analysis
                     + " into table {2}"
                     , analysis_tbl, zeros, totals);
 
-                con.ExecuteNonQuery("update anal set anal.recttl = zeros.recttl"
+                con.ExecuteNonQuery("update anal set anal.recttl = totals.recttl"
                     + " from {0} anal"
-                    + " join {1} zeros on zeros.recnum = anal.recnum"
+                    + " join {1} totals on totals.recnum = anal.recnum"
                     , analysis_tbl, totals);
             }
 
@@ -232,6 +290,7 @@ namespace SysconCommon.Analysis
                     + " from {0} anal"
                     + " join tmcdln on tmcdln.recnum = anal.recnum and tmcdln.linnum = anal.linnum"
                     + " join wkrcmp on wkrcmp.recnum = tmcdln.cmpcde"
+                    + " where tmcdln.paytyp < 7"
                     , analysis_tbl);
 
                 goto cleanup;  // we are done
@@ -243,6 +302,7 @@ namespace SysconCommon.Analysis
                     + " from {0} anal"
                     + " join tmcdln on tmcdln.recnum = anal.recnum and tmcdln.linnum = anal.linnum"
                     + " join wkrcmp on wkrcmp.recnum = tmcdln.cmpcde"
+                    + " where tmcdln.paytyp < 7"
                     , analysis_tbl);
 
                 goto cleanup; // we are done

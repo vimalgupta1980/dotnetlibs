@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+
+using Antlr.StringTemplate;
 
 namespace SysconCommon.Common
 {
@@ -22,6 +25,47 @@ namespace SysconCommon.Common
         {
             byte[] bytes = Convert.FromBase64String(self);
             return ASCIIEncoding.ASCII.GetString(bytes);
+        }
+    }
+
+    public class SysconTemplate
+    {
+        private readonly string _template;
+        private readonly StringTemplate _st;
+
+        private SysconTemplate(string template_string)
+        {
+            _template = template_string;
+            _st = new StringTemplate(_template);
+        }
+
+        public void SetAttribute<T>(string att, T val)
+        {
+            _st.SetAttribute(att, val);
+        }
+
+        public void SetAttributes<T>(IDictionary<string, T> atts)
+        {
+            foreach (var k in atts.Keys)
+            {
+                SetAttribute(k, atts[k]);
+            }
+        }
+
+        public static SysconTemplate FromString(string template_string)
+        {
+            return new SysconTemplate(template_string);
+        }
+
+        public static SysconTemplate FromFile(string filename)
+        {
+            var _str = File.ReadAllText(filename);
+            return FromString(_str);
+        }
+
+        public override string ToString()
+        {
+            return _st.ToString();
         }
     }
 }
