@@ -9,6 +9,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Syscon API Installer", "Sys
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Syscon API Independant Installer", "Syscon API Independant Installer\Syscon API Independant Installer.vdproj", "{B3956848-ABE5-4E1F-91E0-DF2395DE1954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel Query", "..\9999 Excel Query\Excel Query\Excel Query.csproj", "{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,16 @@ Global
 		{B3956848-ABE5-4E1F-91E0-DF2395DE1954}.Release|Any CPU.ActiveCfg = Release
 		{B3956848-ABE5-4E1F-91E0-DF2395DE1954}.Release|Mixed Platforms.ActiveCfg = Release
 		{B3956848-ABE5-4E1F-91E0-DF2395DE1954}.Release|x86.ActiveCfg = Release
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Debug|x86.ActiveCfg = Debug|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Debug|x86.Build.0 = Debug|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Release|Any CPU.ActiveCfg = Release|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Release|Mixed Platforms.Build.0 = Release|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Release|x86.ActiveCfg = Release|x86
+		{EC8CE532-8584-4E5E-9E1B-FDB00C89B494}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

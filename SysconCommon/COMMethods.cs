@@ -15,6 +15,7 @@ using SysconCommon.Algebras.DataTables;
 using SysconCommon.GUI;
 using SysconCommon.Common.Environment;
 using SysconCommon.Common.Validity;
+using SysconCommon.Foxpro;
 
 namespace SysconCommon
 {
@@ -37,6 +38,9 @@ namespace SysconCommon
         {
             // we want the config file to default to the current directory, not the directory of the COM dll
             Env.SetConfigFile(Directory.GetCurrentDirectory() + @"\config.xml");
+
+            // same goes for the log file
+            Env.LogFile = Directory.GetCurrentDirectory() + @"\log.txt";
         }
 
         public string GetCalcMethodName(int clcmth)
@@ -103,6 +107,57 @@ namespace SysconCommon
             var dlg = new MultiJobSelector();
             dlg.ShowDialog();
             return dlg.SelectedJobNumbers.Select(i => Convert.ToInt32(i)).ToArray();
+        }
+
+        [return: MarshalAs(UnmanagedType.SafeArray)]
+        public int[] SelectTMJobsByGUI()
+        {
+            smartGetSMBDir();
+
+            if (_mbdir == null)
+                return null;
+
+            EnsureJobTypesExist();
+
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                var jobs_dt = con.GetDataTable("jobs", 
+                    "select a.recnum from actrec a join syscon_jobtyp s on a.jobtyp = s.recnum and s.istimmat > 0");
+                var dlg = new MultiJobSelector(jobs_dt.Rows.Select(r => Convert.ToInt64(r[0])).ToArray());
+                dlg.ShowDialog();
+                return dlg.SelectedJobNumbers.Select(i => Convert.ToInt32(i)).ToArray();
+            }
+        }
+
+        [return: MarshalAs(UnmanagedType.SafeArray)]
+        public int[] SelectNonTMJobsByGUI()
+        {
+            smartGetSMBDir();
+
+            if (_mbdir == null)
+                return null;
+
+            EnsureJobTypesExist();
+
+            using (var con = Connections.GetOLEDBConnection())
+            {
+                var jobs_dt = con.GetDataTable("jobs",
+                    "select a.recnum from actrec a left join syscon_jobtyp s on a.jobtyp = s.recnum where isnull(s.istimmat) or s.istimmat = 0");
+                var dlg = new MultiJobSelector(jobs_dt.Rows.Select(r => Convert.ToInt64(r[0])).ToArray());
+                dlg.ShowDialog();
+                return dlg.SelectedJobNumbers.Select(i => Convert.ToInt32(i)).ToArray();
+            }
+        }
+
+        public void EditJobTypesByGUI()
+        {
+            smartGetSMBDir();
+
+            if (_mbdir == null)
+                return;
+
+            var dlg = new Edit_Job_Types(this);
+            dlg.ShowDialog();
         }
 
         public void SetSMBDir(string mbdir)
@@ -215,17 +270,29 @@ namespace SysconCommon
             return dlg.LoggedInUser;
         }
 
-        public void EditJobTypes()
-        {
-            var frm = new Edit_Job_Types(this);
-            frm.ShowDialog();
-        }
-
         public void EnsureJobTypesExist()
         {
             var pi = GetProgramInfo();
             if (!File.Exists(pi.SMBDir + "/syscon_jobtyp.dbf"))
-                EditJobTypes();
+                EditJobTypesByGUI();
+        }
+
+        public void EditCostCodesByGUI()
+        {
+            var frm = new Edit_Cost_Codes(this);
+            frm.ShowDialog();
+        }
+
+        public void EnsureCostCodesExist()
+        {
+            var pi = GetProgramInfo();
+            if (!File.Exists(pi.SMBDir + "/syscon_cstcde.dbf"))
+                EditCostCodesByGUI();
+        }
+
+        public void Log(string msg)
+        {
+            Env.Log("{0}", msg);
         }
     }
 

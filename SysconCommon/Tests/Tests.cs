@@ -143,7 +143,7 @@ namespace SysconCommon.Tests
         [Test]
         public void EditJobTypes()
         {
-            MBAPI.EditJobTypes();
+            MBAPI.EditJobTypesByGUI();
         }
 
         [Test]
@@ -207,6 +207,12 @@ namespace SysconCommon.Tests
             tmplt.SetAttribute("non-existant", -1);
 
             Assert.AreEqual("some 0 is value", tmplt.ToString());
+        }
+
+        [Test]
+        public void EditCostCodesTest()
+        {
+            MBAPI.EditCostCodesByGUI();
         }
     }
 }
