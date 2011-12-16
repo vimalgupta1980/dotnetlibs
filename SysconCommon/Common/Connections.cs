@@ -12,12 +12,15 @@ namespace SysconCommon.Common.Environment
     public static class Connections
     {
         static private OdbcConnection _con = null;
+        static internal string _mbdir = null;
 
         static public void SetOLEDBFreeTableDirectory(string mbdir)
         {
             SysconCommon.Common.Environment.Connections.OLEDBConnectionString = string.Format(
                 "Provider=VFPOLEDB.1;Data Source={0};Mode=ReadWrite|Share Deny None;Password=\"\";Collating Sequence=Machine"
                 , mbdir);
+
+            _mbdir = mbdir;
         }
 
         static public System.Data.SQLite.SQLiteConnection GetInMemoryDB()

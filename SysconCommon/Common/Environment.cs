@@ -468,7 +468,7 @@ namespace SysconCommon.Common.Environment
             }
             else
             {
-                return default(T);
+                return defaultValue;
             }
         }
 
@@ -494,7 +494,7 @@ namespace SysconCommon.Common.Environment
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        static public XmlNode GetConfigXmlNode(string name)
+        static private XmlNode GetConfigXmlNode(string name)
         {
             name = ConfigInjector(name);
 
@@ -755,7 +755,7 @@ namespace SysconCommon.Common.Environment
 
         static public TempFile GetTempFile()
         {
-            var tempDir = Path.GetTempPath();
+            var tempDir = GetTempPath();
             var tempFileName = FunctionalOperators.CreateRandomString(10, 20);
 
             return new TempFile(tempDir + "/" + tempFileName);
@@ -804,7 +804,10 @@ namespace SysconCommon.Common.Environment
                     {
                         File.Delete(cdx_file);
                     }
-                    catch { }
+                    catch 
+                    {
+                        Env.Log("Cleanup Error: Could not delete [{0}]", cdx_file);
+                    }
                 }
                 
                 var idx_file = Path.GetDirectoryName(filename) + "/" + Path.GetFileNameWithoutExtension(filename) + ".idx";
@@ -814,7 +817,10 @@ namespace SysconCommon.Common.Environment
                     {
                         File.Delete(idx_file);
                     }
-                    catch { }
+                    catch
+                    {
+                        Env.Log("Cleanup Error: Could not delete [{0}]", idx_file);
+                    }
                 }
             }
 
@@ -836,9 +842,123 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+        static private bool TryWrite(string path)
+        {
+            if (Debug)
+            {
+                try
+                {
+                    Env.Log("Trying to write to {0}", path);
+                }
+                catch { }
+            }
+
+            string test_fname = path + "/syscon_temp_test.dbf";
+
+            if (Connections.OLEDBConnectionString != null)
+            {
+                using (var con = Connections.GetOLEDBConnection())
+                {
+                    try
+                    {
+                        con.ExecuteNonQuery("create table [{0}] (test n(10))", test_fname);
+                        con.Close();
+                        File.Delete(test_fname);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    File.WriteAllText(test_fname, "test");
+                    File.Delete(test_fname);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Finds a suitable temporary path to use.  Before returning a path, it will first try to write to and delete from that directory
+        /// in the case where a foxpro database is setup, it tries to write with a 'create table' statement, otherwise it simply tries to write
+        /// some text into a new file.
+        /// 
+        /// The order of temporary paths that it will try is:
+        ///     - the value 'tempdir' from the config file
+        ///     - the windows temporary path ... ie %TEMP%
+        ///     - [Drive Letter]:\MB7\Tempfile
+        ///     - [Program Folder]\Temp, if this doesn't exist it will try to create it
+        ///     
+        /// Errors - In the case that a temporary path cannot be found and written to, this function
+        /// throws a TempPathNotFoundException
+        /// </summary>
+        /// <returns>A Suitable Temporary Path</returns>
+        static public string GetTempPath()
+        {
+            var tempDir = Env.GetConfigVar("tempdir");
+            var found = true;
+
+            try
+            {
+                if (tempDir != null && TryWrite(tempDir))
+                    return tempDir;
+
+                tempDir = Path.GetTempPath();
+
+                if (TryWrite(tempDir))
+                    return tempDir;
+
+                if (Connections._mbdir != null)
+                {
+                    tempDir = Directory.GetParent(Connections._mbdir) + "/Tempfile";
+                    if (TryWrite(tempDir))
+                        return tempDir;
+                }
+
+                try
+                {
+                    var exedir = Env.GetEXEDirectory();
+                    if (exedir != null)
+                    {
+                        tempDir = exedir + "/Temp";
+                        if (!Directory.Exists(tempDir))
+                        {
+                            Directory.CreateDirectory(tempDir);
+                        }
+
+                        if (TryWrite(tempDir))
+                        {
+                            return tempDir;
+                        }
+                    }
+                }
+                catch { }
+
+                found = false;
+                throw new TempPathNotFoundException();
+            }
+            finally
+            {
+                if (found && Debug)
+                {
+                    Env.Log("Using temporary directory: {0}", tempDir);
+                }
+            }
+        }
+
         static public TempDBFPointer GetTempDBF(this OleDbConnection con)
         {
-            var tempDir = Path.GetTempPath();
+            var tempDir = GetTempPath();
             var tempFileName = FunctionalOperators.CreateRandomString(10,20) + ".dbf";
             return new TempDBFPointer(tempDir + @"\" + tempFileName, con);
         }
