@@ -26,6 +26,14 @@ namespace SysconCommon.Common
             byte[] bytes = Convert.FromBase64String(self);
             return ASCIIEncoding.ASCII.GetString(bytes);
         }
+
+        public static string AddBS(this string self)
+        {
+            if (self[self.Length - 1] == '\\')
+                return self;
+
+            return self + "\\";
+        }
     }
 
     public class SysconTemplate

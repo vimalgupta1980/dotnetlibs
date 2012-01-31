@@ -186,6 +186,88 @@ namespace SysconCommon.Common.Environment
             return cmd.ExecuteNonQuery();
         }
 
+        static public Env.TempDBFPointer Summarize(this OleDbConnection con, string tblnam, string[] group_columns, string[] sum_columns = null, string[] max_columns = null)
+        {
+            if (sum_columns == null)
+                sum_columns = new string[] { };
+
+            if (max_columns == null)
+                max_columns = new string[] { };
+
+            sum_columns = (from c in sum_columns
+                           select string.Format("sum({0}) as {0}", c)).ToArray();
+
+            max_columns = (from c in max_columns
+                           select string.Format("max({0}) as {0}", c)).ToArray();
+
+            var agg_columns = sum_columns.Concat(max_columns).ToArray();
+
+            if (group_columns == null || group_columns.Length == 0)
+                throw new SysconException("To combine 2 tables, you must specify at least one group column");
+
+            if (agg_columns.Length == 0)
+                throw new SysconException("To combine 2 tables, you must specify at least one aggregate column");
+
+            var result = con.GetTempDBF();
+
+            con.ExecuteNonQuery("select {0}, {1} from {2} group by {0} into table {3}"
+                , string.Join(",", group_columns)
+                , string.Join(",", agg_columns)
+                , tblnam
+                , result);
+
+            return result;
+        }
+
+        static public Env.TempDBFPointer Summarize(this OleDbConnection con, Env.TempDBFPointer tbl, string[] group_columns, string[] sum_columns = null, string[] max_columns = null)
+        {
+            return con.Summarize(tbl.ToString(), group_columns, sum_columns, max_columns);
+        }
+
+        static public Env.TempDBFPointer Summarize(this OleDbConnection con, string tblnam1, string tblnam2, string[] group_columns, string[] sum_columns = null, string[] max_columns = null)
+        {
+            if (sum_columns == null)
+                sum_columns = new string[] { };
+
+            if (max_columns == null)
+                max_columns = new string[] { };
+
+            sum_columns = (from c in sum_columns
+                           select string.Format("sum({0}) as {0}", c)).ToArray();
+
+            max_columns = (from c in max_columns
+                           select string.Format("max({0}) as {0}", c)).ToArray();
+
+            var agg_columns = sum_columns.Concat(max_columns).ToArray();
+
+            if (group_columns == null || group_columns.Length == 0)
+                throw new SysconException("To combine 2 tables, you must specify at least one group column");
+
+            if (agg_columns.Length == 0)
+                throw new SysconException("To combine 2 tables, you must specify at least one aggregate column");
+
+            using (var temp = con.GetTempDBF())
+            {
+                con.ExecuteNonQuery("select * from {0} union all select * from {1} into table {2}", tblnam1, tblnam2, temp);
+
+                var result = con.GetTempDBF();
+                var agg_query = string.Format("select {0}, {1} from {2} group by {0} into table {3}"
+                    , string.Join(",", group_columns)
+                    , string.Join(",", agg_columns)
+                    , temp
+                    , result);
+
+                con.ExecuteNonQuery(agg_query);
+
+                return result;
+            }
+        }
+
+        static public Env.TempDBFPointer Summarize(this OleDbConnection con, Env.TempDBFPointer tbl1, Env.TempDBFPointer tbl2, string[] group_columns, string[] sum_columns = null, string[] max_columns = null)
+        {
+            return con.Summarize(tbl1.ToString(), tbl2.ToString(), group_columns, sum_columns, max_columns);
+        }
+
         static public int ExecuteNonQuery(this IDbConnection con, string sqlfmt, params object[] args)
         {
             return con.ExecuteNonQuery(null, sqlfmt, args);

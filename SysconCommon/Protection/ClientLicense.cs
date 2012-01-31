@@ -39,7 +39,7 @@ namespace SysconCommon.Protection
             this.encryption_id = encryption_id;
             this.client_key = client_key;
             this.server_key = server_key;
-
+            
             base.m_encryptionKeyId = encryption_id;
 
             //initialize computer/system identifying information for the current system
@@ -85,6 +85,7 @@ namespace SysconCommon.Protection
         {
             // we only check if it's valid every 20 runs
             LicenseError tmpError = new LicenseError(LicenseError.ERROR_NONE); ;
+            // this.m_effectiveEndDate = DateTime.Today.AddDays(1);
 
             if (!this.CheckInstallationStatus())
             {

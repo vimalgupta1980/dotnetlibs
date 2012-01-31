@@ -48,6 +48,42 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+        static private string _application_name = null;
+
+        static public string ApplicationName
+        {
+            get
+            {
+                if (_application_name != null)
+                    return _application_name;
+
+                try
+                {
+                    var exeasm = Assembly.GetEntryAssembly();
+                    var att = exeasm.GetCustomAttributes(typeof(AssemblyProductAttribute), false).First() as AssemblyProductAttribute;
+                    return att.Product;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        static public void SetApplicationName(string name)
+        {
+            _application_name = name;
+        }
+
+        static public void EnsureDirectoryExists(string dirname)
+        {
+            if (!Directory.Exists(dirname))
+            {
+                EnsureDirectoryExists(Directory.GetParent(dirname).FullName);
+                Directory.CreateDirectory(dirname);
+            }
+        }
+
         /// <summary>
         /// ensure that a file exists
         /// </summary>
@@ -92,7 +128,7 @@ namespace SysconCommon.Common.Environment
             {
                 if (_LogFile == null)
                 {
-                    return GetEXEDirectory() + "/log.txt";
+                    return ConfigDataPath + "/log.txt";
                 }
                 else
                 {
@@ -113,7 +149,7 @@ namespace SysconCommon.Common.Environment
         static public void Log(string msgFormat, params object[] arguments)
         {
             // var defaultLogFile = GetEXEDirectory() + "/log.txt";
-            var defaultLogFile = "log.txt";
+            // var defaultLogFile = "log.txt";
             File.AppendAllText(LogFile, string.Format(DateTime.Now.ToString() + " - " + msgFormat + "\r\n", arguments));
         }
 
@@ -182,7 +218,7 @@ namespace SysconCommon.Common.Environment
 
                 var codebase = ass.CodeBase;
                 var exedir = Path.GetDirectoryName(codebase.Substring(8));
-                return exedir;
+                return exedir.AddBS();
             }
             catch (Exception ex)
             {
@@ -276,8 +312,7 @@ namespace SysconCommon.Common.Environment
         }
 
         /// <summary>
-        /// set the config file name.  The default is config.xml in the directory of the
-        /// .exe file if this is never called.
+        /// set the config file name.  The default is config.xml in the user application data directory
         /// </summary>
         /// <param name="filename">
         /// the file to store configuration options in
@@ -304,8 +339,109 @@ namespace SysconCommon.Common.Environment
                 else
                 {
                     _config_file_used = true;
+#if OldConfigLocation
                     return string.Format("{0}/config.xml", GetEXEDirectory());
+#else
+                    // if the config file exists in the exe directory, but not in the configdatapath, then make a copy
+                    // this is for backwards compatibility
+                    var cfile = string.Format("{0}/config.xml", ConfigDataPath);
+
+                    if (!File.Exists(cfile))
+                    {
+                        EnsureDirectoryExists(ConfigDataPath);
+                        var oldcfile = string.Format("{0}/config.xml", GetEXEDirectory());
+                        if (File.Exists(oldcfile))
+                            File.Copy(oldcfile, cfile);
+                    }
+
+                    return cfile;
+#endif
                 }
+            }
+        }
+
+        static public bool UseGlobalConfig = false;
+
+        static public string ConfigDataPath
+        {
+            get
+            {
+                var sfolder = UseGlobalConfig
+                    ? System.Environment.SpecialFolder.CommonApplicationData
+                    : System.Environment.SpecialFolder.ApplicationData;
+
+                string dir = Env.ApplicationName != null
+                    ? System.Environment.GetFolderPath(sfolder) + "/Syscon/" + Env.ApplicationName
+                    : Directory.GetCurrentDirectory();
+
+                EnsureDirectoryExists(dir);
+                return dir;
+            }
+        }
+
+        static public string GlobalConfigDataPath
+        {
+            get
+            {
+                string p = null;
+
+                if (Env.ApplicationName != null)
+                {
+                    p = string.Format("{0}/Syscon/{1}"
+                        , System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData)
+                        , Env.ApplicationName);
+                }
+                else
+                {
+                    p = Directory.GetCurrentDirectory();
+                }
+
+                EnsureDirectoryExists(p);
+                return p;
+            }
+        }
+
+        static public string DataConfigDataPath
+        {
+            get
+            {
+                string p = null;
+
+                if (Env.ApplicationName == null)
+                    throw new SysconException("Application Name must be set to use data config files");
+
+                var cdir = GetMBDir().AddBS();
+                return string.Format("{0}Syscon\\{1}", cdir + Env.ApplicationName).AddBS();
+            }
+        }
+
+        static public T GetDataConfigVar<T>(string name, T defaultValue, bool writeIfMissing)
+        {
+            var old = GetConfigFile();
+            
+            try
+            {
+                SetConfigFile(DataConfigDataPath);
+                return GetConfigVar(name, defaultValue, writeIfMissing);
+            }
+            finally
+            {
+                SetConfigFile(old);
+            }
+        }
+
+        static public void SetDataConfigVar<T>(string name, T value)
+        {
+            var old = GetConfigFile();
+
+            try
+            {
+                SetConfigFile(DataConfigDataPath);
+                SetConfigVar(name, value);
+            }
+            finally
+            {
+                SetConfigFile(old);
             }
         }
 
@@ -759,7 +895,6 @@ namespace SysconCommon.Common.Environment
             var tempFileName = FunctionalOperators.CreateRandomString(10, 20);
 
             return new TempFile(tempDir + "/" + tempFileName);
-
         }
 
         public class TempDBFPointer : IDisposable
@@ -785,6 +920,9 @@ namespace SysconCommon.Common.Environment
 
             void connection_Disposed(object sender, EventArgs e)
             {
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+
                 if (File.Exists(filename))
                 {
                     try

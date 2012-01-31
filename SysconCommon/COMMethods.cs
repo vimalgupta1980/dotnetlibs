@@ -36,11 +36,16 @@ namespace SysconCommon
         // required for COM
         public COMMethods()
         {
-            // we want the config file to default to the current directory, not the directory of the COM dll
-            Env.SetConfigFile(Directory.GetCurrentDirectory() + @"\config.xml");
+        }
 
-            // same goes for the log file
-            Env.LogFile = Directory.GetCurrentDirectory() + @"\log.txt";
+        public void UseGlobalConfig()
+        {
+            Env.UseGlobalConfig = true;
+        }
+
+        public void UseUserConfig()
+        {
+            Env.UseGlobalConfig = false;
         }
 
         public string GetCalcMethodName(int clcmth)
@@ -168,6 +173,37 @@ namespace SysconCommon
             SetConfigVar("mbdir", mbdir);
         }
 
+        /// <summary>
+        /// selects any smb directory, does not update the smb dir, or save to a configuration file
+        /// </summary>
+        /// <returns></returns>
+        public string SelectAnySMBDirectory()
+        {
+            var dlg = new FolderBrowserDialog();
+            
+            if (_mbdir != null)
+            {
+                dlg.SelectedPath = Directory.GetParent(_mbdir).ToString();
+            }
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                var result = dlg.SelectedPath.AddBS();
+
+                if (!File.Exists(result + "actrec.dbf"))
+                {
+                    MessageBox.Show("Was not a valid SMB Directory", "Error", MessageBoxButtons.OK);
+                    return null;
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            
+            return null;
+        }
+
         public string GetSMBDir()
         {
             return _mbdir;
@@ -232,6 +268,22 @@ namespace SysconCommon
             }
 
             return _mbdir;
+        }
+
+        public string smartSelectSMBDirByGUI(string configName)
+        {
+            var dflt = @"c:\mb7\sample company";
+            var dlg = new FolderBrowserDialog();
+            dlg.Description = "Please select your SMB data directory";
+            dlg.SelectedPath = Env.GetConfigVar(configName, dflt, true);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                // _mbdir = dlg.SelectedPath;
+                Env.SetConfigVar(configName, dlg.SelectedPath);
+                // Env.SetMBDir(dlg.SelectedPath);
+            }
+
+            return Env.GetConfigVar(configName, dflt, true);
         }
 
         public ProgramInfo GetProgramInfo()

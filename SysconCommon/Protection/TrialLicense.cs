@@ -33,6 +33,12 @@ namespace SysconCommon.Protection
         public TrialLicense(string licenseFilePath, string trialLicenseFilePath, int product_id, string encryption_id, string client_key, string server_key, string alias_path)
             : base(server_key, client_key, true, true, product_id, "", "")
         {
+            if (SysconCommon.Common.Environment.Env.GetConfigVar<bool>("DebugLicense", false, true))
+            {
+                SysconCommon.Common.Environment.Env.Log("Loading Trial License:\r\n\t{0}\r\n\t{1}\r\n\t{2}\r\n\t{3}\r\n\t{4}\r\n\t{5}\r\n\t{6}"
+                    , licenseFilePath, trialLicenseFilePath, product_id, encryption_id, client_key, server_key, alias_path);
+            }
+
             //NOTE: the two boolean arguments where the base class's constructor is
             // called above are for using an encrypted License File and encrypting
             // web service calls, respectively.
@@ -43,7 +49,7 @@ namespace SysconCommon.Protection
             this.server_key = server_key;
             base.m_encryptionKeyId = encryption_id;
 
-            //initialize computer/system identifying information for the current system
+            // initialize computer/system identifying information for the current system
             this.AddIdentifierAlgorithm(new NicIdentifierAlgorithm());
             this.AddIdentifierAlgorithm(new ComputerNameIdentifierAlgorithm());
             this.AddIdentifierAlgorithm(new HardDiskVolumeSerialIdentifierAlgorithm());
@@ -56,15 +62,15 @@ namespace SysconCommon.Protection
             this.AddAlias(new LicenseFileSystemAlias(alias_path, client_key, true));
             // this.AddAlias(new LicenseFileSystemAlias(aliasPath + "TrialLicenseAlias2.xml", client_key, true));
             // this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias3"));
-            // this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.LocalMachine, "TrialLicenseAlias4"));
-            //this.AddAlias(new LicenseWindowsRegistryAlias("Software\\PLUSManaged\\Samples\\UnmanagedTrial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias4"));
+            this.AddAlias(new LicenseWindowsRegistryAlias("\\Software\\Syscon\\Trial" + product_id.ToString(), client_key, true, Microsoft.Win32.RegistryHive.LocalMachine, "TrialLicenseAlias4"));
+            // this.AddAlias(new LicenseWindowsRegistryAlias("Software\\PLUSManaged\\Samples\\UnmanagedTrial", client_key, true, Microsoft.Win32.RegistryHive.CurrentUser, "TrialLicenseAlias4"));
 
             //add the time servers to check against - this check occurs in the IsValid method implementation
             this.AddTimeServerCheck("time.windows.com");
             this.AddTimeServerCheck("time.nist.gov");
 
             //NOTE: this is an example product version -- you may remove this or use your own; however, it is imperative that the version number contains all 4 parts!
-            this.ProductVersion = "1.0.0.4";
+            // this.ProductVersion = "1.0.0.4";
 
             m_licenseFilePath = licenseFilePath;
             m_trialLicenseFilePath = trialLicenseFilePath;

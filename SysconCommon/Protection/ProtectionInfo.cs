@@ -41,8 +41,7 @@ namespace SysconCommon.Protection
         {
             get
             {
-                var exedir = Env.GetEXEDirectory();
-                return exedir + "/TrialLicense.xml";
+                return Env.GlobalConfigDataPath + "/TrialLicense.xml";
             }
         }
 
@@ -50,8 +49,7 @@ namespace SysconCommon.Protection
         {
             get
             {
-                var exedir = Env.GetEXEDirectory();
-                return exedir + "/License.xml";
+                return Env.GlobalConfigDataPath + "/License.xml";
             }
         }
 
@@ -71,13 +69,15 @@ namespace SysconCommon.Protection
         {
             if (!AllowSubscription)
             {
-                string alias_path = "c:\\windows\\system32\\Trial" + product_id.ToString() + ".xml";
+                // string alias_path = "c:\\windows\\system32\\Trial" + product_id.ToString() + ".xml";
+                string alias_path = Env.GlobalConfigDataPath + "/_program_data.xml";
+
                 try
                 {
                     if (System.IO.File.Exists(LicenseLocation))
                     {
                         var seat = new ClientLicense(LicenseLocation, product_id, encryptionKeyId, clientKey, serverKey, product_version);
-                        seat.LoadFile();
+                        var loadr = seat.LoadFile();
 
                         // make sure the option is valid
                         if (option_id > 0 && option_id != seat.ProdOptionID)
@@ -88,7 +88,7 @@ namespace SysconCommon.Protection
                         }
 
                         var run_count = Env.GetConfigVar("run_count", 0, true);
-                        if ((!AlwaysCheck && run_count % 5 != 0) || seat.IsValid())
+                        if (seat.IsValid())
                         {
                             Env.SetConfigVar("run_count", run_count + 1);
                             return seat;
@@ -129,6 +129,21 @@ namespace SysconCommon.Protection
         static public bool CheckLicense(int product_id, string product_version, int option_id)
         {
             var license = GetLicense(product_id, product_version, option_id);
+            if (license.IsTrial)
+            {
+                var frm = new ProtectionPlusIntroFormFull(license as TrialLicense);
+                frm.ShowDialog();
+                return frm.LicenseOK;
+            }
+            else
+            {
+                return license.IsValid();
+            }
+        }
+
+        static public bool CheckLicense(int product_id, string product_version)
+        {
+            var license = GetLicense(product_id, product_version);
             if (license.IsTrial)
             {
                 var frm = new ProtectionPlusIntroFormFull(license as TrialLicense);

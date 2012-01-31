@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 using SysconCommon.Algebras.DataTables;
 using SysconCommon.Common;
@@ -194,7 +195,7 @@ namespace SysconCommon.Tests
                         };
                     }).ToDataTable("ER Medicare");
 
-                    ShowDataTable.ShowTable(results);
+                    ShowDataTable.ShowTable(results, false);
                 }
             }
         }
@@ -213,6 +214,50 @@ namespace SysconCommon.Tests
         public void EditCostCodesTest()
         {
             MBAPI.EditCostCodesByGUI();
+        }
+
+        [Test]
+        public void MultiDimArrayTest()
+        {
+            int[,] ary = new int[,] { { 0, 1 }, { 2, 3 } };
+            foreach (var i in FunctionalOperators.Range(ary.GetLength(0)))
+            {
+                MessageBox.Show(ary[i, 1].ToString());
+            }
+        }
+
+        [Test]
+        public void RemapCostCodesTest()
+        {
+            DBManipulate.DBManipulate.BuildRemapping("cstcde", "recnum", null, null, "cdenme");
+        }
+
+        class SelectionItem
+        {
+            public int one;
+            public int two;
+        }
+
+        [Test]
+        public void GenericSelectionTest()
+        {
+            List<SelectionItem> items = new List<SelectionItem>();
+            for (var i = 0; i < 100; i++)
+            {
+                for (var j = 0; j < 100; j++)
+                {
+                    items.Add(new SelectionItem() { one = i, two = j, });
+                }
+            }
+
+            var dt = items.ToDataTable("SelectionItems");
+            dt.ApplyMods(
+                DTColumns.SetCaptions("one", "One", "two", "Two"));
+
+            var frm = new SysconSelectionScreen(dt);
+            var rslt = frm.ShowDialog();
+
+            MessageBox.Show(string.Format("Returned {0}", rslt));
         }
     }
 }

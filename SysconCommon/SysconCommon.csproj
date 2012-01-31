@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -142,6 +142,7 @@
     <Compile Include="Algebras\Sorting.cs" />
     <Compile Include="Analysis\AnalysisHelper.cs" />
     <Compile Include="Analysis\Numerical.cs" />
+    <Compile Include="Analysis\PaygroupAnalysis.cs" />
     <Compile Include="Analysis\TimeCardLinesAnalysis.cs" />
     <Compile Include="COMMethods.cs" />
     <Compile Include="Common\ArgumentHandling.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Common\DictionaryOperators.cs" />
     <Compile Include="Common\FixedSpace.cs" />
     <Compile Include="Common\StringExtensions.cs" />
+    <Compile Include="Common\SysconAttribute.cs" />
     <Compile Include="Common\SysconException.cs" />
     <Compile Include="Common\Environment.cs" />
     <Compile Include="Common\FunctionalOperators.cs" />
@@ -158,6 +160,13 @@
     <Compile Include="Common\SqlHelpers.cs" />
     <Compile Include="Common\Structures.cs" />
     <Compile Include="Common\Validity.cs" />
+    <Compile Include="DBManipulate\DBManipulate.cs" />
+    <Compile Include="GUI\ActPrdSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\ActPrdSelector.Designer.cs">
+      <DependentUpon>ActPrdSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Assembly Editor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +178,12 @@
     </Compile>
     <Compile Include="GUI\AssociationGridView.Designer.cs">
       <DependentUpon>AssociationGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AutoLayoutControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AutoLayoutControl.Designer.cs">
+      <DependentUpon>AutoLayoutControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ComboBox.cs" />
     <Compile Include="GUI\CopyableMsgBox.cs">
@@ -244,12 +259,44 @@
     <Compile Include="GUI\SMBLogin.Designer.cs">
       <DependentUpon>SMBLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SysconCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconCheckBox.Designer.cs">
+      <DependentUpon>SysconCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SysconControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconControl.Designer.cs">
+      <DependentUpon>SysconControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SysconDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconDataGridView.Designer.cs">
+      <DependentUpon>SysconDataGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\SysconLogo.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUI\SysconLogo.Designer.cs">
       <DependentUpon>SysconLogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SysconSelectionScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconSelectionScreen.Designer.cs">
+      <DependentUpon>SysconSelectionScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SysconTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\SysconTextBox.Designer.cs">
+      <DependentUpon>SysconTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserInputAttribute.cs" />
+    <Compile Include="GUI\UserInteract.cs" />
     <Compile Include="GUI\WebLink.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -533,6 +580,9 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI\ActPrdSelector.resx">
+      <DependentUpon>ActPrdSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Assembly Editor.resx">
       <DependentUpon>Assembly Editor.cs</DependentUpon>
     </EmbeddedResource>
@@ -576,9 +626,15 @@
     <EmbeddedResource Include="GUI\SMBLogin.resx">
       <DependentUpon>SMBLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SysconDataGridView.resx">
+      <DependentUpon>SysconDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\SysconLogo.resx">
       <DependentUpon>SysconLogo.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SysconSelectionScreen.resx">
+      <DependentUpon>SysconSelectionScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\WebLink.resx">
       <DependentUpon>WebLink.cs</DependentUpon>
@@ -620,6 +676,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -380,11 +380,11 @@ namespace SMB.Tables {
 		public string ntetxt;
 
 		/// <summary>
-		/// Combine Phases                  
+		/// Summarize Phases                  
 		/// </summary>
 		[ColumnOrder(480)]
 		[SMBFieldName("cmbphs")]
-		[SMBFieldDescription("Combine Phases")]
+		[SMBFieldDescription("Summarize Phases")]
 		public long cmbphs;
 
 	}

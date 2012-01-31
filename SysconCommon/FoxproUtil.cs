@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Data.OleDb;
+using System.IO;
 
 using SysconCommon.Common;
 using SysconCommon.Common.Validity;
@@ -18,8 +20,10 @@ namespace SysconCommon.Foxpro
             return string.Format("Date({0},{1},{2})", input.Year, input.Month, input.Day);
         }
 
-        public static string FoxproInsertString(this DataRow self, string table_name)
+        public static string FQ(this object obj)
         {
+            var t = obj.GetType();
+
             var numeric_types = new Type[] {
                 typeof(decimal), typeof(int), typeof(long), typeof(double), typeof(float)
             };
@@ -28,22 +32,40 @@ namespace SysconCommon.Foxpro
                 typeof(DateTime)
             };
 
+            if (DBNull.Value.Equals(obj) || obj == null)
+            {
+                return "null";
+            }
+
+            if (numeric_types.Contains(t))
+            {
+                return obj.ToString();
+            }
+
+            if (date_types.Contains(t))
+            {
+                return ((DateTime)obj).ToFoxproDate();
+            }
+
+            return obj.ToString().FoxproQuote();
+        }
+
+        public static bool IsFoxproNull(this object obj)
+        {
+            return obj == null || DBNull.Value.Equals(obj);
+        }
+
+#if false
+        public static string FoxproInsertString(this DataRow self, string table_name)
+        {
             var keys = from c in self.Table.Columns
                        select c.ColumnName;
 
-            var vals = self.ItemArray.Select(v =>
-            {
-                if (numeric_types.Contains(v.GetType()))
-                    return v.ToString();
-
-                if (date_types.Contains(v.GetType()))
-                    return ((DateTime)v).ToFoxproDate();
-
-                return v.ToString().FoxproQuote();
-            });
+            var vals = self.ItemArray.Select(v => v.FQ());
 
             return string.Format("insert into {0} ({1}) values ({2})", table_name, string.Join(",", keys), string.Join(",", vals));
         }
+#endif
 
         public static string FoxproQuote(this string input)
         {
@@ -99,10 +121,147 @@ namespace SysconCommon.Foxpro
 
             return anum.CompareTo(bnum);
         }
+
+        #region DataTable Extensions
+        private static string GetFoxproDeleteSql(this DataRowView self, string tblnam, string key_column)
+        {
+            return string.Format("delete from {0} where {1} = {2}", tblnam.FoxproQuote(), key_column, self[key_column].FQ());
+        }
+
+        private static string GetFoxproInsertSql(this DataRowView self, string tblnam, string[] columns)
+        {
+            var vals = (from c in columns
+                        select self[c].FQ()).ToArray();
+
+            return string.Format("insert into {0} ({1}) values ({2})"
+                , tblnam.FoxproQuote()
+                , string.Join(",", columns)
+                , string.Join(",", vals));
+        }
+
+        private static string GetFoxproUpdateSql(this DataRowView self, string tblnam, string key_column, string[] columns)
+        {
+            var sets = (from c in columns
+                        select string.Format("{0} = {1}", c, self[c].FQ())).ToArray();
+
+            return string.Format("update {0} set {1} where {2} = {3}"
+                , tblnam.FoxproQuote()
+                , string.Join(", ", sets)
+                , key_column
+                , self[key_column].FQ());
+        }
+
+        public static Func<DataRowView, bool> MkIdGen<T>(this OleDbConnection con, string tblname, params string[] colnames)
+        {
+            return (row) =>
+            {
+                foreach (var c in colnames)
+                {
+                    if (row[c].IsFoxproNull())
+                    {
+                        row[c] = con.GetScalar<T>("select max({0})+1 from {1}", c, tblname);
+                    }
+                }
+
+                return true;
+            };
+        }
+
+        public static FoxproCommitResults UpdateFoxproTable(this DataTable self, OleDbConnection con, string tblname, string key_column = null, Func<DataRowView,bool> DefaultValGen = null, params string[] columns)
+        {
+            if (key_column == null)
+            {
+                try
+                {
+                    key_column = self.FindUpdateIndex().ColumnName;
+                }
+                catch
+                {
+                    throw new SysconException("Could not determine the key column");
+                }
+            }
+
+            // get deleted rows
+            var deletedview = new DataView(self, "", "", DataViewRowState.Deleted);
+            var updatedview = new DataView(self, "", "", DataViewRowState.ModifiedCurrent);
+            var insertedview = new DataView(self, "", "", DataViewRowState.Added);
+
+            if (columns.Length == 0)
+            {
+                columns = (from c in self.Columns.ToIEnumerable()
+                           where c.ColumnName != key_column
+                           select c.ColumnName).ToArray();
+            }
+
+            var result = new FoxproCommitResults();
+
+            using (var cmd = con.CreateCommand())
+            {
+                foreach (DataRowView row in deletedview)
+                {
+                    cmd.CommandText = row.GetFoxproDeleteSql(tblname, key_column);
+                    result.DeletedCount += cmd.ExecuteNonQuery();
+                }
+
+                foreach (DataRowView row in updatedview)
+                {
+                    cmd.CommandText = row.GetFoxproUpdateSql(tblname, key_column, columns);
+                    result.UpdatedCount += cmd.ExecuteNonQuery();
+                }
+
+                foreach (DataRowView row in insertedview)
+                {
+                    if (DefaultValGen != null && !DefaultValGen(row))
+                    {
+                        throw new SysconException("Could not load default values for row");
+                    }
+
+                    var all_columns = columns.Concat(new string[] { key_column }).ToArray();
+                    cmd.CommandText = row.GetFoxproInsertSql(tblname, all_columns);
+                    result.InsertedCount += cmd.ExecuteNonQuery();
+                }
+
+                self.AcceptChanges();
+
+                return result;
+            }
+        }
+        #endregion
+
+
+
+        public static DataTable FoxproUserEdit (this OleDbConnection con, string tableName, bool save_edits, params DTColumns.DataColumnOp[] columnMods)
+        {
+            var name = Path.GetFileNameWithoutExtension(tableName);
+
+            var dt = con.GetDataTable(name, "select * from {0}", tableName.FoxproQuote());
+            dt.ApplyMods(columnMods);
+
+            var uindex = dt.FindUpdateIndex();
+
+            Validity.Assert(uindex != null, "Index column must be specified");
+
+            var key_column = uindex.ColumnName;
+            dt.Columns[key_column].SetAsKey();
+            dt.Columns[key_column].ReadOnly = true;
+
+            SysconCommon.GUI.ShowDataTable.ShowTable(dt, true);
+            dt.UpdateFoxproTable(con, tableName, key_column, null);
+
+            return dt;
+        }
     }
+
 
     public class FoxproQuoteException : SysconCommon.Common.SysconException
     {
         public FoxproQuoteException(string unquoteable_string) : base("Could not quote string: " + unquoteable_string) { }
+    }
+
+    public class FoxproCommitResults
+    {
+        public int DeletedCount { get; set; }
+        public int UpdatedCount { get; set; }
+        public int InsertedCount { get; set; }
     }
 }

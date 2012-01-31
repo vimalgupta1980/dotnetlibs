@@ -10,3 +10,5 @@ CREATE TABLE [Blank Tables\syscon_cstcde] ( ;
 	recnum n(15,3) NOT NULL UNIQUE, ;
 	unbillable n(1) NOT NULL ;
 )
+
+CLOSE TABLES

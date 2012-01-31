@@ -13,7 +13,10 @@ using System.IO;
 // using System.Windows.Forms;
 
 using SysconCommon.Common;
+using SysconCommon.Common.Environment;
+using SysconCommon.Common.Validity;
 using SysconCommon.Algebras.DataTables;
+using SysconCommon.Foxpro;
 
 namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 {
@@ -110,6 +113,9 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
                     var value = val[i + 1, colnum];
                     try
                     {
+                        if (value == null || value.ToString() == "")
+                            continue;
+
                         Convert.ToDecimal(value);
                     }
                     catch
@@ -148,7 +154,14 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
                 var row = dt.NewRow();
                 for (var c = 1; c < val.GetLength(1) + 1; c++)
                 {
-                    row[c - 1] = Convert.ChangeType(val[r, c], column_types[c - 1]);
+                    if (val[r,c] == null || val[r, c].ToString() == "")
+                    {
+                        row[c - 1] = Activator.CreateInstance(column_types[c - 1]);
+                    }
+                    else
+                    {
+                        row[c - 1] = Convert.ChangeType(val[r, c], column_types[c - 1]);
+                    }
                 }
 
                 dt.Rows.Add(row);
@@ -186,9 +199,18 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
             List<string> dest_column_names = new List<string>();
 
+            var empty = 0;
+
             for(var i = 1; i <= r.Columns.Count; i++)
             {
-                dest_column_names.Add(r[1, i].Text.Trim());
+                if (r[1, i].Text.Trim() == "")
+                {
+                    dest_column_names.Add(string.Format("__empty_{0}", empty++));
+                }
+                else
+                {
+                    dest_column_names.Add(r[1, i].Text.Trim());
+                }
             }
 
             // var dest_column_names = _dest_column_names.ToArray();
@@ -211,6 +233,11 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             // re-order the columns we do want
             foreach (var i in FunctionalOperators.Range(dest_column_names.Count()))
             {
+                if (!self.Columns.Exists(dest_column_names[i]))
+                {
+                    self = self.AddColumnWithData(dest_column_names[i], (dr) => "");
+                }
+
                 self.Columns[dest_column_names[i]].SetOrdinal(i);
             }
 
@@ -302,15 +329,31 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
         {
             var wb = openWorkbook(workbook);
             var con = SysconCommon.Common.Environment.Connections.GetInMemoryDB();
+            Dictionary<string, bool> found = new Dictionary<string, bool>();
+
+            foreach (Name name in wb.Names)
+            {
+                try
+                {
+                    var dt = GetNamedRangeData(workbook, name.RefersToRange.Worksheet.Name, name.Name, include_headers);
+                    con.LoadDataTable(dt);
+                    found.Add(name.Name, true);
+                }
+                catch { }
+            }
 
             foreach(Worksheet ws in wb.Worksheets) 
             {
                 foreach (Name name in ws.Names)
                 {
+                    if (found.ContainsKey(name.Name))
+                        continue;
+
                     try
                     {
                         var dt = GetNamedRangeData(workbook, ws.Name, name.Name, include_headers);
                         con.LoadDataTable(dt);
+                        found.Add(name.Name, true);
                     }
                     catch { }
                 }
@@ -335,6 +378,9 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         public static void CloseApp(bool saveChanges)
         {
+            if (_app == null)
+                return;
+
             foreach (Workbook wb in app.Workbooks)
             {
                 if (saveChanges)
@@ -346,6 +392,97 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             app.Quit();
 
             UseNewApp(_readonly: false);
+        }
+
+        public static string SelectExcelFile(string directory = null)
+        {
+            bool set_directory = false;
+            if (directory == null)
+            {
+                directory = Env.GetConfigVar("excel_open_directory", Env.GetEXEDirectory(), true);
+                set_directory = true;
+            }
+
+            var dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.InitialDirectory = directory;
+            dlg.Filter = "Excel Files|*.xlsx;*.xls;*.xlsm";
+            dlg.Multiselect = false;
+
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (set_directory)
+                {
+                    Env.SetConfigVar("excel_open_directory", System.IO.Path.GetDirectoryName(dlg.FileName));
+                }
+
+                return dlg.FileName;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static System.Windows.Forms.DialogResult SelectItemsWithExcelLoadOption(this System.Data.DataTable self, string named_range, string[] index_columns = null, string workbook = null, string selection_column = "selected")
+        {
+            if (index_columns == null)
+            {
+                index_columns = new string[] { self.FindUpdateIndex().ColumnName };
+            }
+
+            Validity.Assert(named_range != null, "Named Range must be passed");
+            Validity.Assert(index_columns.Length >= 1, "Must specify at least one index column");
+
+            System.Data.SQLite.SQLiteConnection con = null;
+            bool canceled = false;
+
+            Func<DataRow, bool> loadFunc = (row) =>
+            {
+                if (workbook == null && canceled == false)
+                    workbook = SelectExcelFile();
+
+                if (workbook == null)
+                {
+                    canceled = true;
+                }
+
+                if (canceled)
+                {
+                    return Convert.ToBoolean(row[selection_column]);
+                }
+
+                if (con == null)
+                {
+                    con = LoadWorkbookToInMemoryDb(workbook, true);
+                }
+
+                var where_criteria = new List<string>();
+                foreach (var ic in index_columns)
+                {
+                    where_criteria.Add(string.Format("{0} = {1}", ic, row[ic].FQ()));
+                }
+
+                var where_clause = string.Join(" and ", where_criteria.ToArray());
+
+                var count = con.GetScalar<long>("select count(*) from {0} where {1}", named_range, where_clause);
+                return count > 0;
+            };
+
+            try
+            {
+                var dlg = new SysconCommon.GUI.SysconSelectionScreen(self, selection_column, false, loadFunc);
+                return dlg.ShowDialog();
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+
+                    con.Dispose();
+                }
+            }
         }
     }
 }

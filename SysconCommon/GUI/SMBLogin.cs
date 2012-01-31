@@ -61,6 +61,7 @@ namespace SysconCommon.GUI
                 {
                     Env.SetConfigVar("last_login_username", username);
                     LoggedInUser = username;
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
                 }
                 else
@@ -78,6 +79,7 @@ namespace SysconCommon.GUI
         private void btnCancel_Click(object sender, EventArgs e)
         {
             LoggedInUser = null;
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             methods.SetSMBDir(null);
             this.Close();
         }

@@ -30,7 +30,8 @@ namespace SysconCommon.Protection
             if (!TrialLicense.IsValid())
             {
                 this.radioContinueWithTrial.Enabled = false;
-                this.lblMessage.Text = "Trial is expired.";
+                this.lblMessage.Text = string.Format("Trial Expired on {0}"
+                    , TrialLicense.EffectiveEndDate.ToShortDateString());
                 this.radioActivateNow.Checked = true;
             }
             else

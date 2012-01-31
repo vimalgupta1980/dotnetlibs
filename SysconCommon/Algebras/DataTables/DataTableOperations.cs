@@ -29,6 +29,8 @@ using System.Data.OleDb;
 using System.Reflection;
 using System.IO;
 
+using System.Windows.Forms;
+
 
 using Antlr.StringTemplate;
 using System.Data.SQLite;
@@ -37,6 +39,7 @@ using SysconCommon.Common;
 using SysconCommon.Common.Validity;
 using SysconCommon.Common.Environment;
 using SysconCommon.Parsing;
+using SysconCommon.GUI;
 
 namespace SysconCommon.Algebras.DataTables
 {
@@ -76,6 +79,13 @@ namespace SysconCommon.Algebras.DataTables
                 yield return fn(r);
         }
 
+        public static void DeleteRowsWhere(this DataTable self, Func<DataRow, bool> selector)
+        {
+            foreach (DataRow row in self.Rows)
+                if (selector(row))
+                    row.Delete();
+        }
+
         public static DataTable GetDataTable(this OdbcConnection con, string datatableName, string sqlfmt, params object[] args)
         {
             var da = new OdbcDataAdapter();
@@ -88,6 +98,15 @@ namespace SysconCommon.Algebras.DataTables
                 da.Fill(dt);
                 return dt;
             }
+        }
+
+        public static bool Exists(this DataColumnCollection self, string name)
+        {
+            foreach (DataColumn col in self)
+                if (col.ColumnName == name)
+                    return true;
+
+            return false;
         }
 
         public static void LoadDataTable(this SQLiteConnection con, DataTable tbl, string tblname = null)
@@ -190,6 +209,7 @@ namespace SysconCommon.Algebras.DataTables
                     dt.Rows.Add(row);
                 }
 
+                dt.AcceptChanges();
                 return dt;
             }
 #endif
@@ -1262,7 +1282,7 @@ namespace SysconCommon.Algebras.DataTables
         {
             self = self.Copy();
 
-            self.Columns.Add(column_name);
+            self.Columns.Add(column_name, typeof(T));
             
             var i = 0;
             foreach (var d in data)
@@ -1334,10 +1354,13 @@ namespace SysconCommon.Algebras.DataTables
             Validity.IsNotNull(keyColumnName);
             var keygenRef = new ReferenceWrap<int>(1);
 
-            return self.AddColumnWithData(keyColumnName, row =>
+            var rv = self.AddColumnWithData(keyColumnName, row =>
             {
                 return keygenRef.Value++;
             });
+
+            rv.Columns[keyColumnName].SetAsKey(true);
+            return rv;
         }
 
         /// <summary>
@@ -1602,5 +1625,253 @@ namespace SysconCommon.Algebras.DataTables
 
             return result;
         }
+
+        public static void SetAsKey(this DataColumn self, bool unique = true)
+        {
+            var max = 0L;
+            try
+            {
+                max = (from r in self.Table.Rows.ToIEnumerable()
+                       select Convert.ToInt64(r[self])).Max();
+            }
+            catch { }
+
+            // self.DefaultValue = null;
+            self.AutoIncrement = true;
+            self.AutoIncrementSeed = max + 1;
+            self.AllowDBNull = false;
+            self.Unique = unique;
+        }
+
+        internal static bool HasDbNullValues(this DataColumn self)
+        {
+            var nulls = (from r in self.Table.Rows.ToIEnumerable()
+                         where DBNull.Value.Equals(r[self])
+                         select r[self]);
+
+            return nulls.Any();
+        }
+
+        public static void DisallowNulls(this DataTable self, params string[] columns)
+        {
+            if (columns == null || columns.Length == 0)
+            {
+                columns = (from c in self.Columns.ToIEnumerable()
+                           where !c.HasDbNullValues()
+                           select c.ColumnName).ToArray();
+            }
+
+            foreach (var c in columns)
+            {
+                var col = self.Columns[c];
+                col.AllowDBNull = false;
+
+                col.DefaultValue = col.DataType.IsValueType
+                    ? Activator.CreateInstance(col.DataType)
+                    : null;
+
+                if (col.DataType == typeof(string))
+                {
+                    col.DefaultValue = "";
+                }
+            }
+        }
+
+        public static void SetExtendedProp<T>(this DataColumn self, string name, T value)
+        {
+            if (self.ExtendedProperties.ContainsKey(name))
+            {
+                self.ExtendedProperties[name] = value;
+            }
+            else
+            {
+                self.ExtendedProperties.Add(name, value);
+            }
+        }
+
+        public static T GetExtendedProp<T>(this DataColumn self, string name, T defaultValue)
+        {
+            if(!self.ExtendedProperties.ContainsKey(name))
+                self.ExtendedProperties.Add(name, defaultValue);
+
+            return (T)self.ExtendedProperties[name];
+        }
+
+
+        public static DataColumn FindUpdateIndex(this DataTable self)
+        {
+            foreach (DataColumn dc in self.Columns)
+            {
+                if (dc.GetExtendedProp("UpdateIndex", false))
+                    return dc;
+            }
+
+            return null;
+        }
+    }
+
+    public static class DTColumns
+    {
+        public delegate void DataColumnOp(DataColumn column);
+
+        public static DataColumnOp CheckBoxColumns(params string[] colnames)
+        {
+            Validity.Assert(colnames.Length > 0, "CheckBoxColumns requires at least one column name");
+
+            return (dc) =>
+                {
+                    if (!colnames.Contains(dc.ColumnName))
+                        return;
+
+                    dc.SetExtendedProp("ViewColumnType", typeof(DataGridViewCheckBoxColumn));
+                };
+        }
+
+        public static DataColumnOp DisallowNulls(params string[] colnames)
+        {
+            return (dc) =>
+            {
+                if (colnames.Length > 0 && !colnames.Contains(dc.ColumnName))
+                    return;
+
+                if (colnames.Length == 0 && dc.HasDbNullValues())
+                    return;
+
+                if (colnames.Length == 0 && dc.AutoIncrement)
+                    return;
+
+                dc.AllowDBNull = false;
+
+                if (dc.DataType.IsValueType)
+                {
+                    dc.DefaultValue = Activator.CreateInstance(dc.DataType);
+                }
+                else if (dc.DataType == typeof(string))
+                {
+                    dc.DefaultValue = "";
+                }
+                else
+                {
+                    if (colnames.Length > 0)
+                    {
+                        throw new SysconException("Do not know what to use for a default value for type: {0}", dc.DataType.Name);
+                    }
+                }
+            };
+        }
+
+        public static DataColumnOp SetIndexColumns(params string[] colnames)
+        {
+            Validity.Assert(colnames.Length > 0, "SetIndexColumns requires at least 1 argument");
+
+            return (dc) =>
+            {
+                if (colnames.Contains(dc.ColumnName))
+                {
+                    dc.SetAsKey();
+                }
+
+                dc.SetExtendedProp("UpdateIndex", dc.ColumnName == colnames[0]);
+            };
+        }
+
+        public static DataColumnOp ReadOnly(params string[] colnames)
+        {
+            return (dc) =>
+            {
+                if (colnames.Length > 0 && !colnames.Contains(dc.ColumnName))
+                    return;
+
+                dc.ReadOnly = true;
+            };
+        }
+
+        public static DataColumnOp AllowEdit(params string[] colnames)
+        {
+            return (dc) =>
+                {
+                    if (colnames.Length > 0 && !colnames.Contains(dc.ColumnName))
+                        return;
+
+                    dc.ReadOnly = false;
+                };
+        }
+
+        public static DataColumnOp HideColumns(params string[] colnames)
+        {
+            Validity.Assert(colnames.Length > 0, "HideColumns requires at least 1 argument");
+
+            return SetExtProp("Visible", false, colnames);
+        }
+
+        public static DataColumnOp SetExtProp<T>(string name, T value, params string[] colnames)
+        {
+            return (dc) =>
+            {
+                if (colnames.Length > 0 && !colnames.Contains(dc.ColumnName))
+                    return;
+
+                dc.SetExtendedProp(name, value);
+            };
+        }
+
+        public static DataColumnOp SetCaptions(params string[] args)
+        {
+            Validity.Assert(args.Length > 0 && args.Length % 2 == 0, "SetCaptions requires a positive even amount of arguments");
+
+            var colnames = args.EveryOther().ToArray();
+            var caps = args.Tail().EveryOther().ToArray();
+
+            Validity.Assert(colnames.Length == caps.Length, "Internal error");
+
+            return (dc) =>
+            {
+                for (var i = 0; i < colnames.Length; i++)
+                {
+                    if (colnames[i] == dc.ColumnName)
+                    {
+                        dc.Caption = caps[i];
+                        return;
+                    }
+                }
+            };
+        }
+
+        public static DataColumnOp SetFillColumn(string colname)
+        {
+            return (dc) =>
+            {
+                dc.SetExtendedProp("ViewFill", colname == dc.ColumnName);
+            };
+        }
+
+        public static DataColumnOp DisplayFirst(params string[] colnames)
+        {
+            return (dc) =>
+            {
+                var idx = colnames.SafeIndexOf(dc.ColumnName);
+                if (idx > -1)
+                    dc.SetExtendedProp("DisplayIndex", idx);
+            };
+        }
+
+        public static DataColumnOp RenameColumns(params string[] colnames)
+        {
+            return (dc) =>
+                {
+                    var idx = colnames.SafeIndexOf(dc.ColumnName);
+                    if (idx > -1)
+                        dc.ColumnName = colnames[idx + 1];
+                };
+        }
+
+        public static void ApplyMods(this DataTable self, params DataColumnOp[] mods)
+        {
+            // foreach (DataColumn dc in self.Columns)
+                foreach (var mod in mods)
+                    foreach(DataColumn dc in self.Columns)
+                        mod(dc);
+        }
+
     }
 }

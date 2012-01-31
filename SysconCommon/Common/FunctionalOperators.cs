@@ -46,6 +46,19 @@ namespace SysconCommon.Common
     /// </summary>
     public static class FunctionalOperators
     {
+
+        public static IEnumerable<T> EveryOther<T>(this IEnumerable<T> self)
+        {
+            var skip = false;
+            foreach (var i in self)
+            {
+                if (!skip)
+                    yield return i;
+
+                skip = !skip;
+            }
+        }
+
         public static Dictionary<T,U> Copy<T,U>(this Dictionary<T, U> self)
         {
             var copy = new Dictionary<T, U>();
@@ -222,13 +235,21 @@ namespace SysconCommon.Common
 
         public static int IndexOf<T>(this T[] self, T needle)
         {
+            var idx = SafeIndexOf(self, needle);
+
+            if(idx < 0)
+                throw new SysconException("Could not find element in array");
+
+            return idx;
+        }
+
+        public static int SafeIndexOf<T>(this T[] self, T needle)
+        {
             foreach (var i in Range(self.Length))
-            {
                 if (self[i].Equals(needle))
                     return i;
-            }
 
-            throw new SysconException("Could not find element in array");
+            return -1;
         }
 
         // used to get different random numbers all the time, better than time based because

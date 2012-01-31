@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Windows.Forms;
+
 using SysconCommon.Common.Environment;
 
 namespace SysconCommon.Common
@@ -35,11 +37,32 @@ namespace SysconCommon.Common
         public TempPathNotFoundException()
             : base("Could not find a suitable temporary path")
         {
+            this.LogError("Temporary Path Error");
+        }
+    }
+
+    public static class SysconErrorHandling
+    {
+        public static void LogError(this Exception self, string msg = null)
+        {
             try
             {
-                Env.Log("Temporary Path Error: {0}\r\n{1}", this.Message, this.StackTrace);
+                if (msg == null)
+                    msg = "";
+
+                Env.Log("Error: {0}\r\n{1}\r\n{2}", msg, self.Message, self.StackTrace);
             }
             catch { }
+        }
+
+        public static void GenericHandleError(this Exception self, string msg = null)
+        {
+            self.LogError(msg);
+
+            if(msg == null)
+                msg = self.Message;
+         
+            MessageBox.Show(msg, "Error", MessageBoxButtons.OK);
         }
     }
 }

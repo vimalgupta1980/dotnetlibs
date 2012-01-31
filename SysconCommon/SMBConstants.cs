@@ -49,5 +49,14 @@ namespace SysconCommon
                 };
             }
         }
+
+        public enum ECalcTypes
+        {
+            DeductFromEmp = 1,
+            AddToGross = 2,
+            EmployerCost = 3,
+            AddDeduct = 4,
+            AccrueHours = 5,
+        }
     }
 }

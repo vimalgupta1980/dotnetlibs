@@ -196,11 +196,11 @@ namespace SMB.Tables {
 		public string ntetxt;
 
 		/// <summary>
-		/// Combine Phases                  
+		/// Summarize Phases                  
 		/// </summary>
 		[ColumnOrder(250)]
 		[SMBFieldName("cmbphs")]
-		[SMBFieldDescription("Combine Phases")]
+		[SMBFieldDescription("Summarize Phases")]
 		public long cmbphs;
 
 	}
