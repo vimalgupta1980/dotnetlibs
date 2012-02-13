@@ -45,6 +45,11 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
 
         static private Dictionary<string, Workbook> workbooks = new Dictionary<string, Workbook>();
 
+        static public void RunMacro(params object[] oRunArgs)
+        {
+            app.GetType().InvokeMember("Run", System.Reflection.BindingFlags.Default | System.Reflection.BindingFlags.InvokeMethod, null, app, oRunArgs);
+        }
+
         static public Workbook getWorkbook(string template)
         {
             if (template == null)

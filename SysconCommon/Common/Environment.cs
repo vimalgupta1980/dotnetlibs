@@ -925,13 +925,27 @@ namespace SysconCommon.Common.Environment
 
                 if (File.Exists(filename))
                 {
-                    try
+                    for (var i = 0; i < 10; i++)
                     {
-                        File.Delete(filename);
-                    }
-                    catch
-                    {
-                        Env.Log("Cleanup Error: Could not delete [{0}]", filename);
+                        try
+                        {
+                            File.Delete(filename);
+                            if (GetConfigVar("DebugTmpPath", false, true))
+                            {
+                                Env.Log("Deleted TmpTable {0}", filename);
+                            }
+                        }
+                        catch
+                        {
+                            if (i >= 9)
+                            {
+                                Env.Log("Cleanup Error: Could not delete [{0}]", filename);
+                            }
+                            else
+                            {
+                                System.Threading.Thread.Sleep(100);
+                            }
+                        }
                     }
                 }
 
@@ -982,7 +996,7 @@ namespace SysconCommon.Common.Environment
 
         static private bool TryWrite(string path)
         {
-            if (Debug)
+            if (Env.GetConfigVar("DebugTmpPath", false, true))
             {
                 try
                 {
