@@ -80,7 +80,9 @@ namespace SysconCommon.GUI
         {
             LoggedInUser = null;
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            methods.SetSMBDir(null);
+            // 2.1.1 (law) - Don't change the mbdir if the user cancels out of the program
+            // This was set as a legacy/backward compatible for earlier versions of applications
+            // methods.SetSMBDir(null);
             this.Close();
         }
     }

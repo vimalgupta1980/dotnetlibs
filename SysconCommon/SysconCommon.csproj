@@ -63,7 +63,7 @@
       <HintPath>..\..\..\Program Files (x86)\NUnit 2.5.7\bin\net-2.0\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PLUSManaged">
-      <HintPath>..\..\..\Users\bniemczyk.SYSCON-INC\Desktop\plusmanaged\PLUSManaged\build\release\PLUSManaged.dll</HintPath>
+      <HintPath>..\..\PLUSManaged\build\release\PLUSManaged.dll</HintPath>
     </Reference>
     <Reference Include="StringTemplate">
       <HintPath>..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\net-2.0\StringTemplate.dll</HintPath>
