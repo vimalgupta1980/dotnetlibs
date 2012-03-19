@@ -360,6 +360,21 @@ namespace SysconCommon.Common.Environment
             }
         }
 
+        static public void CopyOldConfigs()
+        {
+            if (!File.Exists(GetConfigFile()) && File.Exists(GetEXEDirectory() + "/config.xml"))
+            {
+                try
+                {
+                    File.Copy(GetEXEDirectory() + "/config.xml", GetConfigFile());
+                }
+                catch (Exception ex)
+                {
+                    ex.GenericHandleError();
+                }
+            }
+        }
+
         static public bool UseGlobalConfig = false;
 
         static public string ConfigDataPath

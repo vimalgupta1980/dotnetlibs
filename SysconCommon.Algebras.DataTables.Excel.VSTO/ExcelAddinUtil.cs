@@ -94,6 +94,33 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             return tmpdt.WriteToExcel(template, worksheet, namedrange);
         }
 
+        public static void SetNamedRangeRowCount(string workbook, string worksheet, string rangeName, int rowCount)
+        {
+            try
+            {
+                var wb = openWorkbook(workbook);
+                var ws = wb.getWorksheet(worksheet);
+
+                Range r = ws.get_Range(rangeName);
+                var starting_col = r.Column;
+                var width = r.Columns.Count;
+                var starting_row = r.Row;
+
+                /* calculate the new area */
+                var area = string.Format("{0}{1}:{2}{3}", (starting_col - 1).ConvertToExcelColumn(), starting_row,
+                    (starting_col + width - 1).ConvertToExcelColumn(), starting_row + rowCount - 1);
+
+                r = ws.get_Range(area);
+
+                Name nme = wb.Names.Item(rangeName);
+                nme.RefersTo = r;
+            }
+            catch (Exception ex)
+            {
+                ex.GenericHandleError();
+            }
+        }
+
         public static System.Data.DataTable GetNamedRangeData(string filename, string worksheet_name, string named_range_name, bool includes_headers = false)
         {
             var wb = openWorkbook(filename);
@@ -161,7 +188,14 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
                 {
                     if (val[r,c] == null || val[r, c].ToString() == "")
                     {
-                        row[c - 1] = Activator.CreateInstance(column_types[c - 1]);
+                        if (column_types[c - 1] == typeof(string))
+                        {
+                            row[c - 1] = "";
+                        }
+                        else
+                        {
+                            row[c - 1] = Activator.CreateInstance(column_types[c - 1]);
+                        }
                     }
                     else
                     {

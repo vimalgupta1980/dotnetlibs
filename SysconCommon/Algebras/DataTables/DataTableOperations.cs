@@ -425,12 +425,16 @@ namespace SysconCommon.Algebras.DataTables
         /// </summary>
         /// <param name="self"></param>
         /// <returns>a string with the CSV</returns>
-        public static string AsCSVText(this DataTable self)
+        public static string AsCSVText(this DataTable self, bool write_headers = true, bool quote_strings = true)
         {
             Validity.Assert(self != null, "cannot generate csv from null");
+            string headerTxt = "";
 
-            var headers = self.Columns.ToIEnumerable().Select(c => c.ColumnName);
-            var headerTxt = string.Format("{0}\n", string.Join(",", headers.Select(h => string.Format("{0}", h)).ToArray()));
+            if (write_headers)
+            {
+                var headers = self.Columns.ToIEnumerable().Select(c => c.ColumnName);
+                headerTxt = string.Format("{0}\n", string.Join(",", headers.Select(h => string.Format("{0}", h)).ToArray()));
+            }
 
             var rowTexts = new List<string>();
             foreach (var row in self.Rows.ToIEnumerable())
@@ -438,8 +442,11 @@ namespace SysconCommon.Algebras.DataTables
                 var vals = from c in self.Columns.ToIEnumerable()
                            select row[c].ToString();
 
-                vals = vals.Select(v => Regex.Replace(v, "'", "''"))
-                    .Select(v => string.Format("{0}", Regex.Match(v, @"^\s*([-]?\d+([.]\d+)?)\s*$").Success ? v : @"'" + v + "'"));
+                if (quote_strings)
+                {
+                    vals = vals.Select(v => Regex.Replace(v, "'", "''"))
+                        .Select(v => string.Format("{0}", Regex.Match(v, @"^\s*([-]?\d+([.]\d+)?)\s*$").Success ? v : @"'" + v + "'"));
+                }
 
                 rowTexts.Add(string.Join(",", vals.Select(v => string.Format("{0}", v)).ToArray()));
             }

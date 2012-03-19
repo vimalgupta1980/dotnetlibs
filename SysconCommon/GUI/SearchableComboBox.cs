@@ -26,7 +26,10 @@ namespace SysconCommon.GUI
             set
             {
                 _config_var = value;
-                this.SetByText(Env.GetConfigVar(value));
+                if (value != null)
+                {
+                    this.SetByText(Env.GetConfigVar(value));
+                }
             }
         }
 

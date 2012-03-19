@@ -10,11 +10,13 @@ namespace SysconCommon.Common
     {
         public readonly int Begin;
         public readonly int End;
+        public readonly bool Cutoff;
 
-        public FixedSpaceAttribute(int begin, int end)
+        public FixedSpaceAttribute(int begin, int end, bool cutoff = false)
         {
             Begin = begin;
             End = end;
+            Cutoff = cutoff;
         }
     }
 
@@ -66,10 +68,17 @@ namespace SysconCommon.Common
 
                     if (value.Length > (fsa.End - fsa.Begin) + 1)
                     {
-                        if (!OnOverflowError(item, mi))
+                        if (fsa.Cutoff)
                         {
-                            line = new StringBuilder();
-                            break;
+                            value = value.Substring(0, (fsa.End - fsa.Begin) + 1);
+                        }
+                        else
+                        {
+                            if (!OnOverflowError(item, mi))
+                            {
+                                line = new StringBuilder();
+                                break;
+                            }
                         }
                     }
 

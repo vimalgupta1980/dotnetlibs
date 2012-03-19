@@ -31,6 +31,11 @@ namespace SysconCommon.Algebras.DataTables.Excel.VSTO
             }
         }
 
+        public void SetNamedRangeHeight(string workbook, string worksheet, string namedRange, int rowCount)
+        {
+            ExcelAddinUtil.SetNamedRangeRowCount(workbook, worksheet, namedRange, rowCount);
+        }
+
         public void UseNewApp()
         {
             ExcelAddinUtil.UseNewApp();

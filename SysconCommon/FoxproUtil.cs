@@ -55,7 +55,6 @@ namespace SysconCommon.Foxpro
             return obj == null || DBNull.Value.Equals(obj);
         }
 
-#if false
         public static string FoxproInsertString(this DataRow self, string table_name)
         {
             var keys = from c in self.Table.Columns
@@ -65,7 +64,6 @@ namespace SysconCommon.Foxpro
 
             return string.Format("insert into {0} ({1}) values ({2})", table_name, string.Join(",", keys), string.Join(",", vals));
         }
-#endif
 
         public static string FoxproQuote(this string input)
         {
