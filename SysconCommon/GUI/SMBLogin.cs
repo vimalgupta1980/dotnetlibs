@@ -20,9 +20,8 @@ namespace SysconCommon.GUI
         public string LoggedInUser = null;
 
         public SMBLogin()
-            : this(null)
-        {
-        }
+           : this(null)
+        {}
 
         public SMBLogin(COMMethods _methods)
         {
@@ -32,6 +31,10 @@ namespace SysconCommon.GUI
 
         private void SMBLogin_Load(object sender, EventArgs e)
         {
+            //VX 4/6/12 show caller's Title bar
+            if (methods.LoginUserTitle != null && (methods.LoginUserTitle.Trim()).Length > 0)
+                this.Text = methods.LoginUserTitle.Trim();
+            //end VX
 
             // show the SMB Dir
             txtSMBDir.Text = methods.smartGetSMBDir();

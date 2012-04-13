@@ -146,7 +146,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsername);
             this.Name = "SMBLogin";
-            this.Text = "SMBLogin";
+            this.Text = "SMBLogin";             //place to mod!!!!!!!
             this.Load += new System.EventHandler(this.SMBLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

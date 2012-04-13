@@ -38,6 +38,14 @@ namespace SysconCommon
         {
         }
 
+        ///// <summary>
+        ///// VX 4/6/12 caller customized SMBLogin Title
+        ///// </summary>
+        //public COMMethods(string userLoginTitle)
+        //{
+        //    this.LoginUserTitle = userLoginTitle;
+        //}
+
         public void UseGlobalConfig()
         {
             Env.UseGlobalConfig = true;
@@ -312,6 +320,8 @@ namespace SysconCommon
             }
         }
 
+        public string LoginUserTitle = "SMBLogin(Default)";   /// VX 4/6/12 added for customized SMBLogin title
+
         public string RequireSMBLogin()
         {
             var dlg = new SysconCommon.GUI.SMBLogin(this);
@@ -320,6 +330,15 @@ namespace SysconCommon
                 _logged_in_user = dlg.LoggedInUser;
 
             return dlg.LoggedInUser;
+        }
+        /// <summary>
+        /// VX 4/6/12 Overloaded w/ passed in User Login Title
+        /// </summary>
+        /// <returns></returns>
+        public string RequireSMBLogin(string userTitle)
+        {
+            this.LoginUserTitle = userTitle;
+            return this.RequireSMBLogin();
         }
 
         public void EnsureJobTypesExist()
@@ -380,6 +399,38 @@ namespace SysconCommon
                 var m = Regex.Match(this.ToString(), @"^(\d+)[.](\d+)$");
                 return int.Parse(m.Groups[2].Value);
             }
+        }
+
+        //public bool? IsEncrypted 
+        //{
+        //    get
+        //    {
+        //        if (IsEncrypted == null)
+        //            IsEncrypted = isEncrypted();
+
+        //        return IsEncrypted;
+        //    }
+        //    set { }
+        //}
+
+
+        /// <summary>
+        /// VX 4/13/2012 start from Sage v.17.x, cmpany table has col ONEISE to indicate
+        /// ssn is encrypted or not
+        /// </summary>
+        /// <returns></returns>
+        public bool isEncrypted()
+        {
+            if (Major >= 17)
+            {
+                methods.smartGetSMBDir();
+                using (var con = Connections.GetOLEDBConnection())
+                {
+                    var oneise = con.GetScalar<string>("select ONEISE from cmpany").Trim();
+                    return oneise.ToString().Trim() == "1";
+                }
+            }
+            return true;
         }
     }
 

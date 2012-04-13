@@ -420,8 +420,7 @@ namespace SysconCommon.Common.Environment
         {
             get
             {
-                string p = null;
-
+                
                 if (Env.ApplicationName == null)
                     throw new SysconException("Application Name must be set to use data config files");
 
@@ -995,6 +994,7 @@ namespace SysconCommon.Common.Environment
             public void CreateIndex(string fldnme)
             {
                 // FIXME: this doesn't work
+                // This function does not work. It was intended to create an index on an existing VFP file.
                 throw new NotImplementedException();
 
                 try
