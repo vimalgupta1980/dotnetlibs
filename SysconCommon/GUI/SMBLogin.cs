@@ -55,7 +55,7 @@ namespace SysconCommon.GUI
                 return;
             }
 
-            var hashed_password = methods.smartEncrypt(password);
+            var hashed_password = methods.smartEncrypt(password, false);
 
             using (var con = Connections.GetOLEDBConnection())
             {

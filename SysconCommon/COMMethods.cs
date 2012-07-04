@@ -64,28 +64,48 @@ namespace SysconCommon
             return SMBConstants.CalcMethods[clcmth];
         }
 
-        public string smartEncrypt(string input)
+        public string smartEncrypt(string input, bool checkEncStatus)
         {
             if (input.Trim() == "")
                 return "";
 
             var pinfo = GetProgramInfo();
+
+            if (checkEncStatus && !pinfo.DataVersion.isEncrypted())
+            {
+                    return input;
+            }
 
             return pinfo.DataVersion.Major >= 17
                 ? EncryptEx(input)
                 : Encrypt(input);
         }
 
-        public string smartDecrypt(string input)
+        public string smartEncrypt(string input)
+        {
+            return this.smartEncrypt(input, true);
+        }
+
+        public string smartDecrypt(string input, bool checkEncStatus)
         {
             if (input.Trim() == "")
                 return "";
 
             var pinfo = GetProgramInfo();
 
+            if (checkEncStatus && !pinfo.DataVersion.isEncrypted())
+            {
+                return input;
+            }
+
             return pinfo.DataVersion.Major >= 17
                 ? DecryptEx(input)
                 : Decrypt(input);
+        }
+
+        public string smartDecrypt(string input)
+        {
+            return this.smartDecrypt(input, true);
         }
 
         public string DecryptEx(string input)
@@ -430,7 +450,7 @@ namespace SysconCommon
                     return oneise.ToString().Trim() == "1";
                 }
             }
-            return true;
+            return false;
         }
     }
 
@@ -449,6 +469,7 @@ namespace SysconCommon
             }
         }
 
+       
         public string ConfigFile
         {
             get
